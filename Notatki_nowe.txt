@@ -1,9 +1,9 @@
 Dla skupienia uwagi możemy projektować pod tą komorę:
 	http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf
 Można założyć (w sposób bardzo konserwatywny):
-	- time slice 5 sekund,
+	- time slice W = 5 sekund,
 	- że po wyłączeniu grzania temperatura w komorze się ustabilizuje w czasie 
-	mniejszym niż 10 minut (czyli po 120 jednostkach czasu),
+	mniejszym niż 10 minut (czyli po K = 120 jednostkach czasu),
 	- ew. można te parametry skorygować, tak żeby tę liczbę 120 zmniejszyć, 
 	te wartości tutaj są dosyć wyśrubowane.
 	
@@ -20,22 +20,42 @@ Największym problemem jest próba licznościowego uchwycenia reakcji.
 	- specjalne przebiegi uczące???
 Na nią mogą bowiem wpływać decyzje podjęte później. Można to uchwycić matematycznie:
 
-T[j] ≈ T[j-1] + \sum_{i=0}^{j-1} (ΔT[j-1] | P[i])
+Dzielimy czas na jednostki o szerokości W. Zakładamy, że w obrębie każdej jednostki
+moc grzałki oraz ew. innych urządzeń jest stała.
+Kolejne jednostki są numerowane liczbami całkowitymi.
+
+Rozważamy jednostkę o numerze j.
+
+Przyrost temperatury podczas tej jednostki czasu jest równy:
+∆T[j] = T[j+1] - T[j] ≈ \sum_{i=0}^{j} (ΔT[j] | P[i])
 
 Gdzie:
-	T[j] 	- temperatura w j-tej jednostce czasu,
-		- dokładniej na początku j-tej jednostki czasu,
-	(ΔT[j-1] | P[i])			zakładamy: j > i
-		- przyrost temperatury w (j-1)-szej jednostce czasu dzięki grzaniu w i-tej jednostce czasu.
+	T[j] 	- temperatura na początku j-tej jednostki czasu,
+	(ΔT[j] | P[i])
+		- przyrost temperatury w j-tej jednostce czasu dzięki grzaniu w 
+                i-tej jednostce czasu.
+                - oczywiście j >= i
 
-Posiadamy jedynie T[j], chcemy mieć (ΔT[j] | P[i]).
+Jesteśmy w stanie bezpośrednio zmierzyć jedynie T[j], chcielibyśmy jednak znać
+(ΔT[j] | P[i]).
 
-Możemy więc założyć:
-(ΔT[j] | P[i]) = P[i] * c_1 * f(j-i)
- - gdzie P[i] - moc grzania w danej jednostce czasu (bardziej chyba powinniśmy używać dostarczonego ciepła, ale to jest detal),
- - c_1 - pewna stała, później się przyda
- - f(j-i) - funkcja dążąca do zera, w sumie można ją uznać za ściśle malejącą.
- 	- można ją uznać za ≡ 0 dla j-i > 120 (ta wartość podana na początku).
+Musimy więc założyć:
+(ΔT[j] | P[i]) = P[i] * f(j-i)
+ - gdzie P[i] - moc grzałki w danej jednostce czasu 
+(bardziej chyba powinniśmy używać dostarczonego ciepła, ale to jest detal),
+ - f(x)        
+        - pewna funkcja dążąca do zera dla x dążącego do nieskończoności, 
+         lim_{j -> +∞} (ΔT[j] | P[i]) = 0
+        - zdefiniowana dla wartości nieujemnych,
+        - f(0) - stosunek przyrostu temperatury w tym samym przedziale czasu kiedy
+                 grzejemy do mocy grzałki 
+                 (Jeśli przed obecnym przedziałem czasu układ znajdował się w
+                 równowadze)
+                 (dotyczy sytuacji kiedy przyrost temperatury jest w tej samej
+                 jednostce czasu co grzanie)
+        - po K = 120 okresach sytuacja się stabilizuje, 
+ 	- można ją uznać za ≡ 0 dla j-i-1 > 120 (ta wartość podana na początku).
+                - co odpowiada 
  	
 Mamy więc:
 T[1] - T[0] ≈ \sum_{i=0}^{0} (ΔT[0] | P[i]) = (ΔT[0] | P[0]) = P[0] * f(0)
