@@ -1,3 +1,4 @@
+//      vim: spelllang=pl
 
 Czekaj, przecież jest też chłodzenie przez ściany
 
@@ -10,4 +11,6 @@ Wartość funkcji f być może da się zamodelować jakimiś funkcjami
 matematycznymi, ale i tak nie znamy parametrów do tych funkcji 
         - można by to zamodelować jakoś i przybliżyć,
 
-//      vim: spelllang=pl
+
+czw, 4 wrz 2014, 21:34:11 CEST
+Mogą być specjalne przebiegi uczące.

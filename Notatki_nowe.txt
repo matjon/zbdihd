@@ -20,10 +20,6 @@ Mamy N zbiorów danych historycznych o postaci:
  - kontekst - co działo się z układem przed podjęciem akcji,
  - reakcja - jakie były skutki podjętej akcji.
 
-Największym problemem jest próba licznościowego uchwycenia reakcji.  
-- nie da się prościej?
-	- specjalne przebiegi uczące???
-
 
 
 
