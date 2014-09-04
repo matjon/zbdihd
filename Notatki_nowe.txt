@@ -3,7 +3,7 @@ Sekcja 1
 Założenia
 -------------------------------------------------------
 
-Dla skupienia uwagi możemy projektować pod tą komorę:
+Dla skupienia uwagi możemy projektować pod tę komorę:
 	http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf
 Można założyć (w sposób bardzo konserwatywny):
 	- time slice W = 5 sekund,
@@ -12,7 +12,9 @@ Można założyć (w sposób bardzo konserwatywny):
 	- ew. można te parametry skorygować, tak żeby tę liczbę 120 zmniejszyć, 
 	te wartości tutaj są dosyć wyśrubowane.
 	
-Na razie pomijamy chłodzenie, żeby uprościć problem. W sumie to jednak dosyć dobrze pasuje do różnych systemów HVAC, które mogą działać bez klimatyzatora (np. w zimie).
+Na razie pomijamy chłodzenie, żeby uprościć problem. W sumie to jednak 
+dosyć dobrze pasuje do różnych systemów HVAC, które mogą działać bez 
+klimatyzatora (np. w zimie).
 
 Mamy N zbiorów danych historycznych o postaci:
 {kontekst, akcja, reakcja}
@@ -118,23 +120,26 @@ mamy zazwyczaj jedno równanie.
 Jeżeli jednak system przy rozpoczęciu zbierania danych nie znajdował sie w stanie
 równowagi termodynamicznej, musimy odrzucić pierwsze K pomiarów.
 
-Można by rozwinąć:
+
 f(x) = g(x) * e^{-t/T} * c_1
 Przy czym 
 	g(x) < 1
 	g(0) = 1	(tak żeby c_1 ustalić na sztywno)
 T - jakaś liczba.
 
-Może być jednak problem z uwzględnieniem g(x) < 1 przy rozwiązywaniu tego układu równań (mogłoby to wymagać innych metod).
+Może być jednak problem z uwzględnieniem g(x) < 1 przy rozwiązywaniu tego 
+układu równań (mogłoby to wymagać innych metod).
 
 -------------------------------------------------------
 Sekcja 3
 Opis historii (to chyba nie będzie używane)
 -------------------------------------------------------
 
-Zakładając że znamy wartości funkcji f (wyliczone z powyższego układu równań), możemy skonstruować rekordy danych historycznych:
+Zakładając że znamy wartości funkcji f (wyliczone z powyższego układu równań), 
+możemy skonstruować rekordy danych historycznych:
 
-Podobnie jak poprzednio, rozważamy j-ty rekord danych historycznych, dotyczący grzania w j-tym przedziale czasu,
+Podobnie jak poprzednio, rozważamy j-ty rekord danych historycznych, dotyczący 
+grzania w j-tym przedziale czasu,
 - kontekst:
 	- ∑_{i=j-119}^{j} ΔT[i]/t
 	- ∑_{i=j-119}^{j} ΔT[i]/(t^2)
@@ -145,12 +150,16 @@ Podobnie jak poprzednio, rozważamy j-ty rekord danych historycznych, dotyczący
 - akcja:
 	P[j]
 - reakcja:
-	Zdefiniujmy (ΔT[j-1] || P[i]) - przyrost temperatury który da się przypisać grzaniu w j-tej jednostce czasu,
+	Zdefiniujmy (ΔT[j-1] || P[i]) - przyrost temperatury który da się 
+        przypisać grzaniu w j-tej jednostce czasu,
 	(ΔT[j-1] || P[i]) =
-		- nie wiem jak go wyliczyć, ale to powinno być proste, później się tym zajmę.
+		- nie wiem jak go wyliczyć, ale to powinno być proste, 
+                  później się tym zajmę.
 		- po prostu brakuje mi wyobraźni
 	
-	- rekord zawierałby całki takie same jak dla kontekstu, z tym że dla (ΔT[j-1] || P[i]) i oczywiście indeksy wartości byłyby większe od j, znaczy się sumowane wszystko byłoby w przód,
+	- rekord zawierałby całki takie same jak dla kontekstu, z tym że 
+        dla (ΔT[j-1] || P[i]) i oczywiście indeksy wartości byłyby większe od j, 
+        znaczy się sumowane wszystko byłoby w przód,
 	
 	- albo może po prostu surowe przebiegi (ΔT[j-1] || P[i]) 
 	
@@ -159,8 +168,13 @@ Podobnie jak poprzednio, rozważamy j-ty rekord danych historycznych, dotyczący
 Sekcja 4
 Sterowanie przy użyciu wartości funkcji f
 -------------------------------------------------------
-Dobra, mając N ***pełnych*** rekordów historycznych (znaczy się takich które zostały sporządzone więcej niż 120 okresów temu, tak że reakcje są w pełni wyliczone).
- - w sumie można ograniczyć to do rekordów które były dawno, tak żeby nie było jakichś dziwnych (i trudnych do uchwycenia) interakcji między tym co się teraz dzieje a tym co było w niedawnej historii i co wpływa bezpośrednio na obecne decyzje.
+Dobra, mając N ***pełnych*** rekordów historycznych (znaczy się takich które 
+zostały sporządzone więcej niż 120 okresów temu, tak że reakcje są w pełni 
+wyliczone).
+ - w sumie można ograniczyć to do rekordów które były dawno, tak żeby nie było 
+jakichś dziwnych (i trudnych do uchwycenia) interakcji między tym co się teraz 
+dzieje a tym co było w niedawnej historii i co wpływa bezpośrednio na obecne 
+decyzje.
  
 Jesteśmy w chwili czasu i, mamy historię oraz przyszłość do decyzji.
 (zmienne dobieram tak żeby intuicyjnie i <= j)
@@ -170,7 +184,8 @@ Oznaczenia:
 	j - indeksuje czas w którym przewidujemy że będziemy grzać,
 	k - indeksuje temperaturę w przyszłości,
 	
-- na podstawie historii oraz wartości funkcji f liczymy zmiany temp w przyszłości które wynikają z tego co już grzaliśmy,
+- na podstawie historii oraz wartości funkcji f liczymy zmiany temp w przyszłości 
+  które wynikają z tego co już grzaliśmy,
 - mamy residualną krzywą temperaturową,
 	
 	
@@ -181,7 +196,9 @@ Oznaczenia:
 		(ΔT[k] | P[j]) = P[j] * f(k-j)
 		//TODO: wszędzie powyżej: j->k, i->j
 		
-		i w ten sposób przewidzieć przyszłość na kilka(naście?) najbliższych okresów, poprzez zwykły układ równań / coś zbliżonego do progr. liniowego:
+	  i w ten sposób przewidzieć przyszłość na kilka(naście?) najbliższych 
+          okresów, poprzez zwykły układ równań / coś zbliżonego do progr. 
+          liniowego:
 		Niech U[k] = żądana temperatura w na początku przedziału czasowego j
 		
 T[j] ≈ T[j-1] + \sum_{i=0}^{j-1} (ΔT[j-1] | P[i])	//stare oznaczenia
@@ -218,7 +235,10 @@ niewiadome: P[j]
 
 	- ale jakoś korzystać z tej historii też,
 
-	- tak jak ze sterowaniem rakietą, rakiety nie naprowadza się na konkretną trasę, po prostu w każdej jednostce czasu (time slice) wylicza się na podstawie obecnego położenia oraz innych czynników nową trasę, która trochę się różni od starej i po niej rakietę prowadzi.
+	- tak jak ze sterowaniem rakietą, rakiety nie naprowadza się na
+	  konkretną trasę, po prostu w każdej jednostce czasu (time slice)
+          wylicza się na podstawie obecnego położenia oraz innych czynników
+          nową trasę, która trochę się różni od starej i po niej rakietę prowadzi.
 	
 	
 	

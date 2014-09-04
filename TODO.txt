@@ -5,7 +5,8 @@ Czekaj, przecież jest też chłodzenie przez ściany
 P[i] trochę niefortunnie wybrałem, można to uznać jako moc grzałki którą
 ustawiliśmy na przedział i
 
-BTW, zakładamy na razie że całą pętlę sterującą wykonujemy na początku danego przedziału czasu.
+BTW, zakładamy na razie że całą pętlę sterującą wykonujemy na początku danego 
+przedziału czasu.
 
 Wartość funkcji f być może da się zamodelować jakimiś funkcjami
 matematycznymi, ale i tak nie znamy parametrów do tych funkcji 
