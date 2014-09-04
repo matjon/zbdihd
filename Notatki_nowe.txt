@@ -80,10 +80,15 @@ T[j] - T[j-1] ≈ (P * f)[j-1]
 
 
 Mamy więc układ równań:
-∆T[j-1] = T[j] - T[j-1] ≈ (P * f)[j-1]
+                                                                      
+∆T[j-1] = T[j] - T[j-1] ≈ (P * f)[j-1] =
 
- - N równań (tyle ile danych historycznych) ze 121 niewiadomymi (wartości funkcji f oraz c_1).
-Dobra, w sumie to c_1 można by pominąć albo przyjąć == 1.
+   j-1
+=   ∑ P[m] f(j-1-m)
+   m=0
+
+ - N równań (tyle ile danych historycznych) ze 120 niewiadomymi (wartości
+   funkcji f)
  
 Można by rozwinąć:
 f(x) = g(x) * e^{-t/T} * c_1
@@ -161,8 +166,17 @@ T[k] ≈ T[k-1] + \sum_{j=k-121}^{k-1} P[j] * f(k-j-1)
 ΔT[k-1] = T[k] - T[k-1] ≈ \sum_{j=k-121}^{k-1} P[j] * f(k-j-1)
 
  - przecież z przebiegów mamy żądane ΔU[k], takie jakie chcemy,
- - mamy więc układ równań: niewiadome:
- 		P[j] 
+ - mamy więc układ równań: 
+ΔT[k] = T[k] - T[k-1] ≈ \sum_{j=k-121}^{k-1} P[j] * f(k-j-1)
+        dla k = i+1, do k = 121+1       - czyli 120 równań
+
+        Niewiadome: 120 wartości P[j] - dla j = i (grzejemy w obecnej chwili)
+                                        do j = i+119
+
+
+niewiadome: P[j]
+
+ 		P[j
  			
 
 
@@ -209,5 +223,15 @@ w sumie dowolny czujnik temperatury
 Ja
 Czyli nie przejmujemy się zbytnio tym że termistor mierzy "inną temperaturę" niż jest w komorze.
 I tak różnice temp. wewnątrz komory są stosunkowo duże (wyżej jest oczywiście cieplej), musimy względem czegoś kalibrować / jakiegoś punktu.
+
+TODO:
+P[i] trochę niefortunnie wybrałem, można to uznać jako moc grzałki którą
+ustawiliśmy na przedział i
+
+BTW, zakładamy na razie że całą pętlę sterującą wykonujemy na początku danego przedziału czasu.
+
+Wartość funkcji f być może da się zamodelować jakimiś funkcjami
+matematycznymi, ale i tak nie znamy parametrów do tych funkcji 
+        - można by to zamodelować jakoś i przybliżyć,
 
 //      vim: spelllang=pl
