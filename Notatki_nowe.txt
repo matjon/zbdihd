@@ -1,3 +1,8 @@
+-------------------------------------------------------
+Sekcja 1
+Założenia
+-------------------------------------------------------
+
 Dla skupienia uwagi możemy projektować pod tą komorę:
 	http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf
 Można założyć (w sposób bardzo konserwatywny):
@@ -18,6 +23,15 @@ Mamy N zbiorów danych historycznych o postaci:
 Największym problemem jest próba licznościowego uchwycenia reakcji.  
 - nie da się prościej?
 	- specjalne przebiegi uczące???
+
+
+
+
+-------------------------------------------------------
+Sekcja 2
+Analiza wpływu grzania na przebieg temperatury w komorze
+-------------------------------------------------------
+
 Na nią mogą bowiem wpływać decyzje podjęte później. Można to uchwycić matematycznie:
 
 Dzielimy czas na jednostki o szerokości W. Zakładamy, że w obrębie każdej jednostki
@@ -117,7 +131,11 @@ T - jakaś liczba.
 
 Może być jednak problem z uwzględnieniem g(x) < 1 przy rozwiązywaniu tego układu równań (mogłoby to wymagać innych metod).
 
------------------------------
+-------------------------------------------------------
+Sekcja 3
+Opis historii (to chyba nie będzie używane)
+-------------------------------------------------------
+
 Zakładając że znamy wartości funkcji f (wyliczone z powyższego układu równań), możemy skonstruować rekordy danych historycznych:
 
 Podobnie jak poprzednio, rozważamy j-ty rekord danych historycznych, dotyczący grzania w j-tym przedziale czasu,
@@ -141,7 +159,10 @@ Podobnie jak poprzednio, rozważamy j-ty rekord danych historycznych, dotyczący
 	- albo może po prostu surowe przebiegi (ΔT[j-1] || P[i]) 
 	
 
------------------------------	
+-------------------------------------------------------
+Sekcja 4
+Sterowanie przy użyciu wartości funkcji f
+-------------------------------------------------------
 Dobra, mając N ***pełnych*** rekordów historycznych (znaczy się takich które zostały sporządzone więcej niż 120 okresów temu, tak że reakcje są w pełni wyliczone).
  - w sumie można ograniczyć to do rekordów które były dawno, tak żeby nie było jakichś dziwnych (i trudnych do uchwycenia) interakcji między tym co się teraz dzieje a tym co było w niedawnej historii i co wpływa bezpośrednio na obecne decyzje.
  
