@@ -236,7 +236,6 @@ niewiadome: P[j]
 	
 	
 	
-TODO: Czekaj, przecież jest też chłodzenie przez ściany
 	
 Dawid Nowak
 a czy my uwzględniamy tutaj temperaturę rzeczywistą, tzn. zmierzoną przez czujnik ?

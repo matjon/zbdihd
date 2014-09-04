@@ -1,4 +1,6 @@
-TODO:
+
+Czekaj, przecież jest też chłodzenie przez ściany
+
 P[i] trochę niefortunnie wybrałem, można to uznać jako moc grzałki którą
 ustawiliśmy na przedział i
 
