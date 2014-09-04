@@ -38,35 +38,35 @@ Możemy więc założyć:
  	- można ją uznać za ≡ 0 dla j-i > 120 (ta wartość podana na początku).
  	
 Mamy więc:
-T[1] - T[0] ≈ \sum_{i=0}^{0} (ΔT[0] | P[i]) = (ΔT[0] | P[0]) = c_1 * P[0] * f(0)
-T[1] - T[0] ≈ c_1 * [P[0] * f(0)]
+T[1] - T[0] ≈ \sum_{i=0}^{0} (ΔT[0] | P[i]) = (ΔT[0] | P[0]) = P[0] * f(0)
+T[1] - T[0] ≈ [P[0] * f(0)]
 
 dla j=2:
 T[2] - T[1] ≈ \sum_{i=0}^{1} (ΔT[1] | P[i]) = (ΔT[1] | P[0]) + (ΔT[1] | P[1]) = 
-	= c_1 * [ P[0] * f(1-0) + P[1] * f(1-1) ] = c_1 * [ P[0] * f(1) + P[1] * f(0)]
-T[2] - T[1] ≈ c_1 * [ P[0] * f(1) + P[1] * f(0)]
+	= [ P[0] * f(1-0) + P[1] * f(1-1) ] = [ P[0] * f(1) + P[1] * f(0)]
+T[2] - T[1] ≈ [ P[0] * f(1) + P[1] * f(0)]
 
 
-T[1] - T[0] ≈ c_1 * [P[0] * f(0)] 
-T[2] - T[1] ≈ c_1 * [P[0] * f(1) + P[1] * f(0)]
-T[3] - T[2] ≈ c_1 * [P[0] * f(2) + P[1] * f(1) + P[2] * f(0)]
+T[1] - T[0] ≈ [P[0] * f(0)] 
+T[2] - T[1] ≈ [P[0] * f(1) + P[1] * f(0)]
+T[3] - T[2] ≈ [P[0] * f(2) + P[1] * f(1) + P[2] * f(0)]
 
 Coś takiego nazywamy splotem (convolution).
 http://en.wikipedia.org/wiki/Convolution#Discrete_convolution
-T[3] - T[2] ≈ c_1 * (P * f)[2]
+T[3] - T[2] ≈ (P * f)[2]
 
 I ogólnie:
-T[j] - T[j-1] ≈ c_1 * (P * f)[j-1]
+T[j] - T[j-1] ≈ (P * f)[j-1]
 
 
 Mamy więc układ równań:
-T[j] - T[j-1] ≈ c_1 * (P * f)[j-1]
+∆T[j-1] = T[j] - T[j-1] ≈ (P * f)[j-1]
 
  - N równań (tyle ile danych historycznych) ze 121 niewiadomymi (wartości funkcji f oraz c_1).
 Dobra, w sumie to c_1 można by pominąć albo przyjąć == 1.
  
 Można by rozwinąć:
-f(x) = g(x) * e^{-t/T}
+f(x) = g(x) * e^{-t/T} * c_1
 Przy czym 
 	g(x) < 1
 	g(0) = 1	(tak żeby c_1 ustalić na sztywno)
@@ -117,9 +117,9 @@ Oznaczenia:
 	
 - musimy do niej jakoś dopasować obecne przebiegi,
 	- można założyć po prostu
-		(ΔT[j] | P[i]) = P[i] * c_1 * f(j-i)	//w starych oznaczeniach
+		(ΔT[j] | P[i]) = P[i] * f(j-i)	//w starych oznaczeniach
 		//na nowe oznaczenia:	j->k, i->j
-		(ΔT[k] | P[j]) = P[j] * c_1 * f(k-j)
+		(ΔT[k] | P[j]) = P[j] * f(k-j)
 		//TODO: wszędzie powyżej: j->k, i->j
 		
 		i w ten sposób przewidzieć przyszłość na kilka(naście?) najbliższych okresów, poprzez zwykły układ równań / coś zbliżonego do progr. liniowego:
@@ -129,16 +129,16 @@ T[j] ≈ T[j-1] + \sum_{i=0}^{j-1} (ΔT[j-1] | P[i])	//stare oznaczenia
 
 T[k] ≈ T[k-1] + \sum_{j=0}^{k-1} (ΔT[k-1] | P[j])
 			//podstawiamy biorąc pod uwagę że powyżej jest k-1
-T[k] ≈ T[k-1] + \sum_{j=0}^{k-1} P[j] * c_1 * f(k-j-1)
+T[k] ≈ T[k-1] + \sum_{j=0}^{k-1} P[j] * f(k-j-1)
 Ponieważ zakładamy że f(x) dla x > 120 jest równy 0, mamy:
-T[k] ≈ T[k-1] + \sum_{j=k-121}^{k-1} P[j] * c_1 * f(k-j-1)
+T[k] ≈ T[k-1] + \sum_{j=k-121}^{k-1} P[j] * f(k-j-1)
 //dolny indeks sumowania sprawdziłem na kartce
 
 //TODO: zapisywać to w ten sposób wszędzie:
-ΔT[k-1] = T[k] - T[k-1] ≈ \sum_{j=k-121}^{k-1} P[j] * c_1 * f(k-j-1)
+ΔT[k-1] = T[k] - T[k-1] ≈ \sum_{j=k-121}^{k-1} P[j] * f(k-j-1)
 
 
-ΔT[k-1] = T[k] - T[k-1] ≈ \sum_{j=k-121}^{k-1} P[j] * c_1 * f(k-j-1)
+ΔT[k-1] = T[k] - T[k-1] ≈ \sum_{j=k-121}^{k-1} P[j] * f(k-j-1)
 
  - przecież z przebiegów mamy żądane ΔU[k], takie jakie chcemy,
  - mamy więc układ równań: niewiadome:
