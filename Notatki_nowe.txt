@@ -53,43 +53,61 @@ Musimy więc założyć:
                  równowadze)
                  (dotyczy sytuacji kiedy przyrost temperatury jest w tej samej
                  jednostce czasu co grzanie)
-        - po K = 120 okresach sytuacja się stabilizuje, 
- 	- można ją uznać za ≡ 0 dla j-i-1 > 120 (ta wartość podana na początku).
-                - co odpowiada 
+        - po K = 120 okresach sytuacja się stabilizuje, z tego względu można
+          uznać że f(x) ≡ 0 dla x >= K + 1)
+                - czyli f(x) może być niezerowe dla x < K+1
+                                                x <= K
+                - istnieje co najwyżej K+1 niezerowych wartości funkcji f(x),
+                - jeden okres przeznaczony na grzanie który nie wlicza się do
+                  czasu stabilizacji oraz K okresów przez które temperatura 
+                  się stabilizuje
+                //wyliczyłem to na kartce z nr 6 i zweryfikowałem niezależnie
+                // na kartce nr 7
  	
-Mamy więc:
-T[1] - T[0] ≈ \sum_{i=0}^{0} (ΔT[0] | P[i]) = (ΔT[0] | P[0]) = P[0] * f(0)
-T[1] - T[0] ≈ [P[0] * f(0)]
+Mamy więc po podstawieniu:
+∆T[j] = T[j+1] - T[j] ≈ \sum_{i=0}^{j} P[i] * f(j-i)
 
-dla j=2:
-T[2] - T[1] ≈ \sum_{i=0}^{1} (ΔT[1] | P[i]) = (ΔT[1] | P[0]) + (ΔT[1] | P[1]) = 
+Po przyjęciu że f(x) ≡ 0 dla x >= K + 1 mamy:
+∆T[j] = T[j+1] - T[j] ≈ \sum_{i=j-K}^{j} P[i] * f(j-i)
+        - czyli wewnętrzna suma przechodzi przez K + 1 wartości, zgadza się
+
+Rozważymy teraz postać sumy dla niskich wartości j:
+j = 0
+∆T[0] = T[1] - T[0] ≈ \sum_{i=0}^{0} (ΔT[0] | P[i]) = (ΔT[0] | P[0]) = P[0] * f(0)
+∆T[0] = T[1] - T[0] ≈ [P[0] * f(0)]
+
+Dla j=1:
+∆T[1] = T[2] - T[1] ≈ \sum_{i=0}^{1} (ΔT[1] | P[i]) = (ΔT[1] | P[0]) + (ΔT[1] | P[1]) = 
 	= [ P[0] * f(1-0) + P[1] * f(1-1) ] = [ P[0] * f(1) + P[1] * f(0)]
-T[2] - T[1] ≈ [ P[0] * f(1) + P[1] * f(0)]
+∆T[1] = T[2] - T[1] ≈ [ P[0] * f(1) + P[1] * f(0)]
 
 
-T[1] - T[0] ≈ [P[0] * f(0)] 
-T[2] - T[1] ≈ [P[0] * f(1) + P[1] * f(0)]
-T[3] - T[2] ≈ [P[0] * f(2) + P[1] * f(1) + P[2] * f(0)]
+∆T[0] = T[1] - T[0] ≈ [P[0] * f(0)] 
+∆T[1] = T[2] - T[1] ≈ [P[0] * f(1) + P[1] * f(0)]
+∆T[2] = T[3] - T[2] ≈ [P[0] * f(2) + P[1] * f(1) + P[2] * f(0)]
 
 Coś takiego nazywamy splotem (convolution).
 http://en.wikipedia.org/wiki/Convolution#Discrete_convolution
-T[3] - T[2] ≈ (P * f)[2]
+∆T[2] = T[3] - T[2] ≈ (P * f)[2]
 
 I ogólnie:
-T[j] - T[j-1] ≈ (P * f)[j-1]
+∆T[j] = T[j+1] - T[j] ≈ (P * f)[j]
 
+W tym wypadku przy definicji splotu pomijamy składniki dla których f(x) = 0.
 
 Mamy więc układ równań:
-                                                                      
-∆T[j-1] = T[j] - T[j-1] ≈ (P * f)[j-1] =
+∆T[j] = T[j+1] - T[j] ≈ \sum_{i=j-K}^{j} P[i] * f(j-i) = 
 
-   j-1
-=   ∑ P[m] f(j-1-m)
-   m=0
+    j
+=   ∑   P[i] f(j-i)
+  i=j-K
 
- - N równań (tyle ile danych historycznych) ze 120 niewiadomymi (wartości
-   funkcji f)
- 
+Mamy tutaj K+1 niewiadomych - tyle ile niezerowych wartości funkcji f().
+Dodatkowo, dla każdej danej historycznej (pary wartości P[i], T[i]) 
+mamy zazwyczaj jedno równanie.
+Jeżeli jednak system przy rozpoczęciu zbierania danych nie znajdował sie w stanie
+równowagi termodynamicznej, musimy odrzucić pierwsze K pomiarów.
+
 Można by rozwinąć:
 f(x) = g(x) * e^{-t/T} * c_1
 Przy czym 
@@ -98,7 +116,6 @@ Przy czym
 T - jakaś liczba.
 
 Może być jednak problem z uwzględnieniem g(x) < 1 przy rozwiązywaniu tego układu równań (mogłoby to wymagać innych metod).
-
 
 -----------------------------
 Zakładając że znamy wartości funkcji f (wyliczone z powyższego układu równań), możemy skonstruować rekordy danych historycznych:
@@ -233,5 +250,7 @@ BTW, zakładamy na razie że całą pętlę sterującą wykonujemy na początku 
 Wartość funkcji f być może da się zamodelować jakimiś funkcjami
 matematycznymi, ale i tak nie znamy parametrów do tych funkcji 
         - można by to zamodelować jakoś i przybliżyć,
+
+
 
 //      vim: spelllang=pl
