@@ -135,10 +135,10 @@ T[k] ≈ T[k-1] + \sum_{j=k-121}^{k-1} P[j] * c_1 * f(k-j-1)
 //dolny indeks sumowania sprawdziłem na kartce
 
 //TODO: zapisywać to w ten sposób wszędzie:
-ΔT[k] = T[k] - T[k-1] ≈ \sum_{j=k-121}^{k-1} P[j] * c_1 * f(k-j-1)
+ΔT[k-1] = T[k] - T[k-1] ≈ \sum_{j=k-121}^{k-1} P[j] * c_1 * f(k-j-1)
 
 
-ΔT[k] = T[k] - T[k-1] ≈ \sum_{j=k-121}^{k-1} P[j] * c_1 * f(k-j-1)
+ΔT[k-1] = T[k] - T[k-1] ≈ \sum_{j=k-121}^{k-1} P[j] * c_1 * f(k-j-1)
 
  - przecież z przebiegów mamy żądane ΔU[k], takie jakie chcemy,
  - mamy więc układ równań: niewiadome:
