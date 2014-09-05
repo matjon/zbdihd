@@ -73,7 +73,7 @@ Musimy więc założyć:
                 - jeden okres przeznaczony na grzanie który nie wlicza się do
                   czasu stabilizacji oraz K okresów przez które temperatura 
                   się stabilizuje
-                //wyliczyłem to na kartce z nr 6 j zweryfikowałem niezależnie
+                //wyliczyłem to na kartce z nr 6 i zweryfikowałem niezależnie
                 // na kartce nr 7
  	
 Mamy więc po podstawieniu:
@@ -102,7 +102,7 @@ Coś takiego nazywamy splotem (convolution).
 http://en.wikipedia.org/wiki/Convolution#Discrete_convolution
 ∆T[2] = T[3] - T[2] ≈ (P * f)[2]
 
-j ogólnie:
+i ogólnie:
 ∆T[k] = T[k+1] - T[k] ≈ (P * f)[k]
 
 W tym wypadku przy definicji splotu pomijamy składniki dla których f(x) = 0.
@@ -164,7 +164,7 @@ grzania w k-tym przedziale czasu,
 		- po prostu brakuje mi wyobraźni
 	
 	- rekord zawierałby całki takie same jak dla kontekstu, z tym że 
-        dla (ΔT[k-1] || P[j]) j oczywiście indeksy wartości byłyby większe od k, 
+        dla (ΔT[k-1] || P[j]) i oczywiście indeksy wartości byłyby większe od k, 
         znaczy się sumowane wszystko byłoby w przód,
 	
 	- albo może po prostu surowe przebiegi (ΔT[k-1] || P[j]) 
