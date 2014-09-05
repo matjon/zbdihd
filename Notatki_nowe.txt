@@ -36,28 +36,28 @@ Dzielimy czas na jednostki o szerokości W. Zakładamy, że w obrębie każdej j
 moc grzałki oraz ew. innych urządzeń jest stała.
 Kolejne jednostki są numerowane liczbami całkowitymi.
 
-Rozważamy jednostkę o numerze j.
+Rozważamy jednostkę o numerze k.
 
 Przyrost temperatury podczas tej jednostki czasu jest równy:
-∆T[j] = T[j+1] - T[j] ≈ \sum_{i=0}^{j} (ΔT[j] | P[i])
+∆T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} (ΔT[k] | P[j])
 
 Gdzie:
-	T[j] 	- temperatura na początku j-tej jednostki czasu,
-	(ΔT[j] | P[i])
-		- przyrost temperatury w j-tej jednostce czasu dzięki grzaniu w 
-                i-tej jednostce czasu.
-                - oczywiście j >= i
+	T[k] 	- temperatura na początku k-tej jednostki czasu,
+	(ΔT[k] | P[j])
+		- przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
+                j-tej jednostce czasu.
+                - oczywiście k >= j
 
-Jesteśmy w stanie bezpośrednio zmierzyć jedynie T[j], chcielibyśmy jednak znać
-(ΔT[j] | P[i]).
+Jesteśmy w stanie bezpośrednio zmierzyć jedynie T[k], chcielibyśmy jednak znać
+(ΔT[k] | P[j]).
 
 Musimy więc założyć:
-(ΔT[j] | P[i]) = P[i] * f(j-i)
- - gdzie P[i] - moc grzałki w danej jednostce czasu 
+(ΔT[k] | P[j]) = P[j] * f(k-j)
+ - gdzie P[j] - moc grzałki w danej jednostce czasu 
 (bardziej chyba powinniśmy używać dostarczonego ciepła, ale to jest detal),
  - f(x)        
         - pewna funkcja dążąca do zera dla x dążącego do nieskończoności, 
-         lim_{j -> +∞} (ΔT[j] | P[i]) = 0
+         lim_{k -> +∞} (ΔT[k] | P[j]) = 0
         - zdefiniowana dla wartości nieujemnych,
         - f(0) - stosunek przyrostu temperatury w tym samym przedziale czasu kiedy
                  grzejemy do mocy grzałki 
@@ -73,23 +73,23 @@ Musimy więc założyć:
                 - jeden okres przeznaczony na grzanie który nie wlicza się do
                   czasu stabilizacji oraz K okresów przez które temperatura 
                   się stabilizuje
-                //wyliczyłem to na kartce z nr 6 i zweryfikowałem niezależnie
+                //wyliczyłem to na kartce z nr 6 j zweryfikowałem niezależnie
                 // na kartce nr 7
  	
 Mamy więc po podstawieniu:
-∆T[j] = T[j+1] - T[j] ≈ \sum_{i=0}^{j} P[i] * f(j-i)
+∆T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} P[j] * f(k-j)
 
 Po przyjęciu że f(x) ≡ 0 dla x >= K + 1 mamy:
-∆T[j] = T[j+1] - T[j] ≈ \sum_{i=j-K}^{j} P[i] * f(j-i)
+∆T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
         - czyli wewnętrzna suma przechodzi przez K + 1 wartości, zgadza się
 
-Rozważymy teraz postać sumy dla niskich wartości j:
-j = 0
-∆T[0] = T[1] - T[0] ≈ \sum_{i=0}^{0} (ΔT[0] | P[i]) = (ΔT[0] | P[0]) = P[0] * f(0)
+Rozważymy teraz postać sumy dla niskich wartości k:
+k = 0
+∆T[0] = T[1] - T[0] ≈ \sum_{j=0}^{0} (ΔT[0] | P[j]) = (ΔT[0] | P[0]) = P[0] * f(0)
 ∆T[0] = T[1] - T[0] ≈ [P[0] * f(0)]
 
-Dla j=1:
-∆T[1] = T[2] - T[1] ≈ \sum_{i=0}^{1} (ΔT[1] | P[i]) = (ΔT[1] | P[0]) + (ΔT[1] | P[1]) = 
+Dla k=1:
+∆T[1] = T[2] - T[1] ≈ \sum_{j=0}^{1} (ΔT[1] | P[j]) = (ΔT[1] | P[0]) + (ΔT[1] | P[1]) = 
 	= [ P[0] * f(1-0) + P[1] * f(1-1) ] = [ P[0] * f(1) + P[1] * f(0)]
 ∆T[1] = T[2] - T[1] ≈ [ P[0] * f(1) + P[1] * f(0)]
 
@@ -102,20 +102,20 @@ Coś takiego nazywamy splotem (convolution).
 http://en.wikipedia.org/wiki/Convolution#Discrete_convolution
 ∆T[2] = T[3] - T[2] ≈ (P * f)[2]
 
-I ogólnie:
-∆T[j] = T[j+1] - T[j] ≈ (P * f)[j]
+j ogólnie:
+∆T[k] = T[k+1] - T[k] ≈ (P * f)[k]
 
 W tym wypadku przy definicji splotu pomijamy składniki dla których f(x) = 0.
 
 Mamy więc układ równań:
-∆T[j] = T[j+1] - T[j] ≈ \sum_{i=j-K}^{j} P[i] * f(j-i) = 
+∆T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = 
 
-    j
-=   ∑   P[i] f(j-i)
-  i=j-K
+    k
+=   ∑   P[j] f(k-j)
+  j=k-K
 
 Mamy tutaj K+1 niewiadomych - tyle ile niezerowych wartości funkcji f().
-Dodatkowo, dla każdej danej historycznej (pary wartości P[i], T[i]) 
+Dodatkowo, dla każdej danej historycznej (pary wartości P[j], T[j]) 
 mamy zazwyczaj jedno równanie.
 Jeżeli jednak system przy rozpoczęciu zbierania danych nie znajdował sie w stanie
 równowagi termodynamicznej, musimy odrzucić pierwsze K pomiarów.
