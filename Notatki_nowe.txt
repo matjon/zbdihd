@@ -144,30 +144,30 @@ Opis historii (to chyba nie będzie używane)
 Zakładając że znamy wartości funkcji f (wyliczone z powyższego układu równań), 
 możemy skonstruować rekordy danych historycznych:
 
-Podobnie jak poprzednio, rozważamy j-ty rekord danych historycznych, dotyczący 
-grzania w j-tym przedziale czasu,
+Podobnie jak poprzednio, rozważamy k-ty rekord danych historycznych, dotyczący 
+grzania w k-tym przedziale czasu,
 - kontekst:
-	- ∑_{i=j-119}^{j} ΔT[i]/t
-	- ∑_{i=j-119}^{j} ΔT[i]/(t^2)
-	- ∑_{i=j-120}^{j-1} P[i]/t
-	- ∑_{i=j-120}^{j-1} P[i]/(t^2)
-	- ewentualnie T[j]
+	- ∑_{j=k-119}^{k} ΔT[j]/t
+	- ∑_{j=k-119}^{k} ΔT[j]/(t^2)
+	- ∑_{j=k-120}^{k-1} P[j]/t
+	- ∑_{j=k-120}^{k-1} P[j]/(t^2)
+	- ewentualnie T[k]
 	
 - akcja:
-	P[j]
+	P[k]
 - reakcja:
-	Zdefiniujmy (ΔT[j-1] || P[i]) - przyrost temperatury który da się 
-        przypisać grzaniu w j-tej jednostce czasu,
-	(ΔT[j-1] || P[i]) =
+	Zdefiniujmy (ΔT[k-1] || P[j]) - przyrost temperatury który da się 
+        przypisać grzaniu w k-tej jednostce czasu,
+	(ΔT[k-1] || P[j]) =
 		- nie wiem jak go wyliczyć, ale to powinno być proste, 
                   później się tym zajmę.
 		- po prostu brakuje mi wyobraźni
 	
 	- rekord zawierałby całki takie same jak dla kontekstu, z tym że 
-        dla (ΔT[j-1] || P[i]) i oczywiście indeksy wartości byłyby większe od j, 
+        dla (ΔT[k-1] || P[j]) j oczywiście indeksy wartości byłyby większe od k, 
         znaczy się sumowane wszystko byłoby w przód,
 	
-	- albo może po prostu surowe przebiegi (ΔT[j-1] || P[i]) 
+	- albo może po prostu surowe przebiegi (ΔT[k-1] || P[j]) 
 	
 
 -------------------------------------------------------
