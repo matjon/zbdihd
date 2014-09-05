@@ -121,11 +121,17 @@ Jeżeli jednak system przy rozpoczęciu zbierania danych nie znajdował sie w st
 równowagi termodynamicznej, musimy odrzucić pierwsze K pomiarów.
 
 
+Można rozpisać funkcję f(x) na następujące składniki:
 f(x) = g(x) * e^{-t/T} * c_1
-Przy czym 
+Gdzie:
 	g(x) < 1
 	g(0) = 1	(tak żeby c_1 ustalić na sztywno)
+                //jednak to by nie było dopuszczalne, ponieważ f(0) może być
+                //stosunkowo małe, mniejsze niż g(1)
 T - jakaś liczba.
+
+Może to ew. pomóc przy rozwiązywaniu układu równań - można w ten sposób ograniczyć
+wartości funkcji f(x) do rozsądnych wartości.
 
 Może być jednak problem z uwzględnieniem g(x) < 1 przy rozwiązywaniu tego 
 układu równań (mogłoby to wymagać innych metod).
