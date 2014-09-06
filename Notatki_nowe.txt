@@ -108,7 +108,7 @@ i ogólnie:
 W tym wypadku przy definicji splotu pomijamy składniki dla których f(x) = 0.
 
 Mamy więc układ równań:
-∆T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = 
+∆T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k] = 
 
     k
 =   ∑   P[j] f(k-j)
