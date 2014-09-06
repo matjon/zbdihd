@@ -111,8 +111,12 @@ Mamy więc układ równań:
 ∆T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k] = 
 
     k
-=   ∑   P[j] f(k-j)
+=   ∑   P[j] f(k-j) =
   j=k-K
+
+    K
+=   ∑   P[k-j] f(j)
+   j=0
 
 Mamy tutaj K+1 niewiadomych - tyle ile niezerowych wartości funkcji f().
 Dodatkowo, dla każdej danej historycznej (pary wartości P[j], T[j]) 
