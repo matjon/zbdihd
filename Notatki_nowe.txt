@@ -355,8 +355,6 @@ Powiedzmy P=80         - liczba zmiennych
 	
 	
 
-	- ale jakoś korzystać z tej historii też,
-
 	- tak jak ze sterowaniem rakietą, rakiety nie naprowadza się na
 	  konkretną trasę, po prostu w każdej jednostce czasu (time slice)
           wylicza się na podstawie obecnego położenia oraz innych czynników

@@ -40,3 +40,12 @@ e = W^{1/2}(X * β - y)
         //      nie, potrzebna jest odwrotność
 
 
+
+sob, 6 wrz 2014, 21:28:15 CEST
+W jakiś sposób uwzględnić starą koncepcję historii:
+
+Mamy N zbiorów danych historycznych o postaci:
+{kontekst, akcja, reakcja}
+ - akcja - jaką czynność podjęliśmy w danej chwili,
+ - kontekst - co działo się z układem przed podjęciem akcji,
+ - reakcja - jakie były skutki podjętej akcji.
