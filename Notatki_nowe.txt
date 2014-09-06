@@ -322,36 +322,11 @@ Sterowanie przy użyciu wartości funkcji f - bez użycia wag
 Pojawia się jednak problem, jak daleko w przód przewidujemy nasze ruchy.
 
 
+
+
+
 	
 	
-	
-- musimy do niej jakoś dopasować obecne przebiegi,
-	- można założyć po prostu
-		
-	  i w ten sposób przewidzieć przyszłość na kilka(naście?) najbliższych 
-          okresów, poprzez zwykły układ równań / coś zbliżonego do progr. 
-          liniowego:
-		Niech U[k] = żądana temperatura w na początku przedziału czasowego j
-		
-
-ΔT[k-1] = T[k] - T[k-1] ≈ \sum_{j=k-121}^{k-1} P[j] * f(k-j-1)
-
- - przecież z przebiegów mamy żądane ΔU[k], takie jakie chcemy,
- - mamy więc układ równań: 
-ΔT[k] = T[k] - T[k-1] ≈ \sum_{j=k-121}^{k-1} P[j] * f(k-j-1)
-        dla k = i+1, do k = 121+1       - czyli 120 równań
-
-        Niewiadome: 120 wartości P[j] - dla j = i (grzejemy w obecnej chwili)
-                                        do j = i+119
-
-
-niewiadome: P[j]
-
- 		P[j
- 			
-
-
-
 
 	- ale jakoś korzystać z tej historii też,
 
@@ -359,16 +334,6 @@ niewiadome: P[j]
 	  konkretną trasę, po prostu w każdej jednostce czasu (time slice)
           wylicza się na podstawie obecnego położenia oraz innych czynników
           nową trasę, która trochę się różni od starej i po niej rakietę prowadzi.
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
