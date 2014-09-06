@@ -2,11 +2,18 @@ Sekcja 1: Założenia
 -------------------
 
 Dla skupienia uwagi możemy projektować pod tę komorę:
+
 	http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf
+
+
+
 Można założyć (w sposób bardzo konserwatywny):
+
 	- time slice W = 5 sekund,
+
 	- że po wyłączeniu grzania temperatura w komorze się ustabilizuje w czasie 
 	mniejszym niż 10 minut (czyli po K = 120 jednostkach czasu),
+
 	- ew. można te parametry skorygować, tak żeby tę liczbę 120 zmniejszyć, 
 	te wartości tutaj są dosyć wyśrubowane.
 	
