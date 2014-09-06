@@ -170,13 +170,19 @@ grzania w k-tym przedziale czasu,
 	- albo może po prostu surowe przebiegi (ΔT[k-1] || P[j]) 
 	
 
--------------------------------------------------------
-Sekcja 4
-Sterowanie przy użyciu wartości funkcji f
--------------------------------------------------------
 Dobra, mając N ***pełnych*** rekordów historycznych (znaczy się takich które 
 zostały sporządzone więcej niż 120 okresów temu, tak że reakcje są w pełni 
 wyliczone).
+
+-------------------------------------------------------
+Sekcja 4
+Sterowanie przy użyciu wartości funkcji f - bez użycia wag
+-------------------------------------------------------
+Znając wartości funkcji f() wyliczone na podstawie danych historycznych, można
+przewidzieć przebieg temperatury towarzyszący procesom grzania i z tego
+względu w sposób świadomy sterować grzałką.
+
+
  - w sumie można ograniczyć to do rekordów które były dawno, tak żeby nie było 
 jakichś dziwnych (i trudnych do uchwycenia) interakcji między tym co się teraz 
 dzieje a tym co było w niedawnej historii i co wpływa bezpośrednio na obecne 
@@ -189,36 +195,138 @@ Oznaczenia:
 	i - obecna chwila czasu, którą analizujemy
 	j - indeksuje czas w którym przewidujemy że będziemy grzać,
 	k - indeksuje temperaturę w przyszłości,
-	
+
+Przyjmujemy uproszczony model ogrzewania przedstawiony w sekcji 2:
+∆T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k]
+
+Na podstawie tego modelu jesteśmy w stanie przewidzieć przebieg zmian temperatury
+dla danego przebiegu mocy grzałki i w ten sposób zoptymalizować proces grzania
+wybierając taki przebieg który jest najbliższy żądanemu.
+
+Postępujemy podobnie jak doświadczony szachista, przewidujący
+kilka ruchów naprzód.
+
+Niech U[k] = żądana temperatura na początku przedziału czasowego j.
+Na podstawie wartości U[k] jesteśmy w stanie policzyć 
+∆U[k] = U[k+1] - U[k]
+
+Wtedy mamy układ równań:
+∆U[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
+ - rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów
+
+- wagi są konieczne, bo musimy jakoś w sensowny sposób odciąć wartości j,
+- problem: mogą wyjść liczby ujemne,
+
+Mamy więc równanie macierzowe (na razie pomijam wagi):
+ - oznaczenia jak na http://en.wikipedia.org/wiki/Least_squares
+y = X * β
+
+Dla K=3
+oraz i = 9 mamy:
+(celowo nie piszę równania dla ∆U[9]):
+∆U[10] ≈ P[7]*f(3) + P[8]*f(2) + P[9]*f(1) + P[10]*f(0)
+∆U[11] ≈             P[8]*f(3) + P[9]*f(2) + P[10]*f(1) + P[11]*f(0)
+∆U[12] ≈                         P[9]*f(3) + P[10]*f(2) + P[11]*f(1) + P[12]*f(0)
+∆U[13] ≈                                     P[10]*f(3) + P[11]*f(2) + P[12]*f(1) + P[13]*f(0)
+itd.
+
+Przy czym znamy P[7] i P[8], a więc należy to przekształcić jako:
+∆U[10] - P[7]*f(3) - P[8]*f(2) ≈ P[9]*f(1) + P[10]*f(0)
+∆U[11]             - P[8]*f(3) ≈ P[9]*f(2) + P[10]*f(1) + P[11]*f(0)
+∆U[12]                         ≈ P[9]*f(3) + P[10]*f(2) + P[11]*f(1) + P[12]*f(0)
+∆U[13]                         ≈             P[10]*f(3) + P[11]*f(2) + P[12]*f(1) + P[13]*f(0)
+
+
+
+Czyli:
+y = [
+        ∆U[10] - P[7]*f(3) - P[8]*f(2)
+        ∆U[11]             - P[8]*f(3)
+        ∆U[12]                        
+        ∆U[13]                        
+]
+
+Wektor y odpowiada residualnej krzywej temperaturowej - 
+
 - na podstawie historii oraz wartości funkcji f liczymy zmiany temp w przyszłości 
   które wynikają z tego co już grzaliśmy,
 - mamy residualną krzywą temperaturową,
+
+β = [
+        P[9];
+        P[10];
+        P[11];
+        P[12];
+        P[13]
+] 
+
+X = [
+ f(1), f(0), 0,    0,    0;
+ f(2), f(1), f(0), 0,    0;
+ f(3), f(2), f(1), f(0), 0;
+ 0,    f(3), f(2), f(1), f(0);
+]
+
+Niech L = przesunięcie od którego zaczynamy uwzględniać równania w układzie
+równań.
+Pierwsze równanie które uwzględniamy w układzie równań, jest na
+∆U[i+L]
+W powyższym przykładzie oczywiście L = 1.
+
+Podaję teraz ogólne wzory na elementy powyższych wektorów y, \beta oraz macierzy X:
+(indeksy liczymy od 1!!!, jak jest przyjęte w matematyce)
+
+Wektor y:
+        Równanie dla wiersza macierzy y który dotyczy ∆U[k]:
+        y[k - (i + L) + 1] = ∆U[k] - \sum_{n=k-K}^{i-1} P[n] * f(k-n)
+               //sprawdziłem powyższe na kartce dla k=10, i=9, L=1, K=3
+        Gdy chcemy uzyskać y[u], liczymy:
+                k = u - 1 + (i+L)
+                        //jest to naturalne, pierwszy wiersz macierzy y dotyczy k = i+L,
+                        //dalej wartość k rośnie z u
+                y[u] = ∆U[k] - \sum_{n=k-K}^{i-1} P[n] * f(k-n)
+
+
+Wektor β:
+        β[1] = P[i]
+        β[u] = P[i + u-1]
+
+Macierz X:
+        X[u,v] oznacza element w u-tym wierszu i v-tej kolumnie.
+        //X[1,1] jest mnożony z P[9] = P[i],
+        //      czyli musi mieć postać f(i+L - i) = f(L)
+        X[u,v] = f(L+u-v)
+
+        Oczywiście jeśli L+u-v < 0 albo L+u-v > K+1, to 
+        komórce X[u,v] przypisujemy 0 (i traktujemy jako pustą komórkę w macierzy
+        rzadkiej - sparse matrix).
+
+
+Po skonstruowaniu w powyższy sposób macierzy X oraz wektora y oraz rozwiązaniu
+układu równań y = X * β otrzymujemy wektor β i ostatecznie wartość P[i].
+Wyliczona wartość P[i] jest mocą grzałki którą należy ustawić w obecnej chwili
+czasu tak aby zapewnić optymalne sterowanie.
+Jeśli P[i] < 0, grzanie w obecnej jednostce czasu wyłączamy.
+
+-------------------------------------------------------
+Sekcja 5
+Sterowanie przy użyciu wartości funkcji f - bez użycia wag
+-------------------------------------------------------
+
+Pojawia się jednak problem, jak daleko w przód przewidujemy nasze ruchy.
+
+
+	
 	
 	
 - musimy do niej jakoś dopasować obecne przebiegi,
 	- można założyć po prostu
-		(ΔT[j] | P[i]) = P[i] * f(j-i)	//w starych oznaczeniach
-		//na nowe oznaczenia:	j->k, i->j
-		(ΔT[k] | P[j]) = P[j] * f(k-j)
-		//TODO: wszędzie powyżej: j->k, i->j
 		
 	  i w ten sposób przewidzieć przyszłość na kilka(naście?) najbliższych 
           okresów, poprzez zwykły układ równań / coś zbliżonego do progr. 
           liniowego:
 		Niech U[k] = żądana temperatura w na początku przedziału czasowego j
 		
-T[j] ≈ T[j-1] + \sum_{i=0}^{j-1} (ΔT[j-1] | P[i])	//stare oznaczenia
-
-T[k] ≈ T[k-1] + \sum_{j=0}^{k-1} (ΔT[k-1] | P[j])
-			//podstawiamy biorąc pod uwagę że powyżej jest k-1
-T[k] ≈ T[k-1] + \sum_{j=0}^{k-1} P[j] * f(k-j-1)
-Ponieważ zakładamy że f(x) dla x > 120 jest równy 0, mamy:
-T[k] ≈ T[k-1] + \sum_{j=k-121}^{k-1} P[j] * f(k-j-1)
-//dolny indeks sumowania sprawdziłem na kartce
-
-//TODO: zapisywać to w ten sposób wszędzie:
-ΔT[k-1] = T[k] - T[k-1] ≈ \sum_{j=k-121}^{k-1} P[j] * f(k-j-1)
-
 
 ΔT[k-1] = T[k] - T[k-1] ≈ \sum_{j=k-121}^{k-1} P[j] * f(k-j-1)
 
