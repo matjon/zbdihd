@@ -1,5 +1,5 @@
 Sekcja 1: Założenia
-===================
+-------------------
 
 Dla skupienia uwagi możemy projektować pod tę komorę:
 	http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf
@@ -16,7 +16,7 @@ klimatyzatora (np. w zimie).
 
 
 Sekcja 2: Analiza wpływu grzania na przebieg temperatury w komorze
-==================================================================
+------------------------------------------------------------------
 
 Na nią mogą bowiem wpływać decyzje podjęte później. Można to uchwycić matematycznie:
 
@@ -131,7 +131,7 @@ układu równań (mogłoby to wymagać innych metod).
 
 
 Sekcja 3: Sterowanie przy użyciu wartości funkcji f - bez użycia wag
-====================================================================
+--------------------------------------------------------------------
 
 Znając wartości funkcji f() wyliczone na podstawie danych historycznych, można
 przewidzieć przebieg temperatury towarzyszący procesom grzania i z tego
@@ -270,7 +270,7 @@ czasu tak aby zapewnić optymalne sterowanie.
 Jeśli P[i] < 0, grzanie w obecnej jednostce czasu wyłączamy.
 
 Sekcja 4: Sterowanie przy użyciu wartości funkcji f - liczenie wag
-====================================================================
+--------------------------------------------------------------------
 
 Pojawia się jednak problem, jak daleko w przód przewidujemy nasze ruchy.
 
