@@ -49,3 +49,6 @@ Mamy N zbiorów danych historycznych o postaci:
  - akcja - jaką czynność podjęliśmy w danej chwili,
  - kontekst - co działo się z układem przed podjęciem akcji,
  - reakcja - jakie były skutki podjętej akcji.
+
+sob, 6 wrz 2014, 21:33:49 CEST
+Nie używać \delta U
