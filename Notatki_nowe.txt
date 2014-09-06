@@ -204,7 +204,13 @@ dla danego przebiegu mocy grzałki i w ten sposób zoptymalizować proces grzani
 wybierając taki przebieg który jest najbliższy żądanemu.
 
 Postępujemy podobnie jak doświadczony szachista, przewidujący
-kilka ruchów naprzód.
+kilka ruchów naprzód a jednocześnie w każdym ruchu dostosowujący się do
+działań rywala i aktualizującym swoją strategię odpowiednio.
+
+//można w sumie wykorzystywać wartości wyliczone w poprzednim oknie czasowym,
+//do przyśpieszenia rozwiązywania układu równań w następnym.
+//Np. jeśli stosujemy metodę aproksymacyjną, możemy jako punkty startowe przyjąć
+//wartości P[u] wyliczone w poprzednim oknie czasowym.
 
 Niech U[k] = żądana temperatura na początku przedziału czasowego j.
 Na podstawie wartości U[k] jesteśmy w stanie policzyć 
