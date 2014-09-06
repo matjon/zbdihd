@@ -15,3 +15,28 @@ matematycznymi, ale i tak nie znamy parametrów do tych funkcji
 
 czw, 4 wrz 2014, 21:34:11 CEST
 Mogą być specjalne przebiegi uczące.
+
+sob, 6 wrz 2014, 18:15:33 CEST
+Sekcja 5 - użycie wag:
+
+e = W^{1/2}(X * β - y)
+ - błąd mierzymy jako niedopasowanie różnicy temperatur ∆U[k]
+ - ew. możemy minimalizować niedopasowanie wartości β, ale chyba jednak nie
+   jest to najlepsze rozwiązanie.
+   Chociaż niekoniecznie, to w sumie byłoby dosyć ciekawe.
+   To jednak byłoby trochę trudniejsze matematycznie,
+
+   Mamy:
+              y = X * β         / X^{-1} *
+        //nie możemy policzyć odwrotności macierzy X, bo odwrotności są tylko
+        //dla macierzy kwadratowych, musielibyśmy używać
+        //uogólnionej macierzy odwrotnej, nie byłoby to takie proste,
+        //dokładne czytanie:
+        //od początku, a zwłaszcza sekcji "Derivation of the normal equations"
+        //może pomóc
+
+        //To jest wszystko liniowe, czyli wystarczy dać chyba 
+        //        e' = X * e = W(X * β - y)
+        //      nie, potrzebna jest odwrotność
+
+

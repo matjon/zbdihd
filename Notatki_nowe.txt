@@ -325,6 +325,73 @@ Sterowanie przy użyciu wartości funkcji f - bez użycia wag
 
 Pojawia się jednak problem, jak daleko w przód przewidujemy nasze ruchy.
 
+Najlepiej prawdopodobnie stopniowo zmniejszać wagę kolejnych pomiarów, tak
+żeby dopasowywanie się do żądanej temperatury miało mniejszą wagę w przyszłości,
+gdzie przewidywanie temperatury będzie trudniejsze a i tak będziemy mogli
+zareagować.
+
+Rozwiązywanie układu równań z uwzględnieniem wag błędów jest opisane tutaj:
+http://math.stackexchange.com/a/709683
+http://en.wikipedia.org/wiki/Linear_least_squares_%28mathematics%29#Weighted_linear_least_squares
+(na Wikipedii oraz StackExchange są inne oznaczenia.
+Na StackExchange minimalizujemy W(Ax−b), na Wikipedii: W^{1/2}(Xβ - y)
+W^{1/2} oznacza niezależny pierwiastek z każdej z wartości.
+
+Tutaj konsekwentnie używamy oznaczeń z Wikipedii.
+)
+
+Potrzebujemy macierz wag W.
+Jest to macierz diagonalna (z wartościami niezerowymi tylko na przekątnej).
+Definiujemy wektor błędu jako:
+e = W^{1/2}(X * β - y)
+ - błąd mierzymy jako różnicę różnicy temperatur ∆U[k] którą mamy uzyskać w
+   k-tym oknie czasowym a tym co uzyskamy.
+
+Minimalizujemy sumę kwadratów błędów, minimalizując e^{T} e.
+(to z tym T to transpozycja).
+
+Na podstawie tego wszystkiego otrzymujemy normalny układ równań (normal equations):
+X^{T}*W*X * β = X^{T}*W * y
+//przypominam że mnożenie macierzy nie jest łączne: (A * B) * C nie musi być 
+//równe A * (B * C)
+
+Ten układ równań potrafimy rozwiązać w sposób dokładny (w tym układzie równań
+mamy n = m) i w ten sposób uzyskać "optymalne" rozwiązanie dla \bety  
+
+Pozostaje jeszcze kwestia wyboru wag.
+Wikipedia zaleca żeby wagi były odwrotnością wariancji pomiarów.
+
+Nie można dać wariancji z którą znamy funkcję f()???
+
+- w każdym razie, 1/u^2 maleje zbyt szybko, żeby to było do stosowania,
+
+ - co my chcemy dokładnie (dla K = 120):
+        - ma maleć do zera, powiedzmy dla K > 80 wartości mają już być
+          pomijalne,
+        - nie może aż tak mocno 
+
+        - dla K = 120
+                w[u] = (u+10)^{-1.2} 
+                
+                wygląda sensownie
+        - czyli ogólnie mamy heurystykę
+                w[u] = (u+ K/12 )^{-1.2} 
+                //pomijamy tutaj wpływ L
+
+
+- jeszcze jest kwestia tego że ten układ równań musi być nadmiernie
+  zdefiniowany, żeby wagi miały znaczenie,
+- przydałyby się dodatkowe parametry,
+
+Powiedzmy P=80         - liczba zmiennych
+          R=120        - liczba równań,
+- może powiedzmy dajemy tylko do 80 ze 120 równaniami,
+
+
+- dobra, to w sumie wsz. ustalone
+
+
+
 
 
 
