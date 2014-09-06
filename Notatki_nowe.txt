@@ -16,14 +16,6 @@ Na razie pomijamy chłodzenie, żeby uprościć problem. W sumie to jednak
 dosyć dobrze pasuje do różnych systemów HVAC, które mogą działać bez 
 klimatyzatora (np. w zimie).
 
-Mamy N zbiorów danych historycznych o postaci:
-{kontekst, akcja, reakcja}
- - akcja - jaką czynność podjęliśmy w danej chwili,
- - kontekst - co działo się z układem przed podjęciem akcji,
- - reakcja - jakie były skutki podjętej akcji.
-
-
-
 
 -------------------------------------------------------
 Sekcja 2
@@ -140,46 +132,10 @@ wartości funkcji f(x) do rozsądnych wartości.
 Może być jednak problem z uwzględnieniem g(x) < 1 przy rozwiązywaniu tego 
 układu równań (mogłoby to wymagać innych metod).
 
+
+
 -------------------------------------------------------
 Sekcja 3
-Opis historii (to chyba nie będzie używane)
--------------------------------------------------------
-
-Zakładając że znamy wartości funkcji f (wyliczone z powyższego układu równań), 
-możemy skonstruować rekordy danych historycznych:
-
-Podobnie jak poprzednio, rozważamy k-ty rekord danych historycznych, dotyczący 
-grzania w k-tym przedziale czasu,
-- kontekst:
-	- ∑_{j=k-119}^{k} ΔT[j]/t
-	- ∑_{j=k-119}^{k} ΔT[j]/(t^2)
-	- ∑_{j=k-120}^{k-1} P[j]/t
-	- ∑_{j=k-120}^{k-1} P[j]/(t^2)
-	- ewentualnie T[k]
-	
-- akcja:
-	P[k]
-- reakcja:
-	Zdefiniujmy (ΔT[k-1] || P[j]) - przyrost temperatury który da się 
-        przypisać grzaniu w k-tej jednostce czasu,
-	(ΔT[k-1] || P[j]) =
-		- nie wiem jak go wyliczyć, ale to powinno być proste, 
-                  później się tym zajmę.
-		- po prostu brakuje mi wyobraźni
-	
-	- rekord zawierałby całki takie same jak dla kontekstu, z tym że 
-        dla (ΔT[k-1] || P[j]) i oczywiście indeksy wartości byłyby większe od k, 
-        znaczy się sumowane wszystko byłoby w przód,
-	
-	- albo może po prostu surowe przebiegi (ΔT[k-1] || P[j]) 
-	
-
-Dobra, mając N ***pełnych*** rekordów historycznych (znaczy się takich które 
-zostały sporządzone więcej niż 120 okresów temu, tak że reakcje są w pełni 
-wyliczone).
-
--------------------------------------------------------
-Sekcja 4
 Sterowanie przy użyciu wartości funkcji f - bez użycia wag
 -------------------------------------------------------
 Znając wartości funkcji f() wyliczone na podstawie danych historycznych, można
@@ -319,7 +275,7 @@ czasu tak aby zapewnić optymalne sterowanie.
 Jeśli P[i] < 0, grzanie w obecnej jednostce czasu wyłączamy.
 
 -------------------------------------------------------
-Sekcja 5
+Sekcja 4
 Sterowanie przy użyciu wartości funkcji f - bez użycia wag
 -------------------------------------------------------
 
