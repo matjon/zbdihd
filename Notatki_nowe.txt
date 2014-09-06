@@ -66,10 +66,10 @@ Musimy więc założyć:
                  (dotyczy sytuacji kiedy przyrost temperatury jest w tej samej
                  jednostce czasu co grzanie)
         - po K = 120 okresach sytuacja się stabilizuje, z tego względu można
-          uznać że f(x) ≡ 0 dla x >= K + 1)
-                - czyli f(x) może być niezerowe dla x < K+1
-                                                x <= K
-                - istnieje co najwyżej K+1 niezerowych wartości funkcji f(x),
+          uznać że f(x) ≡ 0 dla x > K )
+                - czyli f(x) może być niezerowe dla x <= K
+                - istnieje co najwyżej K+1 niezerowych wartości funkcji f(x):
+                        0 oraz od 1 do K
                 - jeden okres przeznaczony na grzanie który nie wlicza się do
                   czasu stabilizacji oraz K okresów przez które temperatura 
                   się stabilizuje
