@@ -9,13 +9,13 @@ Dla skupienia uwagi możemy projektować pod tę komorę:
 
 Można założyć (w sposób bardzo konserwatywny):
 
-	- time slice W = 5 sekund,
+- time slice W = 5 sekund,
 
-	- że po wyłączeniu grzania temperatura w komorze się ustabilizuje w czasie 
-	mniejszym niż 10 minut (czyli po K = 120 jednostkach czasu),
+- że po wyłączeniu grzania temperatura w komorze się ustabilizuje w czasie 
+mniejszym niż 10 minut (czyli po K = 120 jednostkach czasu),
 
-	- ew. można te parametry skorygować, tak żeby tę liczbę 120 zmniejszyć, 
-	te wartości tutaj są dosyć wyśrubowane.
+- ew. można te parametry skorygować, tak żeby tę liczbę 120 zmniejszyć, 
+te wartości tutaj są dosyć wyśrubowane.
 	
 Na razie pomijamy chłodzenie, żeby uprościć problem. W sumie to jednak 
 dosyć dobrze pasuje do różnych systemów HVAC, które mogą działać bez 
