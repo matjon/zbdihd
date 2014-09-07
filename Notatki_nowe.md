@@ -67,7 +67,7 @@ Sekcja 2: Analiza wpływu grzania na przebieg temperatury w komorze
 ------------------------------------------------------------------
 
 Na zmiany temperatury w komorze mogą wpływać procesy (np. grzania) 
-zachodzące stosunkowo dawno temu (wcześniej niż $K W$).
+zachodzące stosunkowo dawno temu (wcześniej niż $K \cdot W$).
 W tej sekcji postaramy się uchwycić to zachowanie komory w sposób matematyczny.
 
 Rozważamy jednostkę czasu o numerze $k$.
@@ -122,11 +122,11 @@ Przy czym:
  	
 Po podstawieniu $\ref{s2fdef}$ do $\ref{s2dec1}$ otrzymujemy:
 
-$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=0}^{k} P[j] * f(k-j)$$
+$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=0}^{k} P[j] {\cdot} f(k-j)$$
 
 Po przyjęciu że $f(x) \equiv 0$ dla $x {\geq} K + 1$ mamy:
 
-$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] * f(k-j)$$
+$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] {\cdot} f(k-j)$$
 	
 (wewnętrzna suma przechodzi przez K + 1 wartości)
 
@@ -138,7 +138,7 @@ Dla $k=0$:
 
 ${\Delta}T[0] = T[1] - T[0] ≈ \sum\_{j=0}^{0} ({\Delta}T[0] \:|\: P[j]) = ({\Delta}T[0] \:|\: P[0])$
 
-${\Delta}T[0] = T[1] - T[0] ≈ P[0] * f(0)$
+${\Delta}T[0] = T[1] - T[0] ≈ P[0] {\cdot} f(0)$
 
 
 
@@ -148,19 +148,19 @@ ${\Delta}T[1] = T[2] - T[1] ≈ \sum\_{j=0}^{1} ({\Delta}T[1] \:|\: P[j])$
 
 ${\Delta}T[1] = T[2] - T[1] ≈ ({\Delta}T[1] \:|\: P[0]) + ({\Delta}T[1] \:|\: P[1])$
 
-${\Delta}T[1] = T[2] - T[1] ≈ ( P[0] * f(1) + P[1] * f(0) )$
+${\Delta}T[1] = T[2] - T[1] ≈ ( P[0] {\cdot} f(1) + P[1] {\cdot} f(0) )$
 
 
 
 I podsumowując, poprzez analogię:
 
-$	{\Delta}T[0] = T[1] - T[0] ≈ (P[0] * f(0))$
+$	{\Delta}T[0] = T[1] - T[0] ≈ (P[0] {\cdot} f(0))$
 
-$	{\Delta}T[1] = T[2] - T[1] ≈ (P[0] * f(1) + P[1] * f(0))$
+$	{\Delta}T[1] = T[2] - T[1] ≈ (P[0] {\cdot} f(1) + P[1] {\cdot} f(0))$
 
-$	{\Delta}T[2] = T[3] - T[2] ≈ (P[0] * f(2) + P[1] * f(1) + P[2] * f(0))$
+$	{\Delta}T[2] = T[3] - T[2] ≈ (P[0] {\cdot} f(2) + P[1] {\cdot} f(1) + P[2] {\cdot} f(0))$
 
-$	{\Delta}T[3] = T[4] - T[3] ≈ (P[0] * f(3) + P[1] * f(2) + P[2] * f(1) + P[3] * f(0))$
+$	{\Delta}T[3] = T[4] - T[3] ≈ (P[0] {\cdot} f(3) + P[1] {\cdot} f(2) + P[2] {\cdot} f(1) + P[3] {\cdot} f(0))$
 
 
 Taką strukturę nazywamy 
@@ -168,11 +168,11 @@ Taką strukturę nazywamy
 
 Mamy więc:
 
-$$	{\Delta}T[3] = T[4] - T[3] ≈ (P * f)[3]$$
+$$	{\Delta}T[3] = T[4] - T[3] ≈ (P {\cdot} f)[3]$$
 	
 i ogólnie:
 	
-$$	{\Delta}T[k] = T[k+1] - T[k] ≈ (P * f)[k]$$
+$$	{\Delta}T[k] = T[k+1] - T[k] ≈ (P {\cdot} f)[k]$$
 
 W tym wypadku przy definicji splotu pomijamy składniki dla których $f(x) \equiv 0$.
 
@@ -180,8 +180,8 @@ W tym wypadku przy definicji splotu pomijamy składniki dla których $f(x) \equi
 
 Ostatecznie, mamy więc układ równań o postaci:
 
-$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] * f(k-j) = 
-\sum\_{j=0}^{K} P[k-j] f(j) = (P * f)[k] \label{s2eqs}$$
+$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] {\cdot} f(k-j) = 
+\sum\_{j=0}^{K} P[k-j] f(j) = (P {\cdot} f)[k] \label{s2eqs}$$
 
 Ten układ równań posiada $K+1$ niewiadomych - tyle ile niezerowych wartości funkcji $f()$.
 
@@ -194,15 +194,15 @@ Odrzucamy też ostatnie K pomiarów.
 
 Można by rozpisać funkcję $f(x)$ na następujące składniki:
 
-$$f(x) = g(x) * e^{-\frac{t}{T}} * c\_1$$
+$$f(x) = g(x) {\cdot} e^{-\frac{t}{T}} {\cdot} c\_1$$
 
 Przy czym:
 
- * $ g(x) < 1 $,
- * $ g(0) = 1 $	(tak żeby $c\_{1}$ ustalić na sztywno)
+ - $ g(x) < 1 $,
+ - $ g(0) = 1 $	(tak żeby $c\_{1}$ ustalić na sztywno)
                 //jednak to by nie było dopuszczalne, ponieważ f(0) może być
                 //stosunkowo małe, mniejsze niż g(1)
- * $T$ - jakaś liczba.
+ - $T$ - jakaś liczba.
 
 Mogłoby to ew. pomóc przy rozwiązywaniu układu równań - można w ten sposób ograniczyć
 wartości funkcji $ f(x) $.
@@ -282,14 +282,14 @@ Jesteśmy w chwili czasu $i$, mamy historię oraz przyszłość do decyzji.
 
 Oznaczenia:
 
-*	$i$ - obecna chwila czasu, którą analizujemy,
-*	$j$ - indeksuje czas w którym przewidujemy że będziemy grzać,
-*	$k$ - indeksuje temperaturę w przyszłości,
+-	$i$ - obecna chwila czasu, którą analizujemy,
+-	$j$ - indeksuje czas w którym przewidujemy że będziemy grzać,
+-	$k$ - indeksuje temperaturę w przyszłości,
 
 Przyjmujemy uproszczony model ogrzewania przedstawiony w sekcjach 2 i 3:
 
 $${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + 
-        \sum\_{j=k-K}^{k} P[j] * f(k-j)$$
+        \sum\_{j=k-K}^{k} P[j] {\cdot} f(k-j)$$
 
 Będziemy postępowali podobnie jak doświadczony szachista, przewidujący
 kilka ruchów naprzód a jednocześnie w każdym ruchu dostosowujący się do
@@ -305,7 +305,7 @@ Na podstawie wartości $U[k]$ potrafimy policzyć
 $${\Delta}U[k] = U[k+1] - U[k]$$
 
 Wtedy mamy układ równań:
-{\Delta}U[k] = \sum\_{j=k-K}^{k} P[j] * f(k-j)
+{\Delta}U[k] = \sum\_{j=k-K}^{k} P[j] {\cdot} f(k-j)
  - rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów
 
 - wagi są konieczne, bo musimy jakoś w sensowny sposób odciąć wartości j,
@@ -313,29 +313,29 @@ Wtedy mamy układ równań:
 
 Mamy więc równanie macierzowe (na razie pomijam wagi):
  - oznaczenia jak na [Wikipedii](http://en.wikipedia.org/wiki/Least_squares)
-$$y = X * \beta$$
+$$y = X {\cdot} \beta$$
 
 Dla K=3
 oraz i = 9 mamy:
 (celowo nie piszę równania dla {\Delta}U[9]):
-{\Delta}U[10] ≈ P[7]*f(3) + P[8]*f(2) + P[9]*f(1) + P[10]*f(0)
-{\Delta}U[11] ≈             P[8]*f(3) + P[9]*f(2) + P[10]*f(1) + P[11]*f(0)
-{\Delta}U[12] ≈                         P[9]*f(3) + P[10]*f(2) + P[11]*f(1) + P[12]*f(0)
-{\Delta}U[13] ≈                                     P[10]*f(3) + P[11]*f(2) + P[12]*f(1) + P[13]*f(0)
+{\Delta}U[10] ≈ P[7]{\cdot}f(3) + P[8]{\cdot}f(2) + P[9]{\cdot}f(1) + P[10]{\cdot}f(0)
+{\Delta}U[11] ≈             P[8]{\cdot}f(3) + P[9]{\cdot}f(2) + P[10]{\cdot}f(1) + P[11]{\cdot}f(0)
+{\Delta}U[12] ≈                         P[9]{\cdot}f(3) + P[10]{\cdot}f(2) + P[11]{\cdot}f(1) + P[12]{\cdot}f(0)
+{\Delta}U[13] ≈                                     P[10]{\cdot}f(3) + P[11]{\cdot}f(2) + P[12]{\cdot}f(1) + P[13]{\cdot}f(0)
 itd.
 
 Przy czym znamy P[7] i P[8], a więc należy to przekształcić jako:
-{\Delta}U[10] - P[7]*f(3) - P[8]*f(2) ≈ P[9]*f(1) + P[10]*f(0)
-{\Delta}U[11]             - P[8]*f(3) ≈ P[9]*f(2) + P[10]*f(1) + P[11]*f(0)
-{\Delta}U[12]                         ≈ P[9]*f(3) + P[10]*f(2) + P[11]*f(1) + P[12]*f(0)
-{\Delta}U[13]                         ≈             P[10]*f(3) + P[11]*f(2) + P[12]*f(1) + P[13]*f(0)
+{\Delta}U[10] - P[7]{\cdot}f(3) - P[8]{\cdot}f(2) ≈ P[9]{\cdot}f(1) + P[10]{\cdot}f(0)
+{\Delta}U[11]             - P[8]{\cdot}f(3) ≈ P[9]{\cdot}f(2) + P[10]{\cdot}f(1) + P[11]{\cdot}f(0)
+{\Delta}U[12]                         ≈ P[9]{\cdot}f(3) + P[10]{\cdot}f(2) + P[11]{\cdot}f(1) + P[12]{\cdot}f(0)
+{\Delta}U[13]                         ≈             P[10]{\cdot}f(3) + P[11]{\cdot}f(2) + P[12]{\cdot}f(1) + P[13]{\cdot}f(0)
 
 
 
 Czyli:
 y = [
-        {\Delta}U[10] - P[7]*f(3) - P[8]*f(2)
-        {\Delta}U[11]             - P[8]*f(3)
+        {\Delta}U[10] - P[7]{\cdot}f(3) - P[8]{\cdot}f(2)
+        {\Delta}U[11]             - P[8]{\cdot}f(3)
         {\Delta}U[12]                        
         {\Delta}U[13]                        
 ]
@@ -378,13 +378,13 @@ Podaję teraz ogólne wzory na elementy powyższych wektorów y, \beta oraz maci
 
 Wektor y:
         Równanie dla wiersza macierzy y który dotyczy {\Delta}U[k]:
-        y[k - (i + L) + 1] = {\Delta}U[k] - \sum_{n=k-K}^{i-1} P[n] * f(k-n)
+        y[k - (i + L) + 1] = {\Delta}U[k] - \sum_{n=k-K}^{i-1} P[n] {\cdot} f(k-n)
                //sprawdziłem powyższe na kartce dla k=10, i=9, L=1, K=3
         Gdy chcemy uzyskać y[u], liczymy:
                 k = u - 1 + (i+L)
                         //jest to naturalne, pierwszy wiersz macierzy y dotyczy k = i+L,
                         //dalej wartość k rośnie z u
-                y[u] = {\Delta}U[k] - \sum_{n=k-K}^{i-1} P[n] * f(k-n)
+                y[u] = {\Delta}U[k] - \sum_{n=k-K}^{i-1} P[n] {\cdot} f(k-n)
 
 
 Wektor \beta:
@@ -403,7 +403,7 @@ Macierz X:
 
 
 Po skonstruowaniu w powyższy sposób macierzy X oraz wektora y oraz rozwiązaniu
-układu równań y = X * \beta otrzymujemy wektor \beta i ostatecznie wartość P[i].
+układu równań y = X {\cdot} \beta otrzymujemy wektor \beta i ostatecznie wartość P[i].
 Wyliczona wartość P[i] jest mocą grzałki którą należy ustawić w obecnej chwili
 czasu tak aby zapewnić optymalne sterowanie.
 Jeśli P[i] < 0, grzanie w obecnej jednostce czasu wyłączamy.
@@ -431,7 +431,7 @@ Tutaj konsekwentnie używamy oznaczeń z Wikipedii.
 Potrzebujemy macierz wag W.
 Jest to macierz diagonalna (z wartościami niezerowymi tylko na przekątnej).
 Definiujemy wektor błędu jako:
-e = W^{1/2}(X * \beta - y)
+e = W^{1/2}(X {\cdot} \beta - y)
  - błąd mierzymy jako różnicę różnicy temperatur {\Delta}U[k] którą mamy uzyskać w
    k-tym oknie czasowym a tym co uzyskamy.
 
@@ -439,9 +439,9 @@ Minimalizujemy sumę kwadratów błędów, minimalizując e^{T} e.
 (to z tym T to transpozycja).
 
 Na podstawie tego wszystkiego otrzymujemy normalny układ równań (normal equations):
-X^{T} * W * X * \beta = X^{T} * W * y
-//przypominam że mnożenie macierzy nie jest łączne: (A * B) * C nie musi być 
-//równe A * (B * C)
+X^{T} {\cdot} W {\cdot} X {\cdot} \beta = X^{T} {\cdot} W {\cdot} y
+//przypominam że mnożenie macierzy nie jest łączne: (A {\cdot} B) {\cdot} C nie musi być 
+//równe A {\cdot} (B {\cdot} C)
 
 Ten układ równań potrafimy rozwiązać w sposób dokładny (w tym układzie równań
 mamy n = m) i w ten sposób uzyskać "optymalne" rozwiązanie dla \bety  
