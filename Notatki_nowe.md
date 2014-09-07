@@ -1,3 +1,6 @@
+//pisać coś o HVAC
+
+
 Sekcja 1: Założenia
 -------------------
 
@@ -5,20 +8,22 @@ Dla skupienia uwagi możemy projektować pod tę komorę:
 
 http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf
 
+Można założyć (w sposób bardzo agresywny):
+- okres co jaki wykonuje się pętla kontrolna: W = 5 sekund,
+       
+  Pętla kontrolna składa się z następujących operacji: pobranie danych -> 
+  przetwarzanie -> ustawienie wyjść. Jeden taki okres nazywamy przedziałem
+  czasu albo jednostką czasu. Zakładamy, że w jednym przedziale czasu ustawienia 
+  urządzeń wpływających na
+  temperaturę w komorze (moc grzałki, wentylatora, itd) są stałe, a temperatura
+  zmienia się jedynie w ograniczonym zakresie.
 
-
-Można założyć (w sposób bardzo konserwatywny):
-
-- time slice W = 5 sekund,
-//- Rozumiesz koncepcję time slice (przedziału czasowego): po prostu jest 
-to okres co jaki wykonuje się pętla sterująca 
-(pobranie danych -> przetwarzanie -> ustawienie wyjść)
-
-- po wyłączeniu grzania temperatura w komorze się ustabilizuje w czasie 
-mniejszym niż 10 minut (czyli po K = 120 jednostkach czasu),
-
-- ew. można te parametry skorygować, tak żeby tę liczbę 120 zmniejszyć, 
-te wartości tutaj są dosyć wyśrubowane.
+- po wyłączeniu grzania temperatura w komorze się stabilizuje w czasie 
+mniejszym niż 10 minut (czyli po K = 120 jednostkach czasu).
+  Po tym czasie przestajemy śledzić konsekwencje grzania w przeszłości,
+          
+Wartości podane powyżej są dosyć wyśrubowane, można je złagodzić tak aby zmniejszyć
+wartość K.
 	
 Na razie pomijamy chłodzenie, żeby uprościć problem. W sumie to jednak 
 dosyć dobrze pasuje do różnych systemów HVAC, które mogą działać bez 
@@ -190,11 +195,11 @@ Po rozwiązaniu go, otrzymujemy wartości funkcji `f(x)` oraz `j(x)`, które bę
 do świadomego sterowania komorą.
 
 
-Sekcja 4: Sterowanie przy użyciu wartości funkcji f - bez użycia wag
---------------------------------------------------------------------
+Sekcja 4: Sterowanie
+--------------------
 
-Znając wartości funkcji f() wyliczone na podstawie danych historycznych, można
-przewidzieć przebieg temperatury towarzyszący procesom grzania i z tego
+Znając wartości funkcji `f(x)` oraz `j(x)` wyliczone na podstawie danych historycznych,
+można przewidzieć przebieg temperatury towarzyszący procesom grzania i z tego
 względu w sposób świadomy sterować grzałką.
 
 

@@ -65,3 +65,7 @@ Sekcja 3: Uwzględnienie upływu ciepła
 
         - aproksymacja takim wielomianem spowodowałaby możliwość
           dokładniejszego przewidywania szybkości upływu ciepła,
+
+nie, 7 wrz 2014, 11:08:22 CEST
+Ujednolicić nazewnictwo: time slice, jednostka czasu, przedział czasu,
+przedział czasowy,
