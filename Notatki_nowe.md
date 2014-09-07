@@ -312,8 +312,8 @@ Wtedy mamy układ równań:
 - problem: mogą wyjść liczby ujemne,
 
 Mamy więc równanie macierzowe (na razie pomijam wagi):
- - oznaczenia jak na http://en.wikipedia.org/wiki/Least_squares
-y = X * β
+ - oznaczenia jak na [Wikipedii](http://en.wikipedia.org/wiki/Least_squares)
+$$y = X * \beta$$
 
 Dla K=3
 oraz i = 9 mamy:
@@ -346,20 +346,26 @@ Wektor y odpowiada residualnej krzywej temperaturowej -
   które wynikają z tego co już grzaliśmy,
 - mamy residualną krzywą temperaturową,
 
-β = [
-        P[9];
-        P[10];
-        P[11];
-        P[12];
-        P[13]
-] 
+$$
+\beta = 
+\begin{bmatrix}
+        P[9]  \\\\
+        P[10] \\\\
+        P[11] \\\\
+        P[12] \\\\
+        P[13] 
+\end{bmatrix}
+$$
 
-X = [
- f(1), f(0), 0,    0,    0;
- f(2), f(1), f(0), 0,    0;
- f(3), f(2), f(1), f(0), 0;
- 0,    f(3), f(2), f(1), f(0);
-]
+$$
+X = 
+\begin{bmatrix}
+ f(1)& f(0)& 0&    0&    0              \\\\
+ f(2)& f(1)& f(0)& 0&    0              \\\\
+ f(3)& f(2)& f(1)& f(0)& 0              \\\\
+ 0&    f(3)& f(2)& f(1)& f(0)           \\\\
+\end{bmatrix}
+$$
 
 Niech L = przesunięcie od którego zaczynamy uwzględniać równania w układzie
 równań.
@@ -381,9 +387,9 @@ Wektor y:
                 y[u] = {\Delta}U[k] - \sum_{n=k-K}^{i-1} P[n] * f(k-n)
 
 
-Wektor β:
-        β[1] = P[i]
-        β[u] = P[i + u-1]
+Wektor \beta:
+        \beta[1] = P[i]
+        \beta[u] = P[i + u-1]
 
 Macierz X:
         X[u,v] oznacza element w u-tym wierszu i v-tej kolumnie.
@@ -397,7 +403,7 @@ Macierz X:
 
 
 Po skonstruowaniu w powyższy sposób macierzy X oraz wektora y oraz rozwiązaniu
-układu równań y = X * β otrzymujemy wektor β i ostatecznie wartość P[i].
+układu równań y = X * \beta otrzymujemy wektor \beta i ostatecznie wartość P[i].
 Wyliczona wartość P[i] jest mocą grzałki którą należy ustawić w obecnej chwili
 czasu tak aby zapewnić optymalne sterowanie.
 Jeśli P[i] < 0, grzanie w obecnej jednostce czasu wyłączamy.
@@ -416,7 +422,7 @@ Rozwiązywanie układu równań z uwzględnieniem wag błędów jest opisane tut
 http://math.stackexchange.com/a/709683
 http://en.wikipedia.org/wiki/Linear_least_squares_%28mathematics%29#Weighted_linear_least_squares
 (na Wikipedii oraz StackExchange są inne oznaczenia.
-Na StackExchange minimalizujemy W(Ax−b), na Wikipedii: W^{1/2}(Xβ - y)
+Na StackExchange minimalizujemy W(Ax−b), na Wikipedii: W^{1/2}(X\beta - y)
 W^{1/2} oznacza niezależny pierwiastek z każdej z wartości.
 
 Tutaj konsekwentnie używamy oznaczeń z Wikipedii.
@@ -425,7 +431,7 @@ Tutaj konsekwentnie używamy oznaczeń z Wikipedii.
 Potrzebujemy macierz wag W.
 Jest to macierz diagonalna (z wartościami niezerowymi tylko na przekątnej).
 Definiujemy wektor błędu jako:
-e = W^{1/2}(X * β - y)
+e = W^{1/2}(X * \beta - y)
  - błąd mierzymy jako różnicę różnicy temperatur {\Delta}U[k] którą mamy uzyskać w
    k-tym oknie czasowym a tym co uzyskamy.
 
@@ -433,7 +439,7 @@ Minimalizujemy sumę kwadratów błędów, minimalizując e^{T} e.
 (to z tym T to transpozycja).
 
 Na podstawie tego wszystkiego otrzymujemy normalny układ równań (normal equations):
-X^{T} * W * X * β = X^{T} * W * y
+X^{T} * W * X * \beta = X^{T} * W * y
 //przypominam że mnożenie macierzy nie jest łączne: (A * B) * C nie musi być 
 //równe A * (B * C)
 
