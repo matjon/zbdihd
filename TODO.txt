@@ -52,3 +52,16 @@ Mamy N zbiorów danych historycznych o postaci:
 
 sob, 6 wrz 2014, 21:33:49 CEST
 Nie używać \delta U
+
+nie, 7 wrz 2014, 10:47:28 CEST
+Sekcja 3: Uwzględnienie upływu ciepła
+- bardziej wyrafinowany algorytm do aproksymacji / interpolacji
+  szybkości upływu ciepła w danej temperaturze.
+
+- można aproksymować szybkość upływu ciepła wielomianem o stopniu równym lub
+  mniejszym 5:
+        - gdybyśmy znali dokładne wartości `(∆T[k] | T[k])`, to można by je z bardzo dużą 
+        dokładnością aproksymować wielomianowo (ze względów fizycznych),
+
+        - aproksymacja takim wielomianem spowodowałaby możliwość
+          dokładniejszego przewidywania szybkości upływu ciepła,

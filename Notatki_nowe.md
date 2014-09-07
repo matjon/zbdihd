@@ -154,8 +154,6 @@ równań, co byłoby niekorzystne z dwóch względów:
 - do wyliczenia układu równań potrzebnych byłoby bardzo wiele danych historycznych,
 - spadłaby dokładność oszacowania wartości tych niewiadomych.
 
-
-
 Niech `(∆T[k] | T[k])` - szybkość upływu ciepła z komory (zmiana temperatury zależna od 
 obecnej temperatury w komorze).
 Przyjmujemy, że `(∆T[k] | T[k]) < 0`.
@@ -169,20 +167,8 @@ Wzór na `∆T[k]` przyjmuje więc postać:
 (trzeba tu zauważyć, że w większości przypadków temperaturę znamy z dokładnością
 do co najmniej 0,1°C, zatem interpolacja i tak byłaby konieczna).
 
-TODO: można w sumie aproksymować całość tak żeby krzywą temperatury wygładzić, 
-przedstawić ją jako wielomian o stopniu wynoszącym co najwyżej 5
-
-- gdybyśmy znali dokładne wartości `(∆T[k] | T[k])`, to można by je z bardzo dużą 
-dokładnością aproksymować wielomianowo (ze względów fizycznych),
-
-- tak żeby nie było tak dużego wpływu na odchyłki temperatury.
-
 Szybkość ucieczki ciepła można aproksymować w podany niżej prosty sposób:
-
-//TODO: bardziej wyrafinowany algorytm.
-
  - mamy funkcję `j(x)` - zdefiniowaną dla wartości x podzielnych przez 5,
- 
  - dla k nie należącego do dziedziny funkcji j mamy: 
 
         m = k - (k % 5)
