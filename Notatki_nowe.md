@@ -1,17 +1,4 @@
 
-<!-- Opracowane na podstawie http://docs.mathjax.org/en/latest/start.html -->
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-});
-</script>
-
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-
-
 
 //pisać coś o HVAC
 
@@ -64,12 +51,13 @@ Rozważamy jednostkę o numerze k.
 
 Przyrost temperatury podczas tej jednostki czasu jest równy:
 
-    ∆T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} (ΔT[k] | P[j])
+    ∆T[k] = T[k+1] - T[k] ≈ \sum\_{j=0}^{k} (ΔT[k] | P[j])
 
 (Na razie pomijamy upłyu ciepła przez ściany komory. Pomijamy również ciepło
 wytwarzane w urządzeniu znajdującym się w komorze.)
 
 Gdzie:
+
 - `T[k]` - temperatura na początku k-tej jednostki czasu,
 - `(ΔT[k] | P[j])` - przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
                 j-tej jednostce czasu. Oczywiście `k >= j` (grzanie nie może wpłynąć
@@ -83,6 +71,7 @@ Musimy więc założyć:
     (ΔT[k] | P[j]) = P[j] * f(k-j)
 
 Gdzie:
+
 - `P[j]` - moc grzałki w jednostce czasu o indeksie j,
 - `f(x)` - pewna funkcja dążąca do zera dla x dążącego do nieskończoności:
  
@@ -149,7 +138,7 @@ i ogólnie:
 W tym wypadku przy definicji splotu pomijamy składniki dla których `f(x) ≡ 0`.
 
 Mamy więc układ równań:
-∆T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k] = 
+∆T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k] = 
 
     k
 =   ∑   P[j] f(k-j) =
@@ -401,7 +390,7 @@ Minimalizujemy sumę kwadratów błędów, minimalizując e^{T} e.
 (to z tym T to transpozycja).
 
 Na podstawie tego wszystkiego otrzymujemy normalny układ równań (normal equations):
-X^{T}*W*X * β = X^{T}*W * y
+X^{T} * W * X * β = X^{T} * W * y
 //przypominam że mnożenie macierzy nie jest łączne: (A * B) * C nie musi być 
 //równe A * (B * C)
 
