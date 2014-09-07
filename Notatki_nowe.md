@@ -49,9 +49,9 @@ Rozważamy jednostkę o numerze k.
 
 Przyrost temperatury podczas tej jednostki czasu jest równy:
 
-        ∆T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} (ΔT[k] | P[j])
+    ∆T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} (ΔT[k] | P[j])
 
-(Na razie pomijamy upływ ciepła przez ściany komory. Pomijamy również ciepło
+(Na razie pomijamy upłyu ciepła przez ściany komory. Pomijamy również ciepło
 wytwarzane w urządzeniu znajdującym się w komorze.)
 
 Gdzie:
@@ -65,7 +65,7 @@ Jesteśmy w stanie bezpośrednio zmierzyć jedynie `T[k]`, chcielibyśmy jednak 
 
 Musimy więc założyć:
 
-        (ΔT[k] | P[j]) = P[j] * f(k-j)
+    (ΔT[k] | P[j]) = P[j] * f(k-j)
 
 Gdzie:
 - `P[j]` - moc grzałki w jednostce czasu o indeksie j,
@@ -99,7 +99,7 @@ Po przyjęciu że f(x) ≡ 0 dla x >= K + 1 mamy:
 
 	∆T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
 	
-        (wewnętrzna suma przechodzi przez K + 1 wartości)
+(wewnętrzna suma przechodzi przez K + 1 wartości)
 
 Rozważymy teraz dla przykładu postać sumy dla niskich wartości k:
 Dla k=0:
@@ -120,15 +120,18 @@ I podsumowując, przez analogię:
 	∆T[2] = T[3] - T[2] ≈ (P[0] * f(2) + P[1] * f(1) + P[2] * f(0))
 	∆T[3] = T[4] - T[3] ≈ (P[0] * f(3) + P[1] * f(2) + P[2] * f(1) + P[3] * f(0))
 
-Taką strukturnę nazywamy 
+Taką strukturę nazywamy 
 [splotem (convolution)](http://en.wikipedia.org/wiki/Convolution#Discrete_convolution "Wikipedia: Convolution").
 
 Mamy więc:
-∆T[2] = T[3] - T[2] ≈ (P * f)[2]
-i ogólnie:
-∆T[k] = T[k+1] - T[k] ≈ (P * f)[k]
 
-W tym wypadku przy definicji splotu pomijamy składniki dla których f(x) = 0.
+	∆T[3] = T[4] - T[3] ≈ (P * f)[3]
+	
+i ogólnie:
+	
+	∆T[k] = T[k+1] - T[k] ≈ (P * f)[k]
+
+W tym wypadku przy definicji splotu pomijamy składniki dla których `f(x) ≡ 0`.
 
 Mamy więc układ równań:
 ∆T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k] = 
