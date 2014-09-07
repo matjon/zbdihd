@@ -55,7 +55,7 @@ Gdzie:
 - `T[k]` - temperatura na początku k-tej jednostki czasu,
 - `(ΔT[k] | P[j])` - przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
                 j-tej jednostce czasu. Oczywiście `k >= j` (grzanie nie może wpłynąć
-                na zmianę temperatury przed rozpoczęciem grzania).
+                na zmianę temperatury przed jego rozpoczęciem).
 
 Jesteśmy w stanie bezpośrednio zmierzyć jedynie `T[k]`, chcielibyśmy jednak znać
 `(ΔT[k] | P[j])`.
@@ -65,27 +65,25 @@ Musimy więc założyć:
         (ΔT[k] | P[j]) = P[j] * f(k-j)
 
 Gdzie:
-- P[j] - moc grzałki w danej jednostce czasu 
-- f(x) - pewna funkcja dążąca do zera dla x dążącego do nieskończoności, 
-         lim_{k -> +∞} (ΔT[k] | P[j]) = 0
+- `P[j]` - moc grzałki w jednostce czasu o indeksie j,
+- `f(x)` - pewna funkcja dążąca do zera dla x dążącego do nieskończoności:
 
-        - zdefiniowana dla wartości nieujemnych,
-        - f(0) - stosunek przyrostu temperatury w tym samym przedziale czasu kiedy
-                 grzejemy do mocy grzałki 
-                 (Jeśli przed obecnym przedziałem czasu układ znajdował się w
-                 równowadze)
-                 (dotyczy sytuacji kiedy przyrost temperatury jest w tej samej
-                 jednostce czasu co grzanie)
-        - po K = 120 okresach sytuacja się stabilizuje, z tego względu można
-          uznać że f(x) ≡ 0 dla x > K )
-                - czyli f(x) może być niezerowe dla x <= K
-                - istnieje co najwyżej K+1 niezerowych wartości funkcji f(x):
+		lim_{k -> +∞} (ΔT[k] | P[j]) = 0
+
+  - jest ona zdefiniowana wyłącznie dla wartości nieujemnych (grzanie nie może wpłynąć
+                na zmianę temperatury przed jego rozpoczęciem),
+  - jeśli na początku rozważanego przedziału czasu układ znajdował się w równowadze,
+   	to wartość `f(0)` jest równa stosunkowi przyrostu temperatury w rozważanym przedziale czasu
+	do mocy grzałki w rozważanym przedziale czasu,
+  - po K = 120 przedziałach czasu od rozpoczęcia grzania, ciepło wydzielone przez grzałkę zostaje 
+	rozproszone w komorze i nie wpływa już na zmiany temperatury na termometrze.
+	Z tego względu można uznać że `f(x) ≡ 0` dla `x > K`.
+        - czyli f(x) może być niezerowe dla x <= K
+        - istnieje co najwyżej K+1 niezerowych wartości funkcji f(x):
                         0 oraz od 1 do K
-                - jeden okres przeznaczony na grzanie który nie wlicza się do
-                  czasu stabilizacji oraz K okresów przez które temperatura 
-                  się stabilizuje
-                //wyliczyłem to na kartce z nr 6 i zweryfikowałem niezależnie
-                // na kartce nr 7
+        - jeden okres przeznaczony na grzanie który nie wlicza się do
+             czasu stabilizacji oraz K okresów przez które temperatura 
+             się stabilizuje
  	
 Mamy więc po podstawieniu:
 ∆T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} P[j] * f(k-j)
