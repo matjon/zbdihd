@@ -225,41 +225,39 @@ zmian temperatury) spowodowałoby znaczny wzrost liczby niewiadomych w układzie
 równań, co byłoby niekorzystne z dwóch względów:
 
 - do wyliczenia układu równań potrzebnych byłoby bardzo wiele danych historycznych,
-- spadłaby znacznie dokładność oszacowania wartości tych niewiadomych.
+- spadłaby znacznie dokładność oszacowania wartości niewiadomych.
 
 Niech $({\Delta}T[k] \:|\: T[k])$ - szybkość upływu ciepła z komory (zmiana temperatury zależna od 
 obecnej temperatury w komorze).
 Przyjmujemy, że $({\Delta}T[k] \:|\: T[k]) < 0$.
 
-Wzór na ${\Delta}T[k]$ przyjmuje więc postać: 
+Równanie $\ref{s2dec1}$ uzupełnione o wpływ temperatury przyjmuje postać: 
 
-  $${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + \sum\_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])$$
+  $${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + \sum\_{j=0}^{k} ({\Delta}T[k] \:|\: P[j]) \label{s3eqs}$$
 
-Żeby ograniczyć liczbę niewiadomych w układzie równań, można próbować definiować
-$({\Delta}T[k] \:|\: T[k])$ co - powiedzmy - 5°C i wykonywać interpolację albo aproksymację 
+Żeby ograniczyć liczbę niewiadomych w układzie równań, można określić
+$({\Delta}T[k] \:|\: T[k])$ co - powiedzmy - $L = 5\mathrm{°C}$ i wykonywać interpolację albo aproksymację 
 dla pozostałych wartości
-(trzeba tu zauważyć, że w większości przypadków temperaturę znamy z dokładnością
-0,1°C, zatem interpolacja lub aproksymacja i tak byłaby konieczna).
+(trzeba tu zauważyć, że temperaturę będziemy znali z dokładnością co najmniej
+0,1°C, zatem interpolacja lub aproksymacja i tak jest konieczna).
 
-Szybkość ucieczki ciepła można aproksymować w podany niżej prosty sposób:
+Szybkość ucieczki ciepła można aproksymować w podany poniżej prosty sposób:
 
- - mamy funkcję $j(x)$ - zdefiniowaną dla wartości x podzielnych przez 5,
- - dla k nie należącego do dziedziny funkcji $j(x)$ mamy (zaokrąglamy $k$ w dół do liczby podzielnej przez 5):
+ - definiujemy pewną funkcję $j(x)$ - określoną dla wartości x podzielnych przez 5,
+ - dla $k$ nie należącego do dziedziny funkcji $j(x)$ mamy (zaokrąglamy $k$ w dół do liczby podzielnej przez 5):
 
-$$m = k - (k\mod 5)$$
+$$m = k - (k \bmod 5)$$
 
-$$({\Delta}T[k] \:|\: T[k]) = (j(m-5) + j(m) + j(m+5) + j(m+10)) / 4$$
+$$({\Delta}T[k] \:|\: T[k]) = \frac{j(m-5) + j(m) + j(m+5) + j(m+10)}{4}$$
 
 
  - dla k należącego do dziedziny funkcji j mamy:
         
-$$ ({\Delta}T[k] \:|\: T[k]) = (j(k-5) + j(k) + j(k+5)) / 3$$
+$$ ({\Delta}T[k] \:|\: T[k]) = \frac{j(k-5) + j(k) + j(k+5)}{3}$$
 
 <br>
 
-Powyższe wzory można w prosty sposób uwzględnić w układzie równań:
-
-$${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + \sum\_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])$$
+Powyższe wzory można w prosty sposób uwzględnić w układzie równań $\ref{s3eqs}$.
 
 Po rozwiązaniu go, otrzymujemy wartości funkcji $f(x)$ oraz $j(x)$, które będą potrzebne
 do świadomego sterowania komorą.
