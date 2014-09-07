@@ -1,11 +1,14 @@
 //pisać coś o HVAC
 
+//komora klimatyczna: kontrola też wilgotności
+//komorat temperaturowa: kontrola tylko temperatury
 
 Sekcja 1: Założenia
 -------------------
 
-Dla skupienia uwagi możemy projektować pod tę komorę: 
-http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf
+Dla skupienia uwagi będziemy projektować pod komory temperat serii AR, produkowane przez ESPEC Corporation.
+Ich dokumentacja jest dostępna 
+[tutaj](http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf "Komory serii AR v2.0").
 
 Można założyć (w sposób bardzo agresywny):
 * okres co jaki wykonuje się pętla kontrolna: W = 5 sekund,
@@ -79,39 +82,49 @@ Gdzie:
 	rozproszone w komorze i nie wpływa już na zmiany temperatury na termometrze.
 	Z tego względu można uznać że `f(x) ≡ 0` dla `x > K`:
 
-            - czyli f(x) może być niezerowe tylko dla `0 <= x <= K`,
-            - istnieje co najwyżej K+1 niezerowych wartości funkcji f(x):
-                        0 oraz od 1 do K,
-            - jeden okres przeznaczony na grzanie który nie wlicza się do
+    - czyli f(x) może być niezerowe tylko dla `0 <= x <= K`,
+    - istnieje co najwyżej K+1 niezerowych wartości funkcji `f(x)`:
+    
+      0 oraz od 1 do K,
+                       
+    - mamy zatem jeden okres czasu przeznaczony na grzanie który nie wlicza się do
              czasu stabilizacji oraz K okresów przez które temperatura 
-             się stabilizuje,
+             się stabilizuje.
  	
 Mamy więc po podstawieniu:
-∆T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} P[j] * f(k-j)
+
+	∆T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} P[j] * f(k-j)
 
 Po przyjęciu że f(x) ≡ 0 dla x >= K + 1 mamy:
-∆T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
-        - czyli wewnętrzna suma przechodzi przez K + 1 wartości, zgadza się
 
-Rozważymy teraz postać sumy dla niskich wartości k:
-k = 0
-∆T[0] = T[1] - T[0] ≈ \sum_{j=0}^{0} (ΔT[0] | P[j]) = (ΔT[0] | P[0]) = P[0] * f(0)
-∆T[0] = T[1] - T[0] ≈ [P[0] * f(0)]
+	∆T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
+	
+        (wewnętrzna suma przechodzi przez K + 1 wartości)
+
+Rozważymy teraz dla przykładu postać sumy dla niskich wartości k:
+Dla k=0:
+
+	∆T[0] = T[1] - T[0] ≈ \sum_{j=0}^{0} (ΔT[0] | P[j]) = (ΔT[0] | P[0])
+	∆T[0] = T[1] - T[0] ≈ P[0] * f(0)
 
 Dla k=1:
-∆T[1] = T[2] - T[1] ≈ \sum_{j=0}^{1} (ΔT[1] | P[j]) = (ΔT[1] | P[0]) + (ΔT[1] | P[1]) = 
-	= [ P[0] * f(1-0) + P[1] * f(1-1) ] = [ P[0] * f(1) + P[1] * f(0)]
-∆T[1] = T[2] - T[1] ≈ [ P[0] * f(1) + P[1] * f(0)]
+
+	∆T[1] = T[2] - T[1] ≈ \sum_{j=0}^{1} (ΔT[1] | P[j])
+	∆T[1] = T[2] - T[1] ≈ (ΔT[1] | P[0]) + (ΔT[1] | P[1])
+	∆T[1] = T[2] - T[1] ≈ ( P[0] * f(1) + P[1] * f(0) )
 
 
-∆T[0] = T[1] - T[0] ≈ [P[0] * f(0)] 
-∆T[1] = T[2] - T[1] ≈ [P[0] * f(1) + P[1] * f(0)]
-∆T[2] = T[3] - T[2] ≈ [P[0] * f(2) + P[1] * f(1) + P[2] * f(0)]
+I podsumowując, przez analogię:
+	∆T[0] = T[1] - T[0] ≈ (P[0] * f(0))
+	∆T[1] = T[2] - T[1] ≈ (P[0] * f(1) + P[1] * f(0))
+	∆T[2] = T[3] - T[2] ≈ (P[0] * f(2) + P[1] * f(1) + P[2] * f(0))
+	∆T[3] = T[4] - T[3] ≈ (P[0] * f(3) + P[1] * f(2) + P[2] * f(1) + P[3] * f(0))
 
-Coś takiego nazywamy splotem (convolution).
-http://en.wikipedia.org/wiki/Convolution#Discrete_convolution
+Taką strukturnę nazywamy 
+[splotem (convolution)](http://en.wikipedia.org/wiki/Convolution#Discrete_convolution "Wikipedia: Convolution").
+
+Mamy więc:
 ∆T[2] = T[3] - T[2] ≈ (P * f)[2]
-
 i ogólnie:
 ∆T[k] = T[k+1] - T[k] ≈ (P * f)[k]
 
