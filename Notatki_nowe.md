@@ -123,6 +123,7 @@ Dodatkowo, dla każdej danej historycznej (pary wartości P[j], T[j])
 mamy zazwyczaj jedno równanie.
 Jeżeli jednak system przy rozpoczęciu zbierania danych nie znajdował sie w stanie
 równowagi termodynamicznej, musimy odrzucić pierwsze K pomiarów.
+Odrzucamy też ostatnie K pomiarów.
 
 
 Można rozpisać funkcję f(x) na następujące składniki:
@@ -453,4 +454,4 @@ Czyli nie przejmujemy się zbytnio tym że termistor mierzy "inną temperaturę"
 I tak różnice temp. wewnątrz komory są stosunkowo duże (wyżej jest oczywiście cieplej), musimy względem czegoś kalibrować / jakiegoś punktu.
 
 
-//      vim: spelllang=pl
+<<<      vim: spelllang=pl >>>
