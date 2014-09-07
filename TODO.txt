@@ -78,3 +78,16 @@ Musimy więc założyć:
 Gdzie:
 - P[j] - moc grzałki w danej jednostce czasu 
 (bardziej chyba powinniśmy używać dostarczonego ciepła, ale to jest detal),
+
+nie, 7 wrz 2014, 12:30:49 CEST
+Sprawdzić że wszędzie używam tego samego znaku dla delty (jest jako litera
+alfabetu greckiego i operator matematyczny).
+
+Podstawienia typu:
+∆T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
+na:
+∆T[k] = T[k+1] - T[k] ≈ \sum_{j=max(0,k-K)}^{k} P[j] * f(k-j)
+
+nie, 7 wrz 2014, 12:35:13 CEST
+Użycie MathJax do renderingu fontów:
+http://stackoverflow.com/a/12979200
