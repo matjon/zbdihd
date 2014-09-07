@@ -63,7 +63,7 @@ Gdzie:
 
 - $T[k]$ - temperatura na początku k-tej jednostki czasu,
 - $({\Delta}T[k] | P[j])$ - przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
-                j-tej jednostce czasu. Oczywiście $k >= j$ (grzanie nie może wpłynąć
+                j-tej jednostce czasu. Oczywiście $k {\geq} j$ (grzanie nie może wpłynąć
                 na zmianę temperatury przed jego rozpoczęciem).
 
 Jesteśmy w stanie bezpośrednio zmierzyć jedynie $T[k]$, chcielibyśmy jednak znać
@@ -102,7 +102,7 @@ Mamy więc po podstawieniu:
 
 	{\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} P[j] * f(k-j)
 
-Po przyjęciu że f(x) ≡ 0 dla x >= K + 1 mamy:
+Po przyjęciu że f(x) ≡ 0 dla x {\geq} K + 1 mamy:
 
 	{\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
 	
@@ -237,7 +237,7 @@ dzieje a tym co było w niedawnej historii i co wpływa bezpośrednio na obecne
 decyzje.
  
 Jesteśmy w chwili czasu i, mamy historię oraz przyszłość do decyzji.
-(zmienne dobieram tak żeby intuicyjnie i <= j)
+(zmienne dobieram tak żeby intuicyjnie i {\leq} j)
 
 Oznaczenia:
 	i - obecna chwila czasu, którą analizujemy
