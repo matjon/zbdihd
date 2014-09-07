@@ -36,9 +36,11 @@ MathJax.Hub.Config({
  serii AR, produkowane przez ESPEC Corporation.
 Ich dokumentacja jest dostępna 
 <a href="http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf 
+" title="Komory serii AR v2.0">tutaj</a>
+i <a href="http://www.klimatest.eu/katalog/Komory%20klimatyczne/_p/Komory%20klimatyczne%20i%20temperaturowe%20AR
 " title="Komory serii AR v2.0">tutaj</a>.</p>
 
-<p>Można założyć (w sposób bardzo agresywny):</p>
+<p>Można założyć (w sposób dosyć agresywny):</p>
 
 <ul>
 <li><p>okres co jaki wykonuje się pętla kontrolna: $W = 5$ sekund,</p>
@@ -60,28 +62,44 @@ Przedziały czasu będziemy indeksować kolejnymi liczbami całkowitymi, poczyna
 <li><p>po wyłączeniu grzania temperatura w komorze się stabilizuje w czasie 
 mniejszym niż 10 minut (czyli po K = 120 jednostkach czasu).
 Po tym czasie przestajemy śledzić konsekwencje grzania w przeszłości,</p></li>
-<li><p>dokumentacja dla komór temperaturowych serii AR podaje, że </p></li>
-<li>//temperatura w komorze,</li>
 </ul>
 Wartości podane powyżej są dosyć wyśrubowane, można je złagodzić tak aby zmniejszyć
 wartość K.</p>
 
-<p>Na razie pomijamy chłodzenie, żeby uprościć problem. W sumie to jednak 
+<p>Ponadto:</p>
+
+<ul>
+<li><p>dokumentacja dla komór temperaturowych serii AR (pierwszy link, strona 5) podaje, 
+że "Odchyłka temperatury w przestrzeni" jest równa 3,0 K. Jest to wartość dosyć duża.
+Z tego względu wydaje się zasadne dopasowywanie bezpośrednio temperatury mierzonej
+przez termometr do temperatury zadanej przez charakterystykę czasową i pomijanie
+opóźnień na termometrze (wynikających raczej nie z natury samego termometru, ale
+z czasu potrzebnego na dotarcie ciepła z grzałki do termometru).  </p></li>
+<li><p>porównanie charakterystyk różnych mierników temperatury można znaleźć 
+<a href="http://cp.literature.agilent.com/litweb/pdf/5965-7822E.pdf">tutaj</a>.
+Zakładamy termistor, który wg nas jest najlepszy do zastosowania w omawianym urządzeniu.
+Posiada on przede wszystkim bardzo dużą szybkość działania oraz dużą dokładność.</p></li>
+<li><p>pomijamy chłodzenie, żeby uprościć problem. W sumie to jednak 
 dosyć dobrze pasuje do różnych systemów HVAC, które mogą działać bez 
-klimatyzatora (np. w zimie).</p>
+klimatyzatora (np. w zimie).</p></li>
+</ul>
+
+<p>W pracy będziemy się starali ograniczyć drgania typu: 
+grzanie -> chłodzenie (bo zbyt mocno ogrzaliśmy) -> grzanie (bo zbyt mocno ochłodziliśmy)</p>
 
 <h2>Sekcja 2: Analiza wpływu grzania na przebieg temperatury w komorze</h2>
 
-<p>Na zmiany temperatury w komorze może wpływa
-Na nią mogą bowiem wpływać decyzje podjęte później. Można to uchwycić matematycznie:</p>
+<p>Na zmiany temperatury w komorze mogą wpływać procesy (np. grzania) 
+zachodzące stosunkowo dawno temu (wcześniej niż $K W$).
+W tej sekcji postaramy się uchwycić to zachowanie komory w sposób matematyczny.</p>
 
-<p>Rozważamy jednostkę o numerze $k$.</p>
+<p>Rozważamy jednostkę czasu o numerze $k$.</p>
 
-<p>Przyrost temperatury podczas tej jednostki czasu można przybliżyć jako:</p>
+<p>Przyrost temperatury podczas tej jednostki można przybliżyć jako:</p>
 
 <p>$${\Delta}T[k] = T[k+1] - T[k] \approx \sum_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])$$</p>
 
-<p>(Na razie pomijamy upływ ciepła przez ściany komory. Pomijamy również ciepło
+<p>(Na razie pomijamy upływ ciepła przez ściany komory. Pomijamy również ew. ciepło
 wytwarzane w urządzeniu znajdującym się w komorze.)</p>
 
 <p>Gdzie:</p>

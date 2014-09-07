@@ -12,11 +12,13 @@ Dla skupienia uwagi będziemy projektować pod komory temperaturowe
  serii AR, produkowane przez ESPEC Corporation.
 Ich dokumentacja jest dostępna 
 [tutaj](http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf 
+"Komory serii AR v2.0")
+i [tutaj](http://www.klimatest.eu/katalog/Komory%20klimatyczne/_p/Komory%20klimatyczne%20i%20temperaturowe%20AR
 "Komory serii AR v2.0").
 
-Można założyć (w sposób bardzo agresywny):
+Można założyć (w sposób dosyć agresywny):
 
-* okres co jaki wykonuje się pętla kontrolna: W = 5 sekund,
+* okres co jaki wykonuje się pętla kontrolna: $W = 5$ sekund,
        
   Pętla kontrolna składa się z następujących operacji: 
 
@@ -28,35 +30,53 @@ Można założyć (w sposób bardzo agresywny):
   czasu albo jednostką czasu. Zakładamy, że w jednym przedziale czasu ustawienia 
   urządzeń wpływających na
   temperaturę w komorze (moc grzałki, wentylatora, itd) są stałe, a temperatura
-  zmienia się jedynie w ograniczonym zakresie.
+  zmienia się jedynie w ograniczonym zakresie. 
+  Przedziały czasu będziemy indeksować kolejnymi liczbami całkowitymi, poczynając od 0.
 
 * po wyłączeniu grzania temperatura w komorze się stabilizuje w czasie 
-mniejszym niż 10 minut (czyli po K = 120 jednostkach czasu).
+  mniejszym niż 10 minut (czyli po K = 120 jednostkach czasu).
   Po tym czasie przestajemy śledzić konsekwencje grzania w przeszłości,
-          
+
 Wartości podane powyżej są dosyć wyśrubowane, można je złagodzić tak aby zmniejszyć
 wartość K.
+
+Ponadto:
+
+* dokumentacja dla komór temperaturowych serii AR (pierwszy link, strona 5) podaje, 
+  że "Odchyłka temperatury w przestrzeni" jest równa 3,0 K. Jest to wartość dosyć duża.
+  Z tego względu wydaje się zasadne dopasowywanie bezpośrednio temperatury mierzonej
+  przez termometr do temperatury zadanej przez charakterystykę czasową i pomijanie
+  opóźnień na termometrze (wynikających raczej nie z natury samego termometru, ale
+  z czasu potrzebnego na dotarcie ciepła z grzałki do termometru).  
+
+* porównanie charakterystyk różnych mierników temperatury można znaleźć 
+  [tutaj](http://cp.literature.agilent.com/litweb/pdf/5965-7822E.pdf).
+  Zakładamy termistor, który wg nas jest najlepszy do zastosowania w omawianym urządzeniu.
+  Posiada on przede wszystkim bardzo dużą szybkość działania oraz dużą dokładność.
+
+* pomijamy chłodzenie, żeby uprościć problem. W sumie to jednak 
+  dosyć dobrze pasuje do różnych systemów HVAC, które mogą działać bez 
+  klimatyzatora (np. w zimie).
+
+W pracy będziemy się starali ograniczyć drgania typu: 
+grzanie -> chłodzenie (bo zbyt mocno ogrzaliśmy) -> grzanie (bo zbyt mocno ochłodziliśmy)
+
 	
-Na razie pomijamy chłodzenie, żeby uprościć problem. W sumie to jednak 
-dosyć dobrze pasuje do różnych systemów HVAC, które mogą działać bez 
-klimatyzatora (np. w zimie).
 
 Sekcja 2: Analiza wpływu grzania na przebieg temperatury w komorze
 ------------------------------------------------------------------
 
-Na nią mogą bowiem wpływać decyzje podjęte później. Można to uchwycić matematycznie:
+Na zmiany temperatury w komorze mogą wpływać procesy (np. grzania) 
+zachodzące stosunkowo dawno temu (wcześniej niż $K W$).
+W tej sekcji postaramy się uchwycić to zachowanie komory w sposób matematyczny.
 
-Dzielimy czas na jednostki o szerokości W. Zakładamy, że w obrębie każdej jednostki
-moc grzałki oraz ew. innych urządzeń jest stała.
-Kolejne jednostki są numerowane liczbami całkowitymi.
+Rozważamy jednostkę czasu o numerze $k$.
 
-Rozważamy jednostkę o numerze $k$.
-
-Przyrost temperatury podczas tej jednostki czasu można przybliżyć jako:
+Przyrost temperatury podczas tej jednostki można przybliżyć jako:
 
 $${\Delta}T[k] = T[k+1] - T[k] \approx \sum\_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])$$
 
-(Na razie pomijamy upływ ciepła przez ściany komory. Pomijamy również ciepło
+(Na razie pomijamy upływ ciepła przez ściany komory. Pomijamy również ew. ciepło
 wytwarzane w urządzeniu znajdującym się w komorze.)
 
 Gdzie:
