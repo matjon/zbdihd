@@ -52,7 +52,7 @@ Rozważamy jednostkę o numerze k.
 
 Przyrost temperatury podczas tej jednostki czasu jest równy:
 
- \\(\{Delta}T[k] = T[k+1] - T[k] \approx \sum\_{j=0}^{k} (\{Delta}T[k] | P[j])\\)
+ \\({\Delta}T[k] = T[k+1] - T[k] \approx \sum\_{j=0}^{k} ({\Delta}T[k] | P[j])\\)
 
 (Na razie pomijamy upłyu ciepła przez ściany komory. Pomijamy również ciepło
 wytwarzane w urządzeniu znajdującym się w komorze.)
@@ -60,23 +60,23 @@ wytwarzane w urządzeniu znajdującym się w komorze.)
 Gdzie:
 
 - `T[k]` - temperatura na początku k-tej jednostki czasu,
-- `(\{Delta}T[k] | P[j])` - przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
+- `({\Delta}T[k] | P[j])` - przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
                 j-tej jednostce czasu. Oczywiście `k >= j` (grzanie nie może wpłynąć
                 na zmianę temperatury przed jego rozpoczęciem).
 
 Jesteśmy w stanie bezpośrednio zmierzyć jedynie `T[k]`, chcielibyśmy jednak znać
-`(\{Delta}T[k] | P[j])`.
+`({\Delta}T[k] | P[j])`.
 
 Musimy więc założyć:
 
-    (\{Delta}T[k] | P[j]) = P[j] * f(k-j)
+$$({\Delta}T[k] | P[j]) = P[j] * f(k-j)$$
 
 Gdzie:
 
 - `P[j]` - moc grzałki w jednostce czasu o indeksie j,
 - `f(x)` - pewna funkcja dążąca do zera dla x dążącego do nieskończoności:
  
-		lim_{k -> +∞} (\{Delta}T[k] | P[j]) = 0
+		lim_{k -> +∞} ({\Delta}T[k] | P[j]) = 0
 
   - jest ona zdefiniowana wyłącznie dla wartości nieujemnych (grzanie nie może wpłynąć
                 na zmianę temperatury przed jego rozpoczęciem),
@@ -98,48 +98,48 @@ Gdzie:
  	
 Mamy więc po podstawieniu:
 
-	\{Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} P[j] * f(k-j)
+	{\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} P[j] * f(k-j)
 
 Po przyjęciu że f(x) ≡ 0 dla x >= K + 1 mamy:
 
-	\{Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
+	{\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
 	
 (wewnętrzna suma przechodzi przez K + 1 wartości)
 
 Rozważymy teraz dla przykładu postać sumy dla niskich wartości k:
 Dla k=0:
 
-	\{Delta}T[0] = T[1] - T[0] ≈ \sum_{j=0}^{0} (\{Delta}T[0] | P[j]) = (\{Delta}T[0] | P[0])
-	\{Delta}T[0] = T[1] - T[0] ≈ P[0] * f(0)
+	{\Delta}T[0] = T[1] - T[0] ≈ \sum_{j=0}^{0} ({\Delta}T[0] | P[j]) = ({\Delta}T[0] | P[0])
+	{\Delta}T[0] = T[1] - T[0] ≈ P[0] * f(0)
 
 Dla k=1:
 
-	\{Delta}T[1] = T[2] - T[1] ≈ \sum_{j=0}^{1} (\{Delta}T[1] | P[j])
-	\{Delta}T[1] = T[2] - T[1] ≈ (\{Delta}T[1] | P[0]) + (\{Delta}T[1] | P[1])
-	\{Delta}T[1] = T[2] - T[1] ≈ ( P[0] * f(1) + P[1] * f(0) )
+	{\Delta}T[1] = T[2] - T[1] ≈ \sum_{j=0}^{1} ({\Delta}T[1] | P[j])
+	{\Delta}T[1] = T[2] - T[1] ≈ ({\Delta}T[1] | P[0]) + ({\Delta}T[1] | P[1])
+	{\Delta}T[1] = T[2] - T[1] ≈ ( P[0] * f(1) + P[1] * f(0) )
 
 
 I podsumowując, przez analogię:
-	\{Delta}T[0] = T[1] - T[0] ≈ (P[0] * f(0))
-	\{Delta}T[1] = T[2] - T[1] ≈ (P[0] * f(1) + P[1] * f(0))
-	\{Delta}T[2] = T[3] - T[2] ≈ (P[0] * f(2) + P[1] * f(1) + P[2] * f(0))
-	\{Delta}T[3] = T[4] - T[3] ≈ (P[0] * f(3) + P[1] * f(2) + P[2] * f(1) + P[3] * f(0))
+	{\Delta}T[0] = T[1] - T[0] ≈ (P[0] * f(0))
+	{\Delta}T[1] = T[2] - T[1] ≈ (P[0] * f(1) + P[1] * f(0))
+	{\Delta}T[2] = T[3] - T[2] ≈ (P[0] * f(2) + P[1] * f(1) + P[2] * f(0))
+	{\Delta}T[3] = T[4] - T[3] ≈ (P[0] * f(3) + P[1] * f(2) + P[2] * f(1) + P[3] * f(0))
 
 Taką strukturę nazywamy 
 [splotem (convolution)](http://en.wikipedia.org/wiki/Convolution#Discrete_convolution "Wikipedia: Convolution").
 
 Mamy więc:
 
-	\{Delta}T[3] = T[4] - T[3] ≈ (P * f)[3]
+	{\Delta}T[3] = T[4] - T[3] ≈ (P * f)[3]
 	
 i ogólnie:
 	
-	\{Delta}T[k] = T[k+1] - T[k] ≈ (P * f)[k]
+	{\Delta}T[k] = T[k+1] - T[k] ≈ (P * f)[k]
 
 W tym wypadku przy definicji splotu pomijamy składniki dla których `f(x) ≡ 0`.
 
 Mamy więc układ równań:
-\{Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k] = 
+{\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k] = 
 
     k
 =   ∑   P[j] f(k-j) =
@@ -185,16 +185,16 @@ równań, co byłoby niekorzystne z dwóch względów:
 - do wyliczenia układu równań potrzebnych byłoby bardzo wiele danych historycznych,
 - spadłaby znacznie dokładność oszacowania wartości tych niewiadomych.
 
-Niech `(\{Delta}T[k] | T[k])` - szybkość upływu ciepła z komory (zmiana temperatury zależna od 
+Niech `({\Delta}T[k] | T[k])` - szybkość upływu ciepła z komory (zmiana temperatury zależna od 
 obecnej temperatury w komorze).
-Przyjmujemy, że `(\{Delta}T[k] | T[k]) < 0`.
+Przyjmujemy, że `({\Delta}T[k] | T[k]) < 0`.
 
-Wzór na `\{Delta}T[k]` przyjmuje więc postać: 
+Wzór na `{\Delta}T[k]` przyjmuje więc postać: 
 
-        \{Delta}T[k] = T[k+1] - T[k] ≈ (\{Delta}T[k] | T[k]) + \sum_{j=0}^{k} (\{Delta}T[k] | P[j])
+        {\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] | T[k]) + \sum_{j=0}^{k} ({\Delta}T[k] | P[j])
 
 Żeby ograniczyć liczbę niewiadomych w układzie równań, można próbować definiować
-`(\{Delta}T[k] | T[k])` co - powiedzmy - 5°C i wykonywać interpolację albo aproksymację 
+`({\Delta}T[k] | T[k])` co - powiedzmy - 5°C i wykonywać interpolację albo aproksymację 
 dla pozostałych wartości
 (trzeba tu zauważyć, że w większości przypadków temperaturę znamy z dokładnością
 0,1°C, zatem interpolacja lub aproksymacja i tak byłaby konieczna).
@@ -207,15 +207,15 @@ Szybkość ucieczki ciepła można aproksymować w podany niżej prosty sposób:
 
    (zaokrąglamy k w dół do liczby podzielnej przez 5)
 
-        (\{Delta}T[k] | T[k]) = (j(m-5) + j(m) + j(m+5) + j(m+10)) / 4
+        ({\Delta}T[k] | T[k]) = (j(m-5) + j(m) + j(m+5) + j(m+10)) / 4
 
  - dla k należącego do dziedziny funkcji j mamy:
         
-        (\{Delta}T[k] | T[k]) = (j(k-5) + j(k) + j(k+5)) / 3
+        ({\Delta}T[k] | T[k]) = (j(k-5) + j(k) + j(k+5)) / 3
 
 Powyższe wzory można w prosty sposób uwzględnić w układzie równań:
 
-        \{Delta}T[k] = T[k+1] - T[k] ≈ (\{Delta}T[k] | T[k]) + \sum_{j=0}^{k} (\{Delta}T[k] | P[j])
+        {\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] | T[k]) + \sum_{j=0}^{k} ({\Delta}T[k] | P[j])
 
 Po rozwiązaniu go, otrzymujemy wartości funkcji `f(x)` oraz `j(x)`, które będą potrzebne
 do świadomego sterowania komorą.
@@ -243,7 +243,7 @@ Oznaczenia:
 	k - indeksuje temperaturę w przyszłości,
 
 Przyjmujemy uproszczony model ogrzewania przedstawiony w sekcji 2:
-\{Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k]
+{\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k]
 
 Na podstawie tego modelu jesteśmy w stanie przewidzieć przebieg zmian temperatury
 dla danego przebiegu mocy grzałki i w ten sposób zoptymalizować proces grzania
@@ -260,10 +260,10 @@ działań rywala i aktualizującym swoją strategię odpowiednio.
 
 Niech U[k] = żądana temperatura na początku przedziału czasowego j.
 Na podstawie wartości U[k] jesteśmy w stanie policzyć 
-\{Delta}U[k] = U[k+1] - U[k]
+{\Delta}U[k] = U[k+1] - U[k]
 
 Wtedy mamy układ równań:
-\{Delta}U[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
+{\Delta}U[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
  - rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów
 
 - wagi są konieczne, bo musimy jakoś w sensowny sposób odciąć wartości j,
@@ -275,27 +275,27 @@ y = X * β
 
 Dla K=3
 oraz i = 9 mamy:
-(celowo nie piszę równania dla \{Delta}U[9]):
-\{Delta}U[10] ≈ P[7]*f(3) + P[8]*f(2) + P[9]*f(1) + P[10]*f(0)
-\{Delta}U[11] ≈             P[8]*f(3) + P[9]*f(2) + P[10]*f(1) + P[11]*f(0)
-\{Delta}U[12] ≈                         P[9]*f(3) + P[10]*f(2) + P[11]*f(1) + P[12]*f(0)
-\{Delta}U[13] ≈                                     P[10]*f(3) + P[11]*f(2) + P[12]*f(1) + P[13]*f(0)
+(celowo nie piszę równania dla {\Delta}U[9]):
+{\Delta}U[10] ≈ P[7]*f(3) + P[8]*f(2) + P[9]*f(1) + P[10]*f(0)
+{\Delta}U[11] ≈             P[8]*f(3) + P[9]*f(2) + P[10]*f(1) + P[11]*f(0)
+{\Delta}U[12] ≈                         P[9]*f(3) + P[10]*f(2) + P[11]*f(1) + P[12]*f(0)
+{\Delta}U[13] ≈                                     P[10]*f(3) + P[11]*f(2) + P[12]*f(1) + P[13]*f(0)
 itd.
 
 Przy czym znamy P[7] i P[8], a więc należy to przekształcić jako:
-\{Delta}U[10] - P[7]*f(3) - P[8]*f(2) ≈ P[9]*f(1) + P[10]*f(0)
-\{Delta}U[11]             - P[8]*f(3) ≈ P[9]*f(2) + P[10]*f(1) + P[11]*f(0)
-\{Delta}U[12]                         ≈ P[9]*f(3) + P[10]*f(2) + P[11]*f(1) + P[12]*f(0)
-\{Delta}U[13]                         ≈             P[10]*f(3) + P[11]*f(2) + P[12]*f(1) + P[13]*f(0)
+{\Delta}U[10] - P[7]*f(3) - P[8]*f(2) ≈ P[9]*f(1) + P[10]*f(0)
+{\Delta}U[11]             - P[8]*f(3) ≈ P[9]*f(2) + P[10]*f(1) + P[11]*f(0)
+{\Delta}U[12]                         ≈ P[9]*f(3) + P[10]*f(2) + P[11]*f(1) + P[12]*f(0)
+{\Delta}U[13]                         ≈             P[10]*f(3) + P[11]*f(2) + P[12]*f(1) + P[13]*f(0)
 
 
 
 Czyli:
 y = [
-        \{Delta}U[10] - P[7]*f(3) - P[8]*f(2)
-        \{Delta}U[11]             - P[8]*f(3)
-        \{Delta}U[12]                        
-        \{Delta}U[13]                        
+        {\Delta}U[10] - P[7]*f(3) - P[8]*f(2)
+        {\Delta}U[11]             - P[8]*f(3)
+        {\Delta}U[12]                        
+        {\Delta}U[13]                        
 ]
 
 Wektor y odpowiada residualnej krzywej temperaturowej - 
@@ -322,21 +322,21 @@ X = [
 Niech L = przesunięcie od którego zaczynamy uwzględniać równania w układzie
 równań.
 Pierwsze równanie które uwzględniamy w układzie równań, jest na
-\{Delta}U[i+L]
+{\Delta}U[i+L]
 W powyższym przykładzie oczywiście L = 1.
 
 Podaję teraz ogólne wzory na elementy powyższych wektorów y, \beta oraz macierzy X:
 (indeksy liczymy od 1!!!, jak jest przyjęte w matematyce)
 
 Wektor y:
-        Równanie dla wiersza macierzy y który dotyczy \{Delta}U[k]:
-        y[k - (i + L) + 1] = \{Delta}U[k] - \sum_{n=k-K}^{i-1} P[n] * f(k-n)
+        Równanie dla wiersza macierzy y który dotyczy {\Delta}U[k]:
+        y[k - (i + L) + 1] = {\Delta}U[k] - \sum_{n=k-K}^{i-1} P[n] * f(k-n)
                //sprawdziłem powyższe na kartce dla k=10, i=9, L=1, K=3
         Gdy chcemy uzyskać y[u], liczymy:
                 k = u - 1 + (i+L)
                         //jest to naturalne, pierwszy wiersz macierzy y dotyczy k = i+L,
                         //dalej wartość k rośnie z u
-                y[u] = \{Delta}U[k] - \sum_{n=k-K}^{i-1} P[n] * f(k-n)
+                y[u] = {\Delta}U[k] - \sum_{n=k-K}^{i-1} P[n] * f(k-n)
 
 
 Wektor β:
@@ -384,7 +384,7 @@ Potrzebujemy macierz wag W.
 Jest to macierz diagonalna (z wartościami niezerowymi tylko na przekątnej).
 Definiujemy wektor błędu jako:
 e = W^{1/2}(X * β - y)
- - błąd mierzymy jako różnicę różnicy temperatur \{Delta}U[k] którą mamy uzyskać w
+ - błąd mierzymy jako różnicę różnicy temperatur {\Delta}U[k] którą mamy uzyskać w
    k-tym oknie czasowym a tym co uzyskamy.
 
 Minimalizujemy sumę kwadratów błędów, minimalizując e^{T} e.
