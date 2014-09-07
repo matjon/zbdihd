@@ -74,7 +74,8 @@ Rozważamy jednostkę czasu o numerze $k$.
 
 Przyrost temperatury podczas tej jednostki można przybliżyć jako:
 
-$${\Delta}T[k] = T[k+1] - T[k] \approx \sum\_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])$$
+$${\Delta}T[k] = T[k+1] - T[k] \approx \sum\_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])
+\label{s2dec1}$$
 
 (Na razie pomijamy upływ ciepła przez ściany komory. Pomijamy również ew. ciepło
 wytwarzane w urządzeniu znajdującym się w komorze.)
@@ -91,16 +92,18 @@ $({\Delta}T[k] \:|\: P[j])$.
 
 Musimy więc założyć:
 
-$$({\Delta}T[k] \:|\: P[j]) = P[j] \cdot f(k-j)$$
+$$({\Delta}T[k] \:|\: P[j]) = P[j] \cdot f(k-j)\label{s2fdef}$$
 
-Gdzie:
+Przy czym:
 
 - $ P[j] $ - moc grzałki w jednostce czasu o indeksie $j$,
 - $ f(x) $ - pewna funkcja dążąca do zera dla $x$ dążącego do nieskończoności:
  
   $$lim\_{k \to +\infty} ({\Delta}T[k] \:|\: P[j]) = 0$$
 
-  - jest ona zdefiniowana wyłącznie dla wartości nieujemnych (grzanie nie może wpłynąć
+  Posiada ona następujące własności:
+
+  - jest zdefiniowana wyłącznie dla wartości nieujemnych (grzanie nie może wpłynąć
                 na zmianę temperatury przed jego rozpoczęciem),
   - jeśli na początku rozważanego przedziału czasu układ znajdował się w równowadze,
    	to wartość $f(0)$ jest równa stosunkowi przyrostu temperatury w rozważanym przedziale czasu
@@ -111,26 +114,27 @@ Gdzie:
 
     - czyli $f(x)$ może być niezerowe tylko dla $0 \leq x \leq K$,
     - istnieje co najwyżej K+1 niezerowych wartości funkcji $f(x)$:
-    
       0 oraz od 1 do K,
                        
-    - mamy zatem jeden okres czasu przeznaczony na grzanie który nie wlicza się do
-             czasu stabilizacji oraz K okresów przez które temperatura 
+    - mamy zatem jeden okres czasu przeznaczony na grzanie, który nie wlicza się do
+             czasu stabilizacji, oraz K okresów, przez które temperatura 
              się stabilizuje.
  	
-Mamy więc po podstawieniu:
+Po podstawieniu $\ref{s2fdef}$ do $\ref{s2dec1}$ otrzymujemy:
 
 $${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=0}^{k} P[j] * f(k-j)$$
 
 Po przyjęciu że $f(x) \equiv 0$ dla $x {\geq} K + 1$ mamy:
 
-${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] * f(k-j)$$
+$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] * f(k-j)$$
 	
 (wewnętrzna suma przechodzi przez K + 1 wartości)
 
+<br>
+
 Rozważymy teraz dla przykładu postać sumy dla niskich wartości $k$:
 
-Dla k=0:
+Dla $k=0$:
 
 ${\Delta}T[0] = T[1] - T[0] ≈ \sum\_{j=0}^{0} ({\Delta}T[0] \:|\: P[j]) = ({\Delta}T[0] \:|\: P[0])$
 
@@ -138,7 +142,7 @@ ${\Delta}T[0] = T[1] - T[0] ≈ P[0] * f(0)$
 
 
 
-Dla k=1:
+Dla $k=1$:
 
 ${\Delta}T[1] = T[2] - T[1] ≈ \sum\_{j=0}^{1} ({\Delta}T[1] \:|\: P[j])$
 
@@ -148,7 +152,7 @@ ${\Delta}T[1] = T[2] - T[1] ≈ ( P[0] * f(1) + P[1] * f(0) )$
 
 
 
-I podsumowując, przez analogię:
+I podsumowując, poprzez analogię:
 
 $	{\Delta}T[0] = T[1] - T[0] ≈ (P[0] * f(0))$
 
@@ -172,10 +176,12 @@ $$	{\Delta}T[k] = T[k+1] - T[k] ≈ (P * f)[k]$$
 
 W tym wypadku przy definicji splotu pomijamy składniki dla których $f(x) \equiv 0$.
 
-Mamy więc układ równań:
+<br>
+
+Ostatecznie, mamy więc układ równań o postaci:
 
 $${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] * f(k-j) = 
-\sum\_{j=0}^{K} P[k-j] f(j) = (P * f)[k] $$
+\sum\_{j=0}^{K} P[k-j] f(j) = (P * f)[k] \label{s2eqs}$$
 
 Ten układ równań posiada $K+1$ niewiadomych - tyle ile niezerowych wartości funkcji $f()$.
 
@@ -186,7 +192,7 @@ równowagi termodynamicznej, musimy odrzucić pierwsze K pomiarów.
 Odrzucamy też ostatnie K pomiarów.
 
 
-Można by rozpisać funkcję f(x) na następujące składniki:
+Można by rozpisać funkcję $f(x)$ na następujące składniki:
 
 $$f(x) = g(x) * e^{-\frac{t}{T}} * c\_1$$
 
@@ -198,7 +204,7 @@ Przy czym:
                 //stosunkowo małe, mniejsze niż g(1)
  * $T$ - jakaś liczba.
 
-Może to ew. pomóc przy rozwiązywaniu układu równań - można w ten sposób ograniczyć
+Mogłoby to ew. pomóc przy rozwiązywaniu układu równań - można w ten sposób ograniczyć
 wartości funkcji $ f(x) $.
 
 Może być jednak problem z uwzględnieniem $g(x) < 1$ przy rozwiązywaniu tego 
