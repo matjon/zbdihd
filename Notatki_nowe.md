@@ -67,23 +67,24 @@ Musimy więc założyć:
 Gdzie:
 - `P[j]` - moc grzałki w jednostce czasu o indeksie j,
 - `f(x)` - pewna funkcja dążąca do zera dla x dążącego do nieskończoności:
-
+ 
 		lim_{k -> +∞} (ΔT[k] | P[j]) = 0
 
   - jest ona zdefiniowana wyłącznie dla wartości nieujemnych (grzanie nie może wpłynąć
                 na zmianę temperatury przed jego rozpoczęciem),
   - jeśli na początku rozważanego przedziału czasu układ znajdował się w równowadze,
    	to wartość `f(0)` jest równa stosunkowi przyrostu temperatury w rozważanym przedziale czasu
-	do mocy grzałki w rozważanym przedziale czasu,
+	do mocy grzałki w tym przedziale,
   - po K = 120 przedziałach czasu od rozpoczęcia grzania, ciepło wydzielone przez grzałkę zostaje 
 	rozproszone w komorze i nie wpływa już na zmiany temperatury na termometrze.
-	Z tego względu można uznać że `f(x) ≡ 0` dla `x > K`.
-        - czyli f(x) może być niezerowe dla x <= K
-        - istnieje co najwyżej K+1 niezerowych wartości funkcji f(x):
-                        0 oraz od 1 do K
-        - jeden okres przeznaczony na grzanie który nie wlicza się do
+	Z tego względu można uznać że `f(x) ≡ 0` dla `x > K`:
+
+            - czyli f(x) może być niezerowe tylko dla `0 <= x <= K`,
+            - istnieje co najwyżej K+1 niezerowych wartości funkcji f(x):
+                        0 oraz od 1 do K,
+            - jeden okres przeznaczony na grzanie który nie wlicza się do
              czasu stabilizacji oraz K okresów przez które temperatura 
-             się stabilizuje
+             się stabilizuje,
  	
 Mamy więc po podstawieniu:
 ∆T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} P[j] * f(k-j)
