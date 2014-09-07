@@ -13,6 +13,7 @@ Ich dokumentacja jest dostępna
 [tutaj](http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf "Komory serii AR v2.0").
 
 Można założyć (w sposób bardzo agresywny):
+
 * okres co jaki wykonuje się pętla kontrolna: W = 5 sekund,
        
   Pętla kontrolna składa się z następujących operacji: 
@@ -471,4 +472,5 @@ Czyli nie przejmujemy się zbytnio tym że termistor mierzy "inną temperaturę"
 I tak różnice temp. wewnątrz komory są stosunkowo duże (wyżej jest oczywiście cieplej), musimy względem czegoś kalibrować / jakiegoś punktu.
 
 
-<<<      vim: set spelllang=pl:    >>>
+<!--      vim: set spelllang=pl filetype=markdown :    -->
+

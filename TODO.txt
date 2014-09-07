@@ -91,3 +91,8 @@ na:
 nie, 7 wrz 2014, 12:35:13 CEST
 Użycie MathJax do renderingu fontów:
 http://stackoverflow.com/a/12979200
+
+nie, 7 wrz 2014, 14:34:09 CEST
+
+<!--        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry -->
+http://stackoverflow.com/a/12979200
