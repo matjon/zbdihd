@@ -4,21 +4,25 @@
 Sekcja 1: Założenia
 -------------------
 
-Dla skupienia uwagi możemy projektować pod tę komorę:
-
+Dla skupienia uwagi możemy projektować pod tę komorę: 
 http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf
 
 Można założyć (w sposób bardzo agresywny):
-- okres co jaki wykonuje się pętla kontrolna: W = 5 sekund,
+* okres co jaki wykonuje się pętla kontrolna: W = 5 sekund,
        
-  Pętla kontrolna składa się z następujących operacji: pobranie danych -> 
-  przetwarzanie -> ustawienie wyjść. Jeden taki okres nazywamy przedziałem
+  Pętla kontrolna składa się z następujących operacji: 
+
+        * pobranie danych, 
+        * przetwarzanie,
+        * ustawienie wyjść. 
+
+  Jeden taki okres nazywamy przedziałem
   czasu albo jednostką czasu. Zakładamy, że w jednym przedziale czasu ustawienia 
   urządzeń wpływających na
   temperaturę w komorze (moc grzałki, wentylatora, itd) są stałe, a temperatura
   zmienia się jedynie w ograniczonym zakresie.
 
-- po wyłączeniu grzania temperatura w komorze się stabilizuje w czasie 
+* po wyłączeniu grzania temperatura w komorze się stabilizuje w czasie 
 mniejszym niż 10 minut (czyli po K = 120 jednostkach czasu).
   Po tym czasie przestajemy śledzić konsekwencje grzania w przeszłości,
           
