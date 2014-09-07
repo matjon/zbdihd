@@ -9,12 +9,12 @@
 MathJax.Hub.Config({
         tex2jax: {
                 inlineMath: [['$','$'], ['\\(','\\)']],
-                processEscapes: true,
-                equationNumbers: { autoNumber: "AMS" }
+                processEscapes: true
         },
-        TeX: { equationNumbers: { autoNumber: "AMS" } }
+        TeX: { equationNumbers: { autoNumber: "all" } }
 });
 </script>
+
 
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -97,7 +97,8 @@ W tej sekcji postaramy się uchwycić to zachowanie komory w sposób matematyczn
 
 <p>Przyrost temperatury podczas tej jednostki można przybliżyć jako:</p>
 
-<p>$${\Delta}T[k] = T[k+1] - T[k] \approx \sum_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])$$</p>
+<p>$${\Delta}T[k] = T[k+1] - T[k] \approx \sum_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])
+\label{s2dec1}$$</p>
 
 <p>(Na razie pomijamy upływ ciepła przez ściany komory. Pomijamy również ew. ciepło
 wytwarzane w urządzeniu znajdującym się w komorze.)</p>
@@ -116,9 +117,9 @@ $({\Delta}T[k] \:|\: P[j])$.</p>
 
 <p>Musimy więc założyć:</p>
 
-<p>$$({\Delta}T[k] \:|\: P[j]) = P[j] \cdot f(k-j)$$</p>
+<p>$$({\Delta}T[k] \:|\: P[j]) = P[j] \cdot f(k-j)\label{s2fdef}$$</p>
 
-<p>Gdzie:</p>
+<p>Przy czym:</p>
 
 <ul>
 <li>$ P[j] $ - moc grzałki w jednostce czasu o indeksie $j$,</li>
@@ -126,8 +127,10 @@ $({\Delta}T[k] \:|\: P[j])$.</p>
 
 <p>$$lim_{k \to +\infty} ({\Delta}T[k] \:|\: P[j]) = 0$$</p>
 
+<p>Posiada ona następujące własności:</p>
+
 <ul>
-<li>jest ona zdefiniowana wyłącznie dla wartości nieujemnych (grzanie nie może wpłynąć
+<li>jest zdefiniowana wyłącznie dla wartości nieujemnych (grzanie nie może wpłynąć
         na zmianę temperatury przed jego rozpoczęciem),</li>
 <li>jeśli na początku rozważanego przedziału czasu układ znajdował się w równowadze,
 to wartość $f(0)$ jest równa stosunkowi przyrostu temperatury w rozważanym przedziale czasu
@@ -136,34 +139,35 @@ do mocy grzałki w tym przedziale,</li>
 rozproszone w komorze i nie wpływa już na zmiany temperatury na termometrze.
 Z tego względu można uznać że $f(x) \equiv 0$ dla $x > K$:</p></li>
 <li><p>czyli $f(x)$ może być niezerowe tylko dla $0 \leq x \leq K$,</p></li>
-<li><p>istnieje co najwyżej K+1 niezerowych wartości funkcji $f(x)$:</p>
-
-<p>0 oraz od 1 do K,</p></li>
-<li><p>mamy zatem jeden okres czasu przeznaczony na grzanie który nie wlicza się do
-     czasu stabilizacji oraz K okresów przez które temperatura 
+<li><p>istnieje co najwyżej K+1 niezerowych wartości funkcji $f(x)$:
+0 oraz od 1 do K,</p></li>
+<li><p>mamy zatem jeden okres czasu przeznaczony na grzanie, który nie wlicza się do
+     czasu stabilizacji, oraz K okresów, przez które temperatura 
      się stabilizuje.</p></li>
 </ul></li>
 </ul>
 
-<p>Mamy więc po podstawieniu:</p>
+<p>Po podstawieniu $\ref{s2fdef}$ do $\ref{s2dec1}$ otrzymujemy:</p>
 
 <p>$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} P[j] * f(k-j)$$</p>
 
 <p>Po przyjęciu że $f(x) \equiv 0$ dla $x {\geq} K + 1$ mamy:</p>
 
-<p>${\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)$$</p>
+<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)$$</p>
 
 <p>(wewnętrzna suma przechodzi przez K + 1 wartości)</p>
 
+<p><br></p>
+
 <p>Rozważymy teraz dla przykładu postać sumy dla niskich wartości $k$:</p>
 
-<p>Dla k=0:</p>
+<p>Dla $k=0$:</p>
 
 <p>${\Delta}T[0] = T[1] - T[0] ≈ \sum_{j=0}^{0} ({\Delta}T[0] \:|\: P[j]) = ({\Delta}T[0] \:|\: P[0])$</p>
 
 <p>${\Delta}T[0] = T[1] - T[0] ≈ P[0] * f(0)$</p>
 
-<p>Dla k=1:</p>
+<p>Dla $k=1$:</p>
 
 <p>${\Delta}T[1] = T[2] - T[1] ≈ \sum_{j=0}^{1} ({\Delta}T[1] \:|\: P[j])$</p>
 
@@ -171,7 +175,7 @@ Z tego względu można uznać że $f(x) \equiv 0$ dla $x > K$:</p></li>
 
 <p>${\Delta}T[1] = T[2] - T[1] ≈ ( P[0] * f(1) + P[1] * f(0) )$</p>
 
-<p>I podsumowując, przez analogię:</p>
+<p>I podsumowując, poprzez analogię:</p>
 
 <p>$   {\Delta}T[0] = T[1] - T[0] ≈ (P[0] * f(0))$</p>
 
@@ -194,10 +198,12 @@ Z tego względu można uznać że $f(x) \equiv 0$ dla $x > K$:</p></li>
 
 <p>W tym wypadku przy definicji splotu pomijamy składniki dla których $f(x) \equiv 0$.</p>
 
-<p>Mamy więc układ równań:</p>
+<p><br></p>
+
+<p>Ostatecznie, mamy więc układ równań o postaci:</p>
 
 <p>$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = 
-\sum_{j=0}^{K} P[k-j] f(j) = (P * f)[k] $$</p>
+\sum_{j=0}^{K} P[k-j] f(j) = (P * f)[k] \label{s2eqs}$$</p>
 
 <p>Ten układ równań posiada $K+1$ niewiadomych - tyle ile niezerowych wartości funkcji $f()$.</p>
 
@@ -207,7 +213,7 @@ Jeżeli jednak system przy rozpoczęciu zbierania danych nie znajdował sie w st
 równowagi termodynamicznej, musimy odrzucić pierwsze K pomiarów.
 Odrzucamy też ostatnie K pomiarów.</p>
 
-<p>Można by rozpisać funkcję f(x) na następujące składniki:</p>
+<p>Można by rozpisać funkcję $f(x)$ na następujące składniki:</p>
 
 <p>$$f(x) = g(x) * e^{-\frac{t}{T}} * c_1$$</p>
 
@@ -221,7 +227,7 @@ Odrzucamy też ostatnie K pomiarów.</p>
 <li>$T$ - jakaś liczba.</li>
 </ul>
 
-<p>Może to ew. pomóc przy rozwiązywaniu układu równań - można w ten sposób ograniczyć
+<p>Mogłoby to ew. pomóc przy rozwiązywaniu układu równań - można w ten sposób ograniczyć
 wartości funkcji $ f(x) $.</p>
 
 <p>Może być jednak problem z uwzględnieniem $g(x) &lt; 1$ przy rozwiązywaniu tego 
