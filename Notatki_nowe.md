@@ -8,9 +8,11 @@
 Sekcja 1: Założenia
 -------------------
 
-Dla skupienia uwagi będziemy projektować pod komory temperat serii AR, produkowane przez ESPEC Corporation.
+Dla skupienia uwagi będziemy projektować pod komory temperaturowe
+ serii AR, produkowane przez ESPEC Corporation.
 Ich dokumentacja jest dostępna 
-[tutaj](http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf "Komory serii AR v2.0").
+[tutaj](http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf 
+"Komory serii AR v2.0").
 
 Można założyć (w sposób bardzo agresywny):
 
@@ -48,24 +50,24 @@ Dzielimy czas na jednostki o szerokości W. Zakładamy, że w obrębie każdej j
 moc grzałki oraz ew. innych urządzeń jest stała.
 Kolejne jednostki są numerowane liczbami całkowitymi.
 
-Rozważamy jednostkę o numerze k.
+Rozważamy jednostkę o numerze $k$.
 
 Przyrost temperatury podczas tej jednostki czasu jest równy:
 
- \\({\Delta}T[k] = T[k+1] - T[k] \approx \sum\_{j=0}^{k} ({\Delta}T[k] | P[j])\\)
+$${\Delta}T[k] = T[k+1] - T[k] \approx \sum\_{j=0}^{k} ({\Delta}T[k] | P[j])$$
 
-(Na razie pomijamy upłyu ciepła przez ściany komory. Pomijamy również ciepło
+(Na razie pomijamy upływ ciepła przez ściany komory. Pomijamy również ciepło
 wytwarzane w urządzeniu znajdującym się w komorze.)
 
 Gdzie:
 
-- `T[k]` - temperatura na początku k-tej jednostki czasu,
-- `({\Delta}T[k] | P[j])` - przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
-                j-tej jednostce czasu. Oczywiście `k >= j` (grzanie nie może wpłynąć
+- $T[k]$ - temperatura na początku k-tej jednostki czasu,
+- $({\Delta}T[k] | P[j])$ - przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
+                j-tej jednostce czasu. Oczywiście $k >= j$ (grzanie nie może wpłynąć
                 na zmianę temperatury przed jego rozpoczęciem).
 
-Jesteśmy w stanie bezpośrednio zmierzyć jedynie `T[k]`, chcielibyśmy jednak znać
-`({\Delta}T[k] | P[j])`.
+Jesteśmy w stanie bezpośrednio zmierzyć jedynie $T[k]$, chcielibyśmy jednak znać
+$({\Delta}T[k] | P[j])$.
 
 Musimy więc założyć:
 
@@ -73,22 +75,22 @@ $$({\Delta}T[k] | P[j]) = P[j] * f(k-j)$$
 
 Gdzie:
 
-- `P[j]` - moc grzałki w jednostce czasu o indeksie j,
-- `f(x)` - pewna funkcja dążąca do zera dla x dążącego do nieskończoności:
+- $P[j]$ - moc grzałki w jednostce czasu o indeksie j,
+- $f(x)$ - pewna funkcja dążąca do zera dla x dążącego do nieskończoności:
  
 		lim_{k -> +∞} ({\Delta}T[k] | P[j]) = 0
 
   - jest ona zdefiniowana wyłącznie dla wartości nieujemnych (grzanie nie może wpłynąć
                 na zmianę temperatury przed jego rozpoczęciem),
   - jeśli na początku rozważanego przedziału czasu układ znajdował się w równowadze,
-   	to wartość `f(0)` jest równa stosunkowi przyrostu temperatury w rozważanym przedziale czasu
+   	to wartość $f(0)$ jest równa stosunkowi przyrostu temperatury w rozważanym przedziale czasu
 	do mocy grzałki w tym przedziale,
   - po K = 120 przedziałach czasu od rozpoczęcia grzania, ciepło wydzielone przez grzałkę zostaje 
 	rozproszone w komorze i nie wpływa już na zmiany temperatury na termometrze.
-	Z tego względu można uznać że `f(x) ≡ 0` dla `x > K`:
+	Z tego względu można uznać że $f(x) ≡ 0$ dla $x > K$:
 
-    - czyli f(x) może być niezerowe tylko dla `0 <= x <= K`,
-    - istnieje co najwyżej K+1 niezerowych wartości funkcji `f(x)`:
+    - czyli f(x) może być niezerowe tylko dla $0 <= x <= K$,
+    - istnieje co najwyżej K+1 niezerowych wartości funkcji $f(x)$:
     
       0 oraz od 1 do K,
                        
@@ -136,7 +138,7 @@ i ogólnie:
 	
 	{\Delta}T[k] = T[k+1] - T[k] ≈ (P * f)[k]
 
-W tym wypadku przy definicji splotu pomijamy składniki dla których `f(x) ≡ 0`.
+W tym wypadku przy definicji splotu pomijamy składniki dla których $f(x) ≡ 0$.
 
 Mamy więc układ równań:
 {\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k] = 
@@ -185,23 +187,23 @@ równań, co byłoby niekorzystne z dwóch względów:
 - do wyliczenia układu równań potrzebnych byłoby bardzo wiele danych historycznych,
 - spadłaby znacznie dokładność oszacowania wartości tych niewiadomych.
 
-Niech `({\Delta}T[k] | T[k])` - szybkość upływu ciepła z komory (zmiana temperatury zależna od 
+Niech $({\Delta}T[k] | T[k])$ - szybkość upływu ciepła z komory (zmiana temperatury zależna od 
 obecnej temperatury w komorze).
-Przyjmujemy, że `({\Delta}T[k] | T[k]) < 0`.
+Przyjmujemy, że $({\Delta}T[k] | T[k]) < 0$.
 
-Wzór na `{\Delta}T[k]` przyjmuje więc postać: 
+Wzór na ${\Delta}T[k]$ przyjmuje więc postać: 
 
         {\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] | T[k]) + \sum_{j=0}^{k} ({\Delta}T[k] | P[j])
 
 Żeby ograniczyć liczbę niewiadomych w układzie równań, można próbować definiować
-`({\Delta}T[k] | T[k])` co - powiedzmy - 5°C i wykonywać interpolację albo aproksymację 
+$({\Delta}T[k] | T[k])$ co - powiedzmy - 5°C i wykonywać interpolację albo aproksymację 
 dla pozostałych wartości
 (trzeba tu zauważyć, że w większości przypadków temperaturę znamy z dokładnością
 0,1°C, zatem interpolacja lub aproksymacja i tak byłaby konieczna).
 
 Szybkość ucieczki ciepła można aproksymować w podany niżej prosty sposób:
- - mamy funkcję `j(x)` - zdefiniowaną dla wartości x podzielnych przez 5,
- - dla k nie należącego do dziedziny funkcji `j(x)` mamy: 
+ - mamy funkcję $j(x)$ - zdefiniowaną dla wartości x podzielnych przez 5,
+ - dla k nie należącego do dziedziny funkcji $j(x)$ mamy: 
 
         m = k - (k % 5)
 
@@ -217,14 +219,14 @@ Powyższe wzory można w prosty sposób uwzględnić w układzie równań:
 
         {\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] | T[k]) + \sum_{j=0}^{k} ({\Delta}T[k] | P[j])
 
-Po rozwiązaniu go, otrzymujemy wartości funkcji `f(x)` oraz `j(x)`, które będą potrzebne
+Po rozwiązaniu go, otrzymujemy wartości funkcji $f(x)$ oraz $j(x)$, które będą potrzebne
 do świadomego sterowania komorą.
 
 
 Sekcja 4: Sterowanie
 --------------------
 
-Znając wartości funkcji `f(x)` oraz `j(x)` wyliczone na podstawie danych historycznych,
+Znając wartości funkcji $f(x)$ oraz $j(x)$ wyliczone na podstawie danych historycznych,
 można przewidzieć przebieg temperatury towarzyszący procesom grzania i z tego
 względu w sposób świadomy sterować grzałką.
 
