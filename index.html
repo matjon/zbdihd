@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Sprawozdanie</title>
+
+<!-- Opracowane na podstawie http://docs.mathjax.org/en/latest/start.html -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+        tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                processEscapes: true
+        },
+        TeX: { equationNumbers: { autoNumber: "all" } }
+});
+</script>
+
+
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+<body>
+
+
+<p>//pisać coś o HVAC</p>
+
+<p>//komora klimatyczna: kontrola też wilgotności
+//komorat temperaturowa: kontrola tylko temperatury</p>
+
+<h2>Sekcja 1: Założenia</h2>
+
+<p>Dla skupienia uwagi będziemy projektować pod komory temperaturowe
+ serii AR, produkowane przez ESPEC Corporation.
+Ich dokumentacja jest dostępna 
+<a href="http://www.klimatest.eu/katalog/leaflets/espec/Komory_serii_AR_v2_0.pdf 
+" title="Komory serii AR v2.0">tutaj</a>
+i <a href="http://www.klimatest.eu/katalog/Komory%20klimatyczne/_p/Komory%20klimatyczne%20i%20temperaturowe%20AR
+" title="Komory serii AR v2.0">tutaj</a>.</p>
+
+<p>Można założyć (w sposób dosyć agresywny):</p>
+
+<ul>
+<li><p>okres co jaki wykonuje się pętla kontrolna: $W = 5$ sekund,</p>
+
+<p>Pętla kontrolna składa się z następujących operacji: </p>
+
+<ul>
+<li>pobranie danych, </li>
+<li>przetwarzanie,</li>
+<li>ustawienie wyjść. </li>
+</ul>
+
+<p><p>Odstęp czasu między kolejnymi iteracjami pętli nazywamy przedziałem
+czasu albo jednostką czasu. Zakładamy, że w jednym przedziale czasu ustawienia 
+urządzeń wpływających na
+temperaturę w komorze (moc grzałki, wentylatora, itd) są stałe, a temperatura
+zmienia się jedynie w ograniczonym zakresie. 
+Przedziały czasu będziemy indeksować kolejnymi liczbami całkowitymi, poczynając od 0.</p></li>
+<li><p>po wyłączeniu grzania temperatura w komorze się stabilizuje w czasie 
+mniejszym niż 10 minut (czyli po K = 120 jednostkach czasu).
+Po tym czasie przestajemy śledzić konsekwencje grzania w przeszłości,</p></li>
+</ul>
+Wartości podane powyżej są dosyć wyśrubowane, można je złagodzić tak aby zmniejszyć
+wartość K.</p>
+
+<p>Ponadto:</p>
+
+<ul>
+<li><p>dokumentacja dla komór temperaturowych serii AR (pierwszy link, strona 5) podaje, 
+że "Odchyłka temperatury w przestrzeni" jest równa 3,0 K. Jest to wartość dosyć duża.
+Z tego względu wydaje się zasadne dopasowywanie bezpośrednio temperatury mierzonej
+przez termometr do temperatury zadanej przez charakterystykę czasową i pomijanie
+opóźnień na termometrze (wynikających raczej nie z natury samego termometru, ale
+z czasu potrzebnego na dotarcie ciepła z grzałki do termometru).  </p></li>
+<li><p>porównanie charakterystyk różnych mierników temperatury można znaleźć 
+<a href="http://cp.literature.agilent.com/litweb/pdf/5965-7822E.pdf">tutaj</a>.
+Zakładamy termistor, który wg nas jest najlepszy do zastosowania w omawianym urządzeniu.
+Posiada on przede wszystkim bardzo dużą szybkość działania oraz dużą dokładność.</p></li>
+<li><p>pomijamy chłodzenie, żeby uprościć problem. W sumie to jednak 
+dosyć dobrze pasuje do różnych systemów HVAC, które mogą działać bez 
+klimatyzatora (np. w zimie).</p></li>
+</ul>
+
+<p>W pracy będziemy się starali ograniczyć drgania typu: 
+grzanie -> chłodzenie (bo zbyt mocno ogrzaliśmy) -> grzanie (bo zbyt mocno ochłodziliśmy)</p>
+
+<h2>Sekcja 2: Analiza wpływu grzania na przebieg temperatury w komorze</h2>
+
+<p>Na zmiany temperatury w komorze mogą wpływać procesy (np. grzania) 
+zachodzące stosunkowo dawno temu (wcześniej niż $K W$).
+W tej sekcji postaramy się uchwycić to zachowanie komory w sposób matematyczny.</p>
+
+<p>Rozważamy jednostkę czasu o numerze $k$.</p>
+
+<p>Przyrost temperatury podczas tej jednostki można przybliżyć jako:</p>
+
+<p>$${\Delta}T[k] = T[k+1] - T[k] \approx \sum_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])
+\label{s2dec1}$$</p>
+
+<p>(Na razie pomijamy upływ ciepła przez ściany komory. Pomijamy również ew. ciepło
+wytwarzane w urządzeniu znajdującym się w komorze.)</p>
+
+<p>Gdzie:</p>
+
+<ul>
+<li>$T[k]$ - temperatura na początku k-tej jednostki czasu,</li>
+<li>$({\Delta}T[k] \:|\: P[j])$ - przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
+            j-tej jednostce czasu. Oczywiście $k {\geq} j$ (grzanie nie może wpłynąć
+            na zmianę temperatury przed jego rozpoczęciem).</li>
+</ul>
+
+<p>Jesteśmy w stanie bezpośrednio zmierzyć jedynie $T[k]$, chcielibyśmy jednak znać
+$({\Delta}T[k] \:|\: P[j])$.</p>
+
+<p>Musimy więc założyć:</p>
+
+<p>$$({\Delta}T[k] \:|\: P[j]) = P[j] \cdot f(k-j)\label{s2fdef}$$</p>
+
+<p>Przy czym:</p>
+
+<ul>
+<li>$ P[j] $ - moc grzałki w jednostce czasu o indeksie $j$,</li>
+<li><p>$ f(x) $ - pewna funkcja dążąca do zera dla $x$ dążącego do nieskończoności:</p>
+
+<p>$$lim_{k \to +\infty} ({\Delta}T[k] \:|\: P[j]) = 0$$</p>
+
+<p>Posiada ona następujące własności:</p>
+
+<ul>
+<li>jest zdefiniowana wyłącznie dla wartości nieujemnych (grzanie nie może wpłynąć
+        na zmianę temperatury przed jego rozpoczęciem),</li>
+<li>jeśli na początku rozważanego przedziału czasu układ znajdował się w równowadze,
+to wartość $f(0)$ jest równa stosunkowi przyrostu temperatury w rozważanym przedziale czasu
+do mocy grzałki w tym przedziale,</li>
+<li><p>po K = 120 przedziałach czasu od rozpoczęcia grzania, ciepło wydzielone przez grzałkę zostaje 
+rozproszone w komorze i nie wpływa już na zmiany temperatury na termometrze.
+Z tego względu można uznać że $f(x) \equiv 0$ dla $x > K$:</p></li>
+<li><p>czyli $f(x)$ może być niezerowe tylko dla $0 \leq x \leq K$,</p></li>
+<li><p>istnieje co najwyżej K+1 niezerowych wartości funkcji $f(x)$:
+0 oraz od 1 do K,</p></li>
+<li><p>mamy zatem jeden okres czasu przeznaczony na grzanie, który nie wlicza się do
+     czasu stabilizacji, oraz K okresów, przez które temperatura 
+     się stabilizuje.</p></li>
+</ul></li>
+</ul>
+
+<p>Po podstawieniu $\ref{s2fdef}$ do $\ref{s2dec1}$ otrzymujemy:</p>
+
+<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} P[j] * f(k-j)$$</p>
+
+<p>Po przyjęciu że $f(x) \equiv 0$ dla $x {\geq} K + 1$ mamy:</p>
+
+<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)$$</p>
+
+<p>(wewnętrzna suma przechodzi przez K + 1 wartości)</p>
+
+<p><br></p>
+
+<p>Rozważymy teraz dla przykładu postać sumy dla niskich wartości $k$:</p>
+
+<p>Dla $k=0$:</p>
+
+<p>${\Delta}T[0] = T[1] - T[0] ≈ \sum_{j=0}^{0} ({\Delta}T[0] \:|\: P[j]) = ({\Delta}T[0] \:|\: P[0])$</p>
+
+<p>${\Delta}T[0] = T[1] - T[0] ≈ P[0] * f(0)$</p>
+
+<p>Dla $k=1$:</p>
+
+<p>${\Delta}T[1] = T[2] - T[1] ≈ \sum_{j=0}^{1} ({\Delta}T[1] \:|\: P[j])$</p>
+
+<p>${\Delta}T[1] = T[2] - T[1] ≈ ({\Delta}T[1] \:|\: P[0]) + ({\Delta}T[1] \:|\: P[1])$</p>
+
+<p>${\Delta}T[1] = T[2] - T[1] ≈ ( P[0] * f(1) + P[1] * f(0) )$</p>
+
+<p>I podsumowując, poprzez analogię:</p>
+
+<p>$   {\Delta}T[0] = T[1] - T[0] ≈ (P[0] * f(0))$</p>
+
+<p>$   {\Delta}T[1] = T[2] - T[1] ≈ (P[0] * f(1) + P[1] * f(0))$</p>
+
+<p>$   {\Delta}T[2] = T[3] - T[2] ≈ (P[0] * f(2) + P[1] * f(1) + P[2] * f(0))$</p>
+
+<p>$   {\Delta}T[3] = T[4] - T[3] ≈ (P[0] * f(3) + P[1] * f(2) + P[2] * f(1) + P[3] * f(0))$</p>
+
+<p>Taką strukturę nazywamy 
+<a href="http://en.wikipedia.org/wiki/Convolution#Discrete_convolution" title="Wikipedia: Convolution">splotem (convolution)</a>.</p>
+
+<p>Mamy więc:</p>
+
+<p>$$  {\Delta}T[3] = T[4] - T[3] ≈ (P * f)[3]$$</p>
+
+<p>i ogólnie:</p>
+
+<p>$$  {\Delta}T[k] = T[k+1] - T[k] ≈ (P * f)[k]$$</p>
+
+<p>W tym wypadku przy definicji splotu pomijamy składniki dla których $f(x) \equiv 0$.</p>
+
+<p><br></p>
+
+<p>Ostatecznie, mamy więc układ równań o postaci:</p>
+
+<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = 
+\sum_{j=0}^{K} P[k-j] f(j) = (P * f)[k] \label{s2eqs}$$</p>
+
+<p>Ten układ równań posiada $K+1$ niewiadomych - tyle ile niezerowych wartości funkcji $f()$.</p>
+
+<p>Dla każdej danej historycznej (pary wartości $P[j]$, $T[j]$) 
+mamy zazwyczaj jedno równanie.
+Jeżeli jednak system przy rozpoczęciu zbierania danych nie znajdował sie w stanie
+równowagi termodynamicznej, musimy odrzucić pierwsze K pomiarów.
+Odrzucamy też ostatnie K pomiarów.</p>
+
+<p>Można by rozpisać funkcję $f(x)$ na następujące składniki:</p>
+
+<p>$$f(x) = g(x) * e^{-\frac{t}{T}} * c_1$$</p>
+
+<p>Przy czym:</p>
+
+<ul>
+<li>$ g(x) &lt; 1 $,</li>
+<li>$ g(0) = 1 $ (tak żeby $c_{1}$ ustalić na sztywno)
+            //jednak to by nie było dopuszczalne, ponieważ f(0) może być
+            //stosunkowo małe, mniejsze niż g(1)</li>
+<li>$T$ - jakaś liczba.</li>
+</ul>
+
+<p>Mogłoby to ew. pomóc przy rozwiązywaniu układu równań - można w ten sposób ograniczyć
+wartości funkcji $ f(x) $.</p>
+
+<p>Może być jednak problem z uwzględnieniem $g(x) &lt; 1$ przy rozwiązywaniu tego 
+układu równań (wymagałoby to użycia innych metod rozwiązywania układu równań niż 
+powszechnie stosowane).</p>
+
+<h2>Sekcja 3: Uwzględnienie upływu ciepła</h2>
+
+<p>Model komory grzewczej przestawiony w poprzedniej sekcji nie uwzględnia upływu 
+ciepła przez jej ścianki. </p>
+
+<p>Można założyć w dużym uproszczeniu, że szybkość upływu ciepła zależy wyłącznie 
+od temperatury panującej w komorze. Uwzględnienie innych czynników (np. historii 
+zmian temperatury) spowodowałoby znaczny wzrost liczby niewiadomych w układzie 
+równań, co byłoby niekorzystne z dwóch względów:</p>
+
+<ul>
+<li>do wyliczenia układu równań potrzebnych byłoby bardzo wiele danych historycznych,</li>
+<li>spadłaby znacznie dokładność oszacowania wartości tych niewiadomych.</li>
+</ul>
+
+<p>Niech $({\Delta}T[k] \:|\: T[k])$ - szybkość upływu ciepła z komory (zmiana temperatury zależna od 
+obecnej temperatury w komorze).
+Przyjmujemy, że $({\Delta}T[k] \:|\: T[k]) &lt; 0$.</p>
+
+<p>Wzór na ${\Delta}T[k]$ przyjmuje więc postać: </p>
+
+<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + \sum_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])$$</p>
+
+<p>Żeby ograniczyć liczbę niewiadomych w układzie równań, można próbować definiować
+$({\Delta}T[k] \:|\: T[k])$ co - powiedzmy - 5°C i wykonywać interpolację albo aproksymację 
+dla pozostałych wartości
+(trzeba tu zauważyć, że w większości przypadków temperaturę znamy z dokładnością
+0,1°C, zatem interpolacja lub aproksymacja i tak byłaby konieczna).</p>
+
+<p>Szybkość ucieczki ciepła można aproksymować w podany niżej prosty sposób:</p>
+
+<ul>
+<li>mamy funkcję $j(x)$ - zdefiniowaną dla wartości x podzielnych przez 5,</li>
+<li>dla k nie należącego do dziedziny funkcji $j(x)$ mamy (zaokrąglamy $k$ w dół do liczby podzielnej przez 5):</li>
+</ul>
+
+<p>$$m = k - (k\mod 5)$$</p>
+
+<p>$$({\Delta}T[k] \:|\: T[k]) = (j(m-5) + j(m) + j(m+5) + j(m+10)) / 4$$</p>
+
+<ul>
+<li>dla k należącego do dziedziny funkcji j mamy:</li>
+</ul>
+
+<p>$$ ({\Delta}T[k] \:|\: T[k]) = (j(k-5) + j(k) + j(k+5)) / 3$$</p>
+
+<p><br></p>
+
+<p>Powyższe wzory można w prosty sposób uwzględnić w układzie równań:</p>
+
+<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + \sum_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])$$</p>
+
+<p>Po rozwiązaniu go, otrzymujemy wartości funkcji $f(x)$ oraz $j(x)$, które będą potrzebne
+do świadomego sterowania komorą.</p>
+
+<h2>Sekcja 4: Sterowanie</h2>
+
+<p>Znając wartości funkcji $f(x)$ oraz $j(x)$ wyliczone na podstawie danych historycznych,
+można przewidzieć przebieg temperatury towarzyszący procesom grzania i z tego
+względu w sposób świadomy sterować grzałką.</p>
+
+<ul>
+<li>w sumie można ograniczyć to do rekordów które były dawno, tak żeby nie było 
+jakichś dziwnych (i trudnych do uchwycenia) interakcji między tym co się teraz 
+dzieje a tym co było w niedawnej historii i co wpływa bezpośrednio na obecne 
+decyzje.</li>
+</ul>
+
+<p>Jesteśmy w chwili czasu i, mamy historię oraz przyszłość do decyzji.
+(zmienne dobieram tak żeby intuicyjnie i {\leq} j)</p>
+
+<p>Oznaczenia:
+    i - obecna chwila czasu, którą analizujemy
+    j - indeksuje czas w którym przewidujemy że będziemy grzać,
+    k - indeksuje temperaturę w przyszłości,</p>
+
+<p>Przyjmujemy uproszczony model ogrzewania przedstawiony w sekcji 2:
+{\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k]</p>
+
+<p>Na podstawie tego modelu jesteśmy w stanie przewidzieć przebieg zmian temperatury
+dla danego przebiegu mocy grzałki i w ten sposób zoptymalizować proces grzania
+wybierając taki przebieg który jest najbliższy żądanemu.</p>
+
+<p>Postępujemy podobnie jak doświadczony szachista, przewidujący
+kilka ruchów naprzód a jednocześnie w każdym ruchu dostosowujący się do
+działań rywala i aktualizującym swoją strategię odpowiednio.</p>
+
+<p>//można w sumie wykorzystywać wartości wyliczone w poprzednim oknie czasowym,
+//do przyśpieszenia rozwiązywania układu równań w następnym.
+//Np. jeśli stosujemy metodę aproksymacyjną, możemy jako punkty startowe przyjąć
+//wartości P[u] wyliczone w poprzednim oknie czasowym.</p>
+
+<p>Niech U[k] = żądana temperatura na początku przedziału czasowego j.
+Na podstawie wartości U[k] jesteśmy w stanie policzyć 
+{\Delta}U[k] = U[k+1] - U[k]</p>
+
+<p>Wtedy mamy układ równań:
+{\Delta}U[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
+ - rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów</p>
+
+<ul>
+<li>wagi są konieczne, bo musimy jakoś w sensowny sposób odciąć wartości j,</li>
+<li>problem: mogą wyjść liczby ujemne,</li>
+</ul>
+
+<p>Mamy więc równanie macierzowe (na razie pomijam wagi):
+ - oznaczenia jak na http://en.wikipedia.org/wiki/Least_squares
+y = X * β</p>
+
+<p>Dla K=3
+oraz i = 9 mamy:
+(celowo nie piszę równania dla {\Delta}U[9]):
+{\Delta}U[10] ≈ P[7]<em>f(3) + P[8]</em>f(2) + P[9]<em>f(1) + P[10]</em>f(0)
+{\Delta}U[11] ≈             P[8]<em>f(3) + P[9]</em>f(2) + P[10]<em>f(1) + P[11]</em>f(0)
+{\Delta}U[12] ≈                         P[9]<em>f(3) + P[10]</em>f(2) + P[11]<em>f(1) + P[12]</em>f(0)
+{\Delta}U[13] ≈                                     P[10]<em>f(3) + P[11]</em>f(2) + P[12]<em>f(1) + P[13]</em>f(0)
+itd.</p>
+
+<p>Przy czym znamy P[7] i P[8], a więc należy to przekształcić jako:
+{\Delta}U[10] - P[7]<em>f(3) - P[8]</em>f(2) ≈ P[9]<em>f(1) + P[10]</em>f(0)
+{\Delta}U[11]             - P[8]<em>f(3) ≈ P[9]</em>f(2) + P[10]<em>f(1) + P[11]</em>f(0)
+{\Delta}U[12]                         ≈ P[9]<em>f(3) + P[10]</em>f(2) + P[11]<em>f(1) + P[12]</em>f(0)
+{\Delta}U[13]                         ≈             P[10]<em>f(3) + P[11]</em>f(2) + P[12]<em>f(1) + P[13]</em>f(0)</p>
+
+<p>Czyli:
+y = [
+        {\Delta}U[10] - P[7]<em>f(3) - P[8]</em>f(2)
+        {\Delta}U[11]             - P[8]*f(3)
+        {\Delta}U[12] <br>
+        {\Delta}U[13] <br>
+]</p>
+
+<p>Wektor y odpowiada residualnej krzywej temperaturowej - </p>
+
+<ul>
+<li>na podstawie historii oraz wartości funkcji f liczymy zmiany temp w przyszłości 
+które wynikają z tego co już grzaliśmy,</li>
+<li>mamy residualną krzywą temperaturową,</li>
+</ul>
+
+<p>β = [
+        P[9];
+        P[10];
+        P[11];
+        P[12];
+        P[13]
+] </p>
+
+<p>X = [
+ f(1), f(0), 0,    0,    0;
+ f(2), f(1), f(0), 0,    0;
+ f(3), f(2), f(1), f(0), 0;
+ 0,    f(3), f(2), f(1), f(0);
+]</p>
+
+<p>Niech L = przesunięcie od którego zaczynamy uwzględniać równania w układzie
+równań.
+Pierwsze równanie które uwzględniamy w układzie równań, jest na
+{\Delta}U[i+L]
+W powyższym przykładzie oczywiście L = 1.</p>
+
+<p>Podaję teraz ogólne wzory na elementy powyższych wektorów y, \beta oraz macierzy X:
+(indeksy liczymy od 1!!!, jak jest przyjęte w matematyce)</p>
+
+<p>Wektor y:
+        Równanie dla wiersza macierzy y który dotyczy {\Delta}U[k]:
+        y[k - (i + L) + 1] = {\Delta}U[k] - \sum<em>{n=k-K}^{i-1} P[n] * f(k-n)
+               //sprawdziłem powyższe na kartce dla k=10, i=9, L=1, K=3
+        Gdy chcemy uzyskać y[u], liczymy:
+                k = u - 1 + (i+L)
+                        //jest to naturalne, pierwszy wiersz macierzy y dotyczy k = i+L,
+                        //dalej wartość k rośnie z u
+                y[u] = {\Delta}U[k] - \sum</em>{n=k-K}^{i-1} P[n] * f(k-n)</p>
+
+<p>Wektor β:
+        β[1] = P[i]
+        β[u] = P[i + u-1]</p>
+
+<p>Macierz X:
+        X[u,v] oznacza element w u-tym wierszu i v-tej kolumnie.
+        //X[1,1] jest mnożony z P[9] = P[i],
+        //      czyli musi mieć postać f(i+L - i) = f(L)
+        X[u,v] = f(L+u-v)</p>
+
+<pre><code>    Oczywiście jeśli L+u-v &lt; 0 albo L+u-v &gt; K+1, to 
+    komórce X[u,v] przypisujemy 0 (i traktujemy jako pustą komórkę w macierzy
+    rzadkiej - sparse matrix).
+</code></pre>
+
+<p>Po skonstruowaniu w powyższy sposób macierzy X oraz wektora y oraz rozwiązaniu
+układu równań y = X * β otrzymujemy wektor β i ostatecznie wartość P[i].
+Wyliczona wartość P[i] jest mocą grzałki którą należy ustawić w obecnej chwili
+czasu tak aby zapewnić optymalne sterowanie.
+Jeśli P[i] &lt; 0, grzanie w obecnej jednostce czasu wyłączamy.</p>
+
+<h2>Sekcja 5: Sterowanie przy użyciu wartości funkcji f - liczenie wag</h2>
+
+<p>Pojawia się jednak problem, jak daleko w przód przewidujemy nasze ruchy.</p>
+
+<p>Najlepiej prawdopodobnie stopniowo zmniejszać wagę kolejnych pomiarów, tak
+żeby dopasowywanie się do żądanej temperatury miało mniejszą wagę w przyszłości,
+gdzie przewidywanie temperatury będzie trudniejsze a i tak będziemy mogli
+zareagować.</p>
+
+<p>Rozwiązywanie układu równań z uwzględnieniem wag błędów jest opisane tutaj:
+http://math.stackexchange.com/a/709683
+http://en.wikipedia.org/wiki/Linear<em>least</em>squares<em>%28mathematics%29#Weighted</em>linear<em>least</em>squares
+(na Wikipedii oraz StackExchange są inne oznaczenia.
+Na StackExchange minimalizujemy W(Ax−b), na Wikipedii: W^{1/2}(Xβ - y)
+W^{1/2} oznacza niezależny pierwiastek z każdej z wartości.</p>
+
+<p>Tutaj konsekwentnie używamy oznaczeń z Wikipedii.
+)</p>
+
+<p>Potrzebujemy macierz wag W.
+Jest to macierz diagonalna (z wartościami niezerowymi tylko na przekątnej).
+Definiujemy wektor błędu jako:
+e = W^{1/2}(X * β - y)
+ - błąd mierzymy jako różnicę różnicy temperatur {\Delta}U[k] którą mamy uzyskać w
+   k-tym oknie czasowym a tym co uzyskamy.</p>
+
+<p>Minimalizujemy sumę kwadratów błędów, minimalizując e^{T} e.
+(to z tym T to transpozycja).</p>
+
+<p>Na podstawie tego wszystkiego otrzymujemy normalny układ równań (normal equations):
+X^{T} * W * X * β = X^{T} * W * y
+//przypominam że mnożenie macierzy nie jest łączne: (A * B) * C nie musi być 
+//równe A * (B * C)</p>
+
+<p>Ten układ równań potrafimy rozwiązać w sposób dokładny (w tym układzie równań
+mamy n = m) i w ten sposób uzyskać "optymalne" rozwiązanie dla \bety  </p>
+
+<p>Pozostaje jeszcze kwestia wyboru wag.
+Wikipedia zaleca żeby wagi były odwrotnością wariancji pomiarów.</p>
+
+<p>Nie można dać wariancji z którą znamy funkcję f()???</p>
+
+<ul>
+<li><p>w każdym razie, 1/u^2 maleje zbyt szybko, żeby to było do stosowania,</p>
+
+<ul>
+<li><p>co my chcemy dokładnie (dla K = 120):</p>
+
+<ul>
+<li>ma maleć do zera, powiedzmy dla K > 80 wartości mają już być
+pomijalne,</li>
+<li><p>nie może aż tak mocno </p></li>
+<li><p>dla K = 120
+    w[u] = (u+10)^{-1.2} </p>
+
+<pre><code>wygląda sensownie
+</code></pre></li>
+<li>czyli ogólnie mamy heurystykę
+    w[u] = (u+ K/12 )^{-1.2} 
+    //pomijamy tutaj wpływ L</li>
+</ul></li>
+</ul></li>
+<li><p>jeszcze jest kwestia tego że ten układ równań musi być nadmiernie
+zdefiniowany, żeby wagi miały znaczenie,</p></li>
+<li>przydałyby się dodatkowe parametry,</li>
+</ul>
+
+<p>Powiedzmy P=80         - liczba zmiennych
+          R=120        - liczba równań,
+- może powiedzmy dajemy tylko do 80 ze 120 równaniami,</p>
+
+<ul>
+<li><p>dobra, to w sumie wsz. ustalone</p>
+
+<ul>
+<li>tak jak ze sterowaniem rakietą, rakiety nie naprowadza się na
+konkretną trasę, po prostu w każdej jednostce czasu (time slice)
+  wylicza się na podstawie obecnego położenia oraz innych czynników
+  nową trasę, która trochę się różni od starej i po niej rakietę prowadzi.</li>
+</ul></li>
+</ul>
+
+<p>Dawid Nowak
+a czy my uwzględniamy tutaj temperaturę rzeczywistą, tzn. zmierzoną przez czujnik ?
+dzieje się to aby na pewno dynamicznie ?
+09:41
+Ja
+"dzieje się to aby na pewno dynamicznie ?" - nie rozumiem?
+09:43
+Dawid Nowak
+bo np. jak włożymy do komory jakieś urządzenie do zbadania jak się zachowuje w różnych warunkach temperaturowych i jeżeli ono będzie emitować jakieś ciepło 
+09:45
+czy my bierzemy pod uwagę temperaturę w jakiejś chwili bieżącej t ?
+czy tylko na podstawie danych historycznych ?
+09:45
+Ja
+Ew. możemy założyć termistor, one mają b. dużą szybkość działania.
+Zasadniczo wydaje mi się założenie że temp. na termistorze = taka jaką chcemy mieć.
+09:46
+Dawid Nowak
+w sumie dowolny czujnik temperatury
+09:46
+Ja
+Czyli nie przejmujemy się zbytnio tym że termistor mierzy "inną temperaturę" niż jest w komorze.
+I tak różnice temp. wewnątrz komory są stosunkowo duże (wyżej jest oczywiście cieplej), musimy względem czegoś kalibrować / jakiegoś punktu.</p>
+
+<!--      vim: set spelllang=pl filetype=markdown :    -->
+</body>
+</html>
