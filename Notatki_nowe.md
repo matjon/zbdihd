@@ -152,7 +152,7 @@ od temperatury panującej w komorze. Uwzględnienie innych czynników (np. histo
 zmian temperatury) spowodowałoby znaczny wzrost liczby niewiadomych w układzie 
 równań, co byłoby niekorzystne z dwóch względów:
 - do wyliczenia układu równań potrzebnych byłoby bardzo wiele danych historycznych,
-- spadłaby dokładność oszacowania wartości tych niewiadomych.
+- spadłaby znacznie dokładność oszacowania wartości tych niewiadomych.
 
 Niech `(∆T[k] | T[k])` - szybkość upływu ciepła z komory (zmiana temperatury zależna od 
 obecnej temperatury w komorze).
@@ -163,15 +163,18 @@ Wzór na `∆T[k]` przyjmuje więc postać:
         ∆T[k] = T[k+1] - T[k] ≈ (∆T[k] | T[k]) + \sum_{j=0}^{k} (ΔT[k] | P[j])
 
 Żeby ograniczyć liczbę niewiadomych w układzie równań, można próbować definiować
-`(∆T[k] | T[k])` co, powiedzmy, 5°C i wykonywać interpolację dla pozostałych wartości
+`(∆T[k] | T[k])` co - powiedzmy - 5°C i wykonywać interpolację albo aproksymację 
+dla pozostałych wartości
 (trzeba tu zauważyć, że w większości przypadków temperaturę znamy z dokładnością
-do co najmniej 0,1°C, zatem interpolacja i tak byłaby konieczna).
+0,1°C, zatem interpolacja lub aproksymacja i tak byłaby konieczna).
 
 Szybkość ucieczki ciepła można aproksymować w podany niżej prosty sposób:
  - mamy funkcję `j(x)` - zdefiniowaną dla wartości x podzielnych przez 5,
- - dla k nie należącego do dziedziny funkcji j mamy: 
+ - dla k nie należącego do dziedziny funkcji `j(x)` mamy: 
 
         m = k - (k % 5)
+
+   (zaokrąglamy k w dół do liczby podzielnej przez 5)
 
         (∆T[k] | T[k]) = (j(m-5) + j(m) + j(m+5) + j(m+10)) / 4
 
@@ -183,7 +186,7 @@ Powyższe wzory można w prosty sposób uwzględnić w układzie równań:
 
         ∆T[k] = T[k+1] - T[k] ≈ (∆T[k] | T[k]) + \sum_{j=0}^{k} (ΔT[k] | P[j])
 
-Po rozwiązaniu go, otrzymujemy wartości funkcji f() oraz j(), które będą potrzebne
+Po rozwiązaniu go, otrzymujemy wartości funkcji `f(x)` oraz `j(x)`, które będą potrzebne
 do świadomego sterowania komorą.
 
 
