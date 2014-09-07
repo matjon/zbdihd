@@ -69,3 +69,12 @@ Sekcja 3: Uwzględnienie upływu ciepła
 nie, 7 wrz 2014, 11:08:22 CEST
 Ujednolicić nazewnictwo: time slice, jednostka czasu, przedział czasu,
 przedział czasowy,
+
+nie, 7 wrz 2014, 11:27:35 CEST
+Musimy więc założyć:
+
+        (ΔT[k] | P[j]) = P[j] * f(k-j)
+
+Gdzie:
+- P[j] - moc grzałki w danej jednostce czasu 
+(bardziej chyba powinniśmy używać dostarczonego ciepła, ale to jest detal),

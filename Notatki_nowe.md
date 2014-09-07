@@ -16,7 +16,7 @@ Można założyć (w sposób bardzo agresywny):
   - przetwarzanie,
   - ustawienie wyjść. 
 
-  Jeden taki okres nazywamy przedziałem
+  Odstęp czasu między kolejnymi iteracjami pętli nazywamy przedziałem
   czasu albo jednostką czasu. Zakładamy, że w jednym przedziale czasu ustawienia 
   urządzeń wpływających na
   temperaturę w komorze (moc grzałki, wentylatora, itd) są stałe, a temperatura
@@ -48,25 +48,27 @@ Przyrost temperatury podczas tej jednostki czasu jest równy:
 
         ∆T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} (ΔT[k] | P[j])
 
-(model ten na razie pomija upływ ciepła przez ściany komory)
+(Na razie pomijamy upływ ciepła przez ściany komory. Pomijamy również ciepło
+wytwarzane w urządzeniu znajdującym się w komorze.)
 
 Gdzie:
-	T[k] 	- temperatura na początku k-tej jednostki czasu,
-	(ΔT[k] | P[j])
-		- przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
-                j-tej jednostce czasu.
-                - oczywiście k >= j
+- `T[k]` - temperatura na początku k-tej jednostki czasu,
+- `(ΔT[k] | P[j])` - przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
+                j-tej jednostce czasu. Oczywiście `k >= j` (grzanie nie może wpłynąć
+                na zmianę temperatury przed rozpoczęciem grzania).
 
-Jesteśmy w stanie bezpośrednio zmierzyć jedynie T[k], chcielibyśmy jednak znać
-(ΔT[k] | P[j]).
+Jesteśmy w stanie bezpośrednio zmierzyć jedynie `T[k]`, chcielibyśmy jednak znać
+`(ΔT[k] | P[j])`.
 
 Musimy więc założyć:
-(ΔT[k] | P[j]) = P[j] * f(k-j)
- - gdzie P[j] - moc grzałki w danej jednostce czasu 
-(bardziej chyba powinniśmy używać dostarczonego ciepła, ale to jest detal),
- - f(x)        
-        - pewna funkcja dążąca do zera dla x dążącego do nieskończoności, 
+
+        (ΔT[k] | P[j]) = P[j] * f(k-j)
+
+Gdzie:
+- P[j] - moc grzałki w danej jednostce czasu 
+- f(x) - pewna funkcja dążąca do zera dla x dążącego do nieskończoności, 
          lim_{k -> +∞} (ΔT[k] | P[j]) = 0
+
         - zdefiniowana dla wartości nieujemnych,
         - f(0) - stosunek przyrostu temperatury w tym samym przedziale czasu kiedy
                  grzejemy do mocy grzałki 
