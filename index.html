@@ -246,45 +246,43 @@ równań, co byłoby niekorzystne z dwóch względów:</p>
 
 <ul>
 <li>do wyliczenia układu równań potrzebnych byłoby bardzo wiele danych historycznych,</li>
-<li>spadłaby znacznie dokładność oszacowania wartości tych niewiadomych.</li>
+<li>spadłaby znacznie dokładność oszacowania wartości niewiadomych.</li>
 </ul>
 
 <p>Niech $({\Delta}T[k] \:|\: T[k])$ - szybkość upływu ciepła z komory (zmiana temperatury zależna od 
 obecnej temperatury w komorze).
 Przyjmujemy, że $({\Delta}T[k] \:|\: T[k]) &lt; 0$.</p>
 
-<p>Wzór na ${\Delta}T[k]$ przyjmuje więc postać: </p>
+<p>Równanie $\ref{s2dec1}$ uzupełnione o wpływ temperatury przyjmuje postać: </p>
 
-<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + \sum_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])$$</p>
+<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + \sum_{j=0}^{k} ({\Delta}T[k] \:|\: P[j]) \label{s3eqs}$$</p>
 
-<p>Żeby ograniczyć liczbę niewiadomych w układzie równań, można próbować definiować
-$({\Delta}T[k] \:|\: T[k])$ co - powiedzmy - 5°C i wykonywać interpolację albo aproksymację 
+<p>Żeby ograniczyć liczbę niewiadomych w układzie równań, można określić
+$({\Delta}T[k] \:|\: T[k])$ co - powiedzmy - $L = 5\mathrm{°C}$ i wykonywać interpolację albo aproksymację 
 dla pozostałych wartości
-(trzeba tu zauważyć, że w większości przypadków temperaturę znamy z dokładnością
-0,1°C, zatem interpolacja lub aproksymacja i tak byłaby konieczna).</p>
+(trzeba tu zauważyć, że temperaturę będziemy znali z dokładnością co najmniej
+0,1°C, zatem interpolacja lub aproksymacja i tak jest konieczna).</p>
 
-<p>Szybkość ucieczki ciepła można aproksymować w podany niżej prosty sposób:</p>
+<p>Szybkość ucieczki ciepła można aproksymować w podany poniżej prosty sposób:</p>
 
 <ul>
-<li>mamy funkcję $j(x)$ - zdefiniowaną dla wartości x podzielnych przez 5,</li>
-<li>dla k nie należącego do dziedziny funkcji $j(x)$ mamy (zaokrąglamy $k$ w dół do liczby podzielnej przez 5):</li>
+<li>definiujemy pewną funkcję $j(x)$ - określoną dla wartości x podzielnych przez 5,</li>
+<li>dla $k$ nie należącego do dziedziny funkcji $j(x)$ mamy (zaokrąglamy $k$ w dół do liczby podzielnej przez 5):</li>
 </ul>
 
-<p>$$m = k - (k\mod 5)$$</p>
+<p>$$m = k - (k \bmod 5)$$</p>
 
-<p>$$({\Delta}T[k] \:|\: T[k]) = (j(m-5) + j(m) + j(m+5) + j(m+10)) / 4$$</p>
+<p>$$({\Delta}T[k] \:|\: T[k]) = \frac{j(m-5) + j(m) + j(m+5) + j(m+10)}{4}$$</p>
 
 <ul>
 <li>dla k należącego do dziedziny funkcji j mamy:</li>
 </ul>
 
-<p>$$ ({\Delta}T[k] \:|\: T[k]) = (j(k-5) + j(k) + j(k+5)) / 3$$</p>
+<p>$$ ({\Delta}T[k] \:|\: T[k]) = \frac{j(k-5) + j(k) + j(k+5)}{3}$$</p>
 
 <p><br></p>
 
-<p>Powyższe wzory można w prosty sposób uwzględnić w układzie równań:</p>
-
-<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + \sum_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])$$</p>
+<p>Powyższe wzory można w prosty sposób uwzględnić w układzie równań $\ref{s3eqs}$.</p>
 
 <p>Po rozwiązaniu go, otrzymujemy wartości funkcji $f(x)$ oraz $j(x)$, które będą potrzebne
 do świadomego sterowania komorą.</p>
@@ -293,45 +291,46 @@ do świadomego sterowania komorą.</p>
 
 <p>Znając wartości funkcji $f(x)$ oraz $j(x)$ wyliczone na podstawie danych historycznych,
 można przewidzieć przebieg temperatury towarzyszący procesom grzania i z tego
-względu w sposób świadomy sterować grzałką.</p>
+względu w sposób świadomy sterować grzałką poprzez wybór najbardziej optymalnego
+przebiegu.</p>
+
+<p>Przy wyliczaniu wartości funkcji $f(x)$ oraz $j(x)$ jest zalecane ograniczenie się 
+do wartości $T[k]$ oraz $P[k]$ dla $k$ występującego stosunkowo dawno, tak żeby 
+nie występowały trudne do uchwycenia interakcje między tym co się teraz 
+dzieje a tym co było w niedawnej historii i co wpływa bezpośrednio na obecne 
+decyzje.</p>
+
+<p>Jesteśmy w chwili czasu $i$, mamy historię oraz przyszłość do decyzji.
+(zmienne są dobrane tak żeby intuicyjnie $i \leq j \leq k$)</p>
+
+<p>Oznaczenia:</p>
 
 <ul>
-<li>w sumie można ograniczyć to do rekordów które były dawno, tak żeby nie było 
-jakichś dziwnych (i trudnych do uchwycenia) interakcji między tym co się teraz 
-dzieje a tym co było w niedawnej historii i co wpływa bezpośrednio na obecne 
-decyzje.</li>
+<li>$i$ - obecna chwila czasu, którą analizujemy,</li>
+<li>$j$ - indeksuje czas w którym przewidujemy że będziemy grzać,</li>
+<li>$k$ - indeksuje temperaturę w przyszłości,</li>
 </ul>
 
-<p>Jesteśmy w chwili czasu i, mamy historię oraz przyszłość do decyzji.
-(zmienne dobieram tak żeby intuicyjnie i {\leq} j)</p>
+<p>Przyjmujemy uproszczony model ogrzewania przedstawiony w sekcjach 2 i 3:</p>
 
-<p>Oznaczenia:
-    i - obecna chwila czasu, którą analizujemy
-    j - indeksuje czas w którym przewidujemy że będziemy grzać,
-    k - indeksuje temperaturę w przyszłości,</p>
+<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + 
+        \sum_{j=k-K}^{k} P[j] * f(k-j)$$</p>
 
-<p>Przyjmujemy uproszczony model ogrzewania przedstawiony w sekcji 2:
-{\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k]</p>
-
-<p>Na podstawie tego modelu jesteśmy w stanie przewidzieć przebieg zmian temperatury
-dla danego przebiegu mocy grzałki i w ten sposób zoptymalizować proces grzania
-wybierając taki przebieg który jest najbliższy żądanemu.</p>
-
-<p>Postępujemy podobnie jak doświadczony szachista, przewidujący
+<p>Będziemy postępowali podobnie jak doświadczony szachista, przewidujący
 kilka ruchów naprzód a jednocześnie w każdym ruchu dostosowujący się do
-działań rywala i aktualizującym swoją strategię odpowiednio.</p>
+działań rywala i aktualizujący odpowiednio swoją strategię.
+Z drugiej strony będziemy postępowali podobnie jak przy sterowaniu rakietą.
+Rakiety nie naprowadza się bowiem na
+konkretną trasę, po prostu w każdej jednostce czasu 
+wylicza się na podstawie obecnego położenia oraz innych czynników
+nową trasę, która trochę się różni od starej i po niej rakietę prowadzi.</p>
 
-<p>//można w sumie wykorzystywać wartości wyliczone w poprzednim oknie czasowym,
-//do przyśpieszenia rozwiązywania układu równań w następnym.
-//Np. jeśli stosujemy metodę aproksymacyjną, możemy jako punkty startowe przyjąć
-//wartości P[u] wyliczone w poprzednim oknie czasowym.</p>
-
-<p>Niech U[k] = żądana temperatura na początku przedziału czasowego j.
-Na podstawie wartości U[k] jesteśmy w stanie policzyć 
-{\Delta}U[k] = U[k+1] - U[k]</p>
+<p>Niech $U[k]$ = żądana temperatura na początku przedziału czasowego $j$.
+Na podstawie wartości $U[k]$ potrafimy policzyć 
+$${\Delta}U[k] = U[k+1] - U[k]$$</p>
 
 <p>Wtedy mamy układ równań:
-{\Delta}U[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
+{\Delta}U[k] = \sum_{j=k-K}^{k} P[j] * f(k-j)
  - rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów</p>
 
 <ul>
@@ -340,8 +339,8 @@ Na podstawie wartości U[k] jesteśmy w stanie policzyć
 </ul>
 
 <p>Mamy więc równanie macierzowe (na razie pomijam wagi):
- - oznaczenia jak na http://en.wikipedia.org/wiki/Least_squares
-y = X * β</p>
+ - oznaczenia jak na <a href="http://en.wikipedia.org/wiki/Least_squares">Wikipedii</a>
+$$y = X * \beta$$</p>
 
 <p>Dla K=3
 oraz i = 9 mamy:
@@ -374,20 +373,26 @@ które wynikają z tego co już grzaliśmy,</li>
 <li>mamy residualną krzywą temperaturową,</li>
 </ul>
 
-<p>β = [
-        P[9];
-        P[10];
-        P[11];
-        P[12];
-        P[13]
-] </p>
+<p>$$
+\beta = 
+\begin{bmatrix}
+        P[9]  \\
+        P[10] \\
+        P[11] \\
+        P[12] \\
+        P[13] 
+\end{bmatrix}
+$$</p>
 
-<p>X = [
- f(1), f(0), 0,    0,    0;
- f(2), f(1), f(0), 0,    0;
- f(3), f(2), f(1), f(0), 0;
- 0,    f(3), f(2), f(1), f(0);
-]</p>
+<p>$$
+X = 
+\begin{bmatrix}
+ f(1)&amp; f(0)&amp; 0&amp;    0&amp;    0              \\
+ f(2)&amp; f(1)&amp; f(0)&amp; 0&amp;    0              \\
+ f(3)&amp; f(2)&amp; f(1)&amp; f(0)&amp; 0              \\
+ 0&amp;    f(3)&amp; f(2)&amp; f(1)&amp; f(0)           \\
+\end{bmatrix}
+$$</p>
 
 <p>Niech L = przesunięcie od którego zaczynamy uwzględniać równania w układzie
 równań.
@@ -408,9 +413,9 @@ W powyższym przykładzie oczywiście L = 1.</p>
                         //dalej wartość k rośnie z u
                 y[u] = {\Delta}U[k] - \sum</em>{n=k-K}^{i-1} P[n] * f(k-n)</p>
 
-<p>Wektor β:
-        β[1] = P[i]
-        β[u] = P[i + u-1]</p>
+<p>Wektor \beta:
+        \beta[1] = P[i]
+        \beta[u] = P[i + u-1]</p>
 
 <p>Macierz X:
         X[u,v] oznacza element w u-tym wierszu i v-tej kolumnie.
@@ -424,7 +429,7 @@ W powyższym przykładzie oczywiście L = 1.</p>
 </code></pre>
 
 <p>Po skonstruowaniu w powyższy sposób macierzy X oraz wektora y oraz rozwiązaniu
-układu równań y = X * β otrzymujemy wektor β i ostatecznie wartość P[i].
+układu równań y = X * \beta otrzymujemy wektor \beta i ostatecznie wartość P[i].
 Wyliczona wartość P[i] jest mocą grzałki którą należy ustawić w obecnej chwili
 czasu tak aby zapewnić optymalne sterowanie.
 Jeśli P[i] &lt; 0, grzanie w obecnej jednostce czasu wyłączamy.</p>
@@ -442,7 +447,7 @@ zareagować.</p>
 http://math.stackexchange.com/a/709683
 http://en.wikipedia.org/wiki/Linear<em>least</em>squares<em>%28mathematics%29#Weighted</em>linear<em>least</em>squares
 (na Wikipedii oraz StackExchange są inne oznaczenia.
-Na StackExchange minimalizujemy W(Ax−b), na Wikipedii: W^{1/2}(Xβ - y)
+Na StackExchange minimalizujemy W(Ax−b), na Wikipedii: W^{1/2}(X\beta - y)
 W^{1/2} oznacza niezależny pierwiastek z każdej z wartości.</p>
 
 <p>Tutaj konsekwentnie używamy oznaczeń z Wikipedii.
@@ -451,7 +456,7 @@ W^{1/2} oznacza niezależny pierwiastek z każdej z wartości.</p>
 <p>Potrzebujemy macierz wag W.
 Jest to macierz diagonalna (z wartościami niezerowymi tylko na przekątnej).
 Definiujemy wektor błędu jako:
-e = W^{1/2}(X * β - y)
+e = W^{1/2}(X * \beta - y)
  - błąd mierzymy jako różnicę różnicy temperatur {\Delta}U[k] którą mamy uzyskać w
    k-tym oknie czasowym a tym co uzyskamy.</p>
 
@@ -459,7 +464,7 @@ e = W^{1/2}(X * β - y)
 (to z tym T to transpozycja).</p>
 
 <p>Na podstawie tego wszystkiego otrzymujemy normalny układ równań (normal equations):
-X^{T} * W * X * β = X^{T} * W * y
+X^{T} * W * X * \beta = X^{T} * W * y
 //przypominam że mnożenie macierzy nie jest łączne: (A * B) * C nie musi być 
 //równe A * (B * C)</p>
 
@@ -501,14 +506,7 @@ zdefiniowany, żeby wagi miały znaczenie,</p></li>
 - może powiedzmy dajemy tylko do 80 ze 120 równaniami,</p>
 
 <ul>
-<li><p>dobra, to w sumie wsz. ustalone</p>
-
-<ul>
-<li>tak jak ze sterowaniem rakietą, rakiety nie naprowadza się na
-konkretną trasę, po prostu w każdej jednostce czasu (time slice)
-  wylicza się na podstawie obecnego położenia oraz innych czynników
-  nową trasę, która trochę się różni od starej i po niej rakietę prowadzi.</li>
-</ul></li>
+<li>dobra, to w sumie wsz. ustalone</li>
 </ul>
 
 <p>Dawid Nowak
