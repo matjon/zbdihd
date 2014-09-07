@@ -62,23 +62,23 @@ wytwarzane w urządzeniu znajdującym się w komorze.)
 Gdzie:
 
 - $T[k]$ - temperatura na początku k-tej jednostki czasu,
-- $({\Delta}T[k] | P[j])$ - przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
+- $({\Delta}T[k] \:|\: P[j])$ - przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
                 j-tej jednostce czasu. Oczywiście $k {\geq} j$ (grzanie nie może wpłynąć
                 na zmianę temperatury przed jego rozpoczęciem).
 
 Jesteśmy w stanie bezpośrednio zmierzyć jedynie $T[k]$, chcielibyśmy jednak znać
-$({\Delta}T[k] | P[j])$.
+$({\Delta}T[k] \:|\: P[j])$.
 
 Musimy więc założyć:
 
-$$({\Delta}T[k] | P[j]) = P[j] \cdot f(k-j)$$
+$$({\Delta}T[k] \:|\: P[j]) = P[j] \cdot f(k-j)$$
 
 Gdzie:
 
 - $ P[j] $ - moc grzałki w jednostce czasu o indeksie $j$,
 - $ f(x) $ - pewna funkcja dążąca do zera dla $x$ dążącego do nieskończoności:
  
-  $$lim\_{k \to +\infty} ({\Delta}T[k] | P[j]) = 0$$
+  $$lim\_{k \to +\infty} ({\Delta}T[k] \:|\: P[j]) = 0$$
 
   - jest ona zdefiniowana wyłącznie dla wartości nieujemnych (grzanie nie może wpłynąć
                 na zmianę temperatury przed jego rozpoczęciem),
@@ -112,7 +112,7 @@ Rozważymy teraz dla przykładu postać sumy dla niskich wartości $k$:
 
 Dla k=0:
 
-${\Delta}T[0] = T[1] - T[0] ≈ \sum\_{j=0}^{0} ({\Delta}T[0] | P[j]) = ({\Delta}T[0] | P[0])$
+${\Delta}T[0] = T[1] - T[0] ≈ \sum\_{j=0}^{0} ({\Delta}T[0] \:|\: P[j]) = ({\Delta}T[0] \:|\: P[0])$
 
 ${\Delta}T[0] = T[1] - T[0] ≈ P[0] * f(0)$
 
@@ -120,9 +120,9 @@ ${\Delta}T[0] = T[1] - T[0] ≈ P[0] * f(0)$
 
 Dla k=1:
 
-${\Delta}T[1] = T[2] - T[1] ≈ \sum\_{j=0}^{1} ({\Delta}T[1] | P[j])$
+${\Delta}T[1] = T[2] - T[1] ≈ \sum\_{j=0}^{1} ({\Delta}T[1] \:|\: P[j])$
 
-${\Delta}T[1] = T[2] - T[1] ≈ ({\Delta}T[1] | P[0]) + ({\Delta}T[1] | P[1])$
+${\Delta}T[1] = T[2] - T[1] ≈ ({\Delta}T[1] \:|\: P[0]) + ({\Delta}T[1] \:|\: P[1])$
 
 ${\Delta}T[1] = T[2] - T[1] ≈ ( P[0] * f(1) + P[1] * f(0) )$
 
@@ -201,16 +201,16 @@ równań, co byłoby niekorzystne z dwóch względów:
 - do wyliczenia układu równań potrzebnych byłoby bardzo wiele danych historycznych,
 - spadłaby znacznie dokładność oszacowania wartości tych niewiadomych.
 
-Niech $({\Delta}T[k] | T[k])$ - szybkość upływu ciepła z komory (zmiana temperatury zależna od 
+Niech $({\Delta}T[k] \:|\: T[k])$ - szybkość upływu ciepła z komory (zmiana temperatury zależna od 
 obecnej temperatury w komorze).
-Przyjmujemy, że $({\Delta}T[k] | T[k]) < 0$.
+Przyjmujemy, że $({\Delta}T[k] \:|\: T[k]) < 0$.
 
 Wzór na ${\Delta}T[k]$ przyjmuje więc postać: 
 
-  $${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] | T[k]) + \sum\_{j=0}^{k} ({\Delta}T[k] | P[j])$$
+  $${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + \sum\_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])$$
 
 Żeby ograniczyć liczbę niewiadomych w układzie równań, można próbować definiować
-$({\Delta}T[k] | T[k])$ co - powiedzmy - 5°C i wykonywać interpolację albo aproksymację 
+$({\Delta}T[k] \:|\: T[k])$ co - powiedzmy - 5°C i wykonywać interpolację albo aproksymację 
 dla pozostałych wartości
 (trzeba tu zauważyć, że w większości przypadków temperaturę znamy z dokładnością
 0,1°C, zatem interpolacja lub aproksymacja i tak byłaby konieczna).
@@ -222,18 +222,18 @@ Szybkość ucieczki ciepła można aproksymować w podany niżej prosty sposób:
 
 $$m = k - (k\mod 5)$$
 
-$$({\Delta}T[k] | T[k]) = (j(m-5) + j(m) + j(m+5) + j(m+10)) / 4$$
+$$({\Delta}T[k] \:|\: T[k]) = (j(m-5) + j(m) + j(m+5) + j(m+10)) / 4$$
 
 
  - dla k należącego do dziedziny funkcji j mamy:
         
-$$ ({\Delta}T[k] | T[k]) = (j(k-5) + j(k) + j(k+5)) / 3$$
+$$ ({\Delta}T[k] \:|\: T[k]) = (j(k-5) + j(k) + j(k+5)) / 3$$
 
 <br>
 
 Powyższe wzory można w prosty sposób uwzględnić w układzie równań:
 
-$${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] | T[k]) + \sum\_{j=0}^{k} ({\Delta}T[k] | P[j])$$
+$${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + \sum\_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])$$
 
 Po rozwiązaniu go, otrzymujemy wartości funkcji $f(x)$ oraz $j(x)$, które będą potrzebne
 do świadomego sterowania komorą.
