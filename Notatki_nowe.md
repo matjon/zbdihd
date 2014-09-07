@@ -71,14 +71,14 @@ $({\Delta}T[k] | P[j])$.
 
 Musimy więc założyć:
 
-$$({\Delta}T[k] | P[j]) = P[j] * f(k-j)$$
+$$({\Delta}T[k] | P[j]) = P[j] \cdot f(k-j)$$
 
 Gdzie:
 
 - $P[j]$ - moc grzałki w jednostce czasu o indeksie j,
 - $f(x)$ - pewna funkcja dążąca do zera dla x dążącego do nieskończoności:
  
-		lim_{k -> +∞} ({\Delta}T[k] | P[j]) = 0
+$$lim\_{k \to +\infty} ({\Delta}T[k] | P[j]) = 0$$
 
   - jest ona zdefiniowana wyłącznie dla wartości nieujemnych (grzanie nie może wpłynąć
                 na zmianę temperatury przed jego rozpoczęciem),
@@ -87,9 +87,9 @@ Gdzie:
 	do mocy grzałki w tym przedziale,
   - po K = 120 przedziałach czasu od rozpoczęcia grzania, ciepło wydzielone przez grzałkę zostaje 
 	rozproszone w komorze i nie wpływa już na zmiany temperatury na termometrze.
-	Z tego względu można uznać że $f(x) ≡ 0$ dla $x > K$:
+	Z tego względu można uznać że $f(x) \equiv 0$ dla $x > K$:
 
-    - czyli f(x) może być niezerowe tylko dla $0 <= x <= K$,
+    - czyli f(x) może być niezerowe tylko dla $0 \leq x \leq K$,
     - istnieje co najwyżej K+1 niezerowych wartości funkcji $f(x)$:
     
       0 oraz od 1 do K,
