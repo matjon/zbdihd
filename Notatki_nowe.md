@@ -268,44 +268,44 @@ Sekcja 4: Sterowanie
 
 Znając wartości funkcji $f(x)$ oraz $j(x)$ wyliczone na podstawie danych historycznych,
 można przewidzieć przebieg temperatury towarzyszący procesom grzania i z tego
-względu w sposób świadomy sterować grzałką.
+względu w sposób świadomy sterować grzałką poprzez wybór najbardziej optymalnego
+przebiegu.
 
-
- - w sumie można ograniczyć to do rekordów które były dawno, tak żeby nie było 
-jakichś dziwnych (i trudnych do uchwycenia) interakcji między tym co się teraz 
+Przy wyliczaniu wartości funkcji $f(x)$ oraz $j(x)$ jest zalecane ograniczenie się 
+do wartości $T[k]$ oraz $P[k]$ dla $k$ występującego stosunkowo dawno, tak żeby 
+nie występowały trudne do uchwycenia interakcje między tym co się teraz 
 dzieje a tym co było w niedawnej historii i co wpływa bezpośrednio na obecne 
 decyzje.
  
-Jesteśmy w chwili czasu i, mamy historię oraz przyszłość do decyzji.
-(zmienne dobieram tak żeby intuicyjnie i {\leq} j)
+Jesteśmy w chwili czasu $i$, mamy historię oraz przyszłość do decyzji.
+(zmienne są dobrane tak żeby intuicyjnie $i \leq j \leq k$)
 
 Oznaczenia:
-	i - obecna chwila czasu, którą analizujemy
-	j - indeksuje czas w którym przewidujemy że będziemy grzać,
-	k - indeksuje temperaturę w przyszłości,
 
-Przyjmujemy uproszczony model ogrzewania przedstawiony w sekcji 2:
-{\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k]
+*	$i$ - obecna chwila czasu, którą analizujemy,
+*	$j$ - indeksuje czas w którym przewidujemy że będziemy grzać,
+*	$k$ - indeksuje temperaturę w przyszłości,
 
-Na podstawie tego modelu jesteśmy w stanie przewidzieć przebieg zmian temperatury
-dla danego przebiegu mocy grzałki i w ten sposób zoptymalizować proces grzania
-wybierając taki przebieg który jest najbliższy żądanemu.
+Przyjmujemy uproszczony model ogrzewania przedstawiony w sekcjach 2 i 3:
 
-Postępujemy podobnie jak doświadczony szachista, przewidujący
+$${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + 
+        \sum\_{j=k-K}^{k} P[j] * f(k-j)$$
+
+Będziemy postępowali podobnie jak doświadczony szachista, przewidujący
 kilka ruchów naprzód a jednocześnie w każdym ruchu dostosowujący się do
-działań rywala i aktualizującym swoją strategię odpowiednio.
+działań rywala i aktualizujący odpowiednio swoją strategię.
+Z drugiej strony będziemy postępowali podobnie jak przy sterowaniu rakietą.
+Rakiety nie naprowadza się bowiem na
+konkretną trasę, po prostu w każdej jednostce czasu 
+wylicza się na podstawie obecnego położenia oraz innych czynników
+nową trasę, która trochę się różni od starej i po niej rakietę prowadzi.
 
-//można w sumie wykorzystywać wartości wyliczone w poprzednim oknie czasowym,
-//do przyśpieszenia rozwiązywania układu równań w następnym.
-//Np. jeśli stosujemy metodę aproksymacyjną, możemy jako punkty startowe przyjąć
-//wartości P[u] wyliczone w poprzednim oknie czasowym.
-
-Niech U[k] = żądana temperatura na początku przedziału czasowego j.
-Na podstawie wartości U[k] jesteśmy w stanie policzyć 
-{\Delta}U[k] = U[k+1] - U[k]
+Niech $U[k]$ = żądana temperatura na początku przedziału czasowego $j$.
+Na podstawie wartości $U[k]$ potrafimy policzyć 
+$${\Delta}U[k] = U[k+1] - U[k]$$
 
 Wtedy mamy układ równań:
-{\Delta}U[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
+{\Delta}U[k] = \sum\_{j=k-K}^{k} P[j] * f(k-j)
  - rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów
 
 - wagi są konieczne, bo musimy jakoś w sensowny sposób odciąć wartości j,
@@ -481,10 +481,6 @@ Powiedzmy P=80         - liczba zmiennych
 	
 	
 
-	- tak jak ze sterowaniem rakietą, rakiety nie naprowadza się na
-	  konkretną trasę, po prostu w każdej jednostce czasu (time slice)
-          wylicza się na podstawie obecnego położenia oraz innych czynników
-          nową trasę, która trochę się różni od starej i po niej rakietę prowadzi.
 	
 	
 	

@@ -96,3 +96,17 @@ nie, 7 wrz 2014, 14:34:09 CEST
 
 <!--        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry -->
 http://stackoverflow.com/a/12979200
+
+nie, 7 wrz 2014, 20:33:23 CEST
+PILNE:
+Sekcja 3 - aproksymacja - porządnie ją zdefiniować.
+
+nie, 7 wrz 2014, 20:44:41 CEST
+W Sekcji 4 (tam gdzie już sterujemy):
+//można w sumie wykorzystywać wartości wyliczone w poprzednim oknie czasowym,
+//do przyśpieszenia rozwiązywania układu równań w następnym.
+//Np. jeśli stosujemy metodę aproksymacyjną, możemy jako punkty startowe przyjąć
+//wartości P[u] wyliczone w poprzednim oknie czasowym.
+
+nie, 7 wrz 2014, 20:52:37 CEST
+Wszędzie znaki * -> \cdot
