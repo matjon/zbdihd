@@ -467,4 +467,4 @@ Czyli nie przejmujemy się zbytnio tym że termistor mierzy "inną temperaturę"
 I tak różnice temp. wewnątrz komory są stosunkowo duże (wyżej jest oczywiście cieplej), musimy względem czegoś kalibrować / jakiegoś punktu.
 
 
-<<<      vim: spelllang=pl >>>
+<<<      vim: set spelllang=pl:    >>>
