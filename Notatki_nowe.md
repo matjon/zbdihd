@@ -52,9 +52,9 @@ Kolejne jednostki są numerowane liczbami całkowitymi.
 
 Rozważamy jednostkę o numerze $k$.
 
-Przyrost temperatury podczas tej jednostki czasu jest równy:
+Przyrost temperatury podczas tej jednostki czasu można przybliżyć jako:
 
-$${\Delta}T[k] = T[k+1] - T[k] \approx \sum\_{j=0}^{k} ({\Delta}T[k] | P[j])$$
+$${\Delta}T[k] = T[k+1] - T[k] \approx \sum\_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])$$
 
 (Na razie pomijamy upływ ciepła przez ściany komory. Pomijamy również ciepło
 wytwarzane w urządzeniu znajdującym się w komorze.)
@@ -75,10 +75,10 @@ $$({\Delta}T[k] | P[j]) = P[j] \cdot f(k-j)$$
 
 Gdzie:
 
-- $P[j]$ - moc grzałki w jednostce czasu o indeksie j,
-- $f(x)$ - pewna funkcja dążąca do zera dla x dążącego do nieskończoności:
+- $ P[j] $ - moc grzałki w jednostce czasu o indeksie $j$,
+- $ f(x) $ - pewna funkcja dążąca do zera dla $x$ dążącego do nieskończoności:
  
-$$lim\_{k \to +\infty} ({\Delta}T[k] | P[j]) = 0$$
+  $$lim\_{k \to +\infty} ({\Delta}T[k] | P[j]) = 0$$
 
   - jest ona zdefiniowana wyłącznie dla wartości nieujemnych (grzanie nie może wpłynąć
                 na zmianę temperatury przed jego rozpoczęciem),
@@ -89,7 +89,7 @@ $$lim\_{k \to +\infty} ({\Delta}T[k] | P[j]) = 0$$
 	rozproszone w komorze i nie wpływa już na zmiany temperatury na termometrze.
 	Z tego względu można uznać że $f(x) \equiv 0$ dla $x > K$:
 
-    - czyli f(x) może być niezerowe tylko dla $0 \leq x \leq K$,
+    - czyli $f(x)$ może być niezerowe tylko dla $0 \leq x \leq K$,
     - istnieje co najwyżej K+1 niezerowych wartości funkcji $f(x)$:
     
       0 oraz od 1 do K,
@@ -100,79 +100,92 @@ $$lim\_{k \to +\infty} ({\Delta}T[k] | P[j]) = 0$$
  	
 Mamy więc po podstawieniu:
 
-	{\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} P[j] * f(k-j)
+$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=0}^{k} P[j] * f(k-j)$$
 
-Po przyjęciu że f(x) ≡ 0 dla x {\geq} K + 1 mamy:
+Po przyjęciu że $f(x) \equiv 0$ dla $x {\geq} K + 1$ mamy:
 
-	{\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
+${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] * f(k-j)$$
 	
 (wewnętrzna suma przechodzi przez K + 1 wartości)
 
-Rozważymy teraz dla przykładu postać sumy dla niskich wartości k:
+Rozważymy teraz dla przykładu postać sumy dla niskich wartości $k$:
+
 Dla k=0:
 
-	{\Delta}T[0] = T[1] - T[0] ≈ \sum_{j=0}^{0} ({\Delta}T[0] | P[j]) = ({\Delta}T[0] | P[0])
-	{\Delta}T[0] = T[1] - T[0] ≈ P[0] * f(0)
+${\Delta}T[0] = T[1] - T[0] ≈ \sum\_{j=0}^{0} ({\Delta}T[0] | P[j]) = ({\Delta}T[0] | P[0])$
+
+${\Delta}T[0] = T[1] - T[0] ≈ P[0] * f(0)$
+
+
 
 Dla k=1:
 
-	{\Delta}T[1] = T[2] - T[1] ≈ \sum_{j=0}^{1} ({\Delta}T[1] | P[j])
-	{\Delta}T[1] = T[2] - T[1] ≈ ({\Delta}T[1] | P[0]) + ({\Delta}T[1] | P[1])
-	{\Delta}T[1] = T[2] - T[1] ≈ ( P[0] * f(1) + P[1] * f(0) )
+${\Delta}T[1] = T[2] - T[1] ≈ \sum\_{j=0}^{1} ({\Delta}T[1] | P[j])$
+
+${\Delta}T[1] = T[2] - T[1] ≈ ({\Delta}T[1] | P[0]) + ({\Delta}T[1] | P[1])$
+
+${\Delta}T[1] = T[2] - T[1] ≈ ( P[0] * f(1) + P[1] * f(0) )$
+
 
 
 I podsumowując, przez analogię:
-	{\Delta}T[0] = T[1] - T[0] ≈ (P[0] * f(0))
-	{\Delta}T[1] = T[2] - T[1] ≈ (P[0] * f(1) + P[1] * f(0))
-	{\Delta}T[2] = T[3] - T[2] ≈ (P[0] * f(2) + P[1] * f(1) + P[2] * f(0))
-	{\Delta}T[3] = T[4] - T[3] ≈ (P[0] * f(3) + P[1] * f(2) + P[2] * f(1) + P[3] * f(0))
+
+$	{\Delta}T[0] = T[1] - T[0] ≈ (P[0] * f(0))$
+
+$	{\Delta}T[1] = T[2] - T[1] ≈ (P[0] * f(1) + P[1] * f(0))$
+
+$	{\Delta}T[2] = T[3] - T[2] ≈ (P[0] * f(2) + P[1] * f(1) + P[2] * f(0))$
+
+$	{\Delta}T[3] = T[4] - T[3] ≈ (P[0] * f(3) + P[1] * f(2) + P[2] * f(1) + P[3] * f(0))$
+
 
 Taką strukturę nazywamy 
 [splotem (convolution)](http://en.wikipedia.org/wiki/Convolution#Discrete_convolution "Wikipedia: Convolution").
 
 Mamy więc:
 
-	{\Delta}T[3] = T[4] - T[3] ≈ (P * f)[3]
+$$	{\Delta}T[3] = T[4] - T[3] ≈ (P * f)[3]$$
 	
 i ogólnie:
 	
-	{\Delta}T[k] = T[k+1] - T[k] ≈ (P * f)[k]
+$$	{\Delta}T[k] = T[k+1] - T[k] ≈ (P * f)[k]$$
 
-W tym wypadku przy definicji splotu pomijamy składniki dla których $f(x) ≡ 0$.
+W tym wypadku przy definicji splotu pomijamy składniki dla których $f(x) \equiv 0$.
 
 Mamy więc układ równań:
-{\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] * f(k-j) = (P * f)[k] = 
 
-    k
-=   ∑   P[j] f(k-j) =
-  j=k-K
+$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] * f(k-j) = 
+\sum\_{j=0}^{K} P[k-j] f(j) = (P * f)[k] $$
 
-    K
-=   ∑   P[k-j] f(j)
-   j=0
+Ten układ równań posiada $K+1$ niewiadomych - tyle ile niezerowych wartości funkcji $f()$.
 
-Mamy tutaj K+1 niewiadomych - tyle ile niezerowych wartości funkcji f().
-Dodatkowo, dla każdej danej historycznej (pary wartości P[j], T[j]) 
+Dla każdej danej historycznej (pary wartości $P[j]$, $T[j]$) 
 mamy zazwyczaj jedno równanie.
 Jeżeli jednak system przy rozpoczęciu zbierania danych nie znajdował sie w stanie
 równowagi termodynamicznej, musimy odrzucić pierwsze K pomiarów.
 Odrzucamy też ostatnie K pomiarów.
 
 
-Można rozpisać funkcję f(x) na następujące składniki:
-f(x) = g(x) * e^{-t/T} * c_1
-Gdzie:
-	g(x) < 1
-	g(0) = 1	(tak żeby c_1 ustalić na sztywno)
+Można by rozpisać funkcję f(x) na następujące składniki:
+
+$$f(x) = g(x) * e^{-\frac{t}{T}} * c\_1$$
+
+Przy czym:
+
+ * $ g(x) < 1 $,
+ * $ g(0) = 1 $	(tak żeby $c\_{1}$ ustalić na sztywno)
                 //jednak to by nie było dopuszczalne, ponieważ f(0) może być
                 //stosunkowo małe, mniejsze niż g(1)
-T - jakaś liczba.
+ * $T$ - jakaś liczba.
 
 Może to ew. pomóc przy rozwiązywaniu układu równań - można w ten sposób ograniczyć
-wartości funkcji f(x) do rozsądnych wartości.
+wartości funkcji $ f(x) $.
 
-Może być jednak problem z uwzględnieniem g(x) < 1 przy rozwiązywaniu tego 
-układu równań (mogłoby to wymagać innych metod).
+Może być jednak problem z uwzględnieniem $g(x) < 1$ przy rozwiązywaniu tego 
+układu równań (wymagałoby to użycia innych metod rozwiązywania układu równań niż 
+powszechnie stosowane).
+
+
 
 Sekcja 3: Uwzględnienie upływu ciepła
 ------------------------------------------------------------------
@@ -184,6 +197,7 @@ Można założyć w dużym uproszczeniu, że szybkość upływu ciepła zależy 
 od temperatury panującej w komorze. Uwzględnienie innych czynników (np. historii 
 zmian temperatury) spowodowałoby znaczny wzrost liczby niewiadomych w układzie 
 równań, co byłoby niekorzystne z dwóch względów:
+
 - do wyliczenia układu równań potrzebnych byłoby bardzo wiele danych historycznych,
 - spadłaby znacznie dokładność oszacowania wartości tych niewiadomych.
 
@@ -193,7 +207,7 @@ Przyjmujemy, że $({\Delta}T[k] | T[k]) < 0$.
 
 Wzór na ${\Delta}T[k]$ przyjmuje więc postać: 
 
-        {\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] | T[k]) + \sum_{j=0}^{k} ({\Delta}T[k] | P[j])
+  $${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] | T[k]) + \sum\_{j=0}^{k} ({\Delta}T[k] | P[j])$$
 
 Żeby ograniczyć liczbę niewiadomych w układzie równań, można próbować definiować
 $({\Delta}T[k] | T[k])$ co - powiedzmy - 5°C i wykonywać interpolację albo aproksymację 
@@ -202,22 +216,24 @@ dla pozostałych wartości
 0,1°C, zatem interpolacja lub aproksymacja i tak byłaby konieczna).
 
 Szybkość ucieczki ciepła można aproksymować w podany niżej prosty sposób:
+
  - mamy funkcję $j(x)$ - zdefiniowaną dla wartości x podzielnych przez 5,
- - dla k nie należącego do dziedziny funkcji $j(x)$ mamy: 
+ - dla k nie należącego do dziedziny funkcji $j(x)$ mamy (zaokrąglamy $k$ w dół do liczby podzielnej przez 5):
 
-        m = k - (k % 5)
+$$m = k - (k\mod 5)$$
 
-   (zaokrąglamy k w dół do liczby podzielnej przez 5)
+$$({\Delta}T[k] | T[k]) = (j(m-5) + j(m) + j(m+5) + j(m+10)) / 4$$
 
-        ({\Delta}T[k] | T[k]) = (j(m-5) + j(m) + j(m+5) + j(m+10)) / 4
 
  - dla k należącego do dziedziny funkcji j mamy:
         
-        ({\Delta}T[k] | T[k]) = (j(k-5) + j(k) + j(k+5)) / 3
+$$ ({\Delta}T[k] | T[k]) = (j(k-5) + j(k) + j(k+5)) / 3$$
+
+<br>
 
 Powyższe wzory można w prosty sposób uwzględnić w układzie równań:
 
-        {\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] | T[k]) + \sum_{j=0}^{k} ({\Delta}T[k] | P[j])
+$${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] | T[k]) + \sum\_{j=0}^{k} ({\Delta}T[k] | P[j])$$
 
 Po rozwiązaniu go, otrzymujemy wartości funkcji $f(x)$ oraz $j(x)$, które będą potrzebne
 do świadomego sterowania komorą.
