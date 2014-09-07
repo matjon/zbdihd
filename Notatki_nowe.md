@@ -24,7 +24,6 @@ Na razie pomijamy chłodzenie, żeby uprościć problem. W sumie to jednak
 dosyć dobrze pasuje do różnych systemów HVAC, które mogą działać bez 
 klimatyzatora (np. w zimie).
 
-
 Sekcja 2: Analiza wpływu grzania na przebieg temperatury w komorze
 ------------------------------------------------------------------
 
@@ -37,7 +36,10 @@ Kolejne jednostki są numerowane liczbami całkowitymi.
 Rozważamy jednostkę o numerze k.
 
 Przyrost temperatury podczas tej jednostki czasu jest równy:
-∆T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} (ΔT[k] | P[j])
+
+        ∆T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} (ΔT[k] | P[j])
+
+(model ten na razie pomija upływ ciepła przez ściany komory)
 
 Gdzie:
 	T[k] 	- temperatura na początku k-tej jednostki czasu,
@@ -138,9 +140,69 @@ wartości funkcji f(x) do rozsądnych wartości.
 Może być jednak problem z uwzględnieniem g(x) < 1 przy rozwiązywaniu tego 
 układu równań (mogłoby to wymagać innych metod).
 
+Sekcja 3: Uwzględnienie upływu ciepła
+------------------------------------------------------------------
+
+Model komory grzewczej przestawiony w poprzedniej sekcji nie uwzględnia upływu 
+ciepła przez jej ścianki. 
+
+Można założyć w dużym uproszczeniu, że szybkość upływu ciepła zależy wyłącznie 
+od temperatury panującej w komorze. Uwzględnienie innych czynników (np. historii 
+zmian temperatury) spowodowałoby znaczny wzrost liczby niewiadomych w układzie 
+równań, co byłoby niekorzystne z dwóch względów:
+
+- do wyliczenia układu równań potrzebnych byłoby bardzo wiele danych historycznych,
+
+- spadłaby dokładność oszacowania wartości tych niewiadomych.
+
+Niech
+
+`(∆T[k] | T[k])` - szybkość upływu ciepła z komory (zmiana temperatury zależna od 
+obecnej temperatury w komorze).
+Przyjmujemy, że `(∆T[k] | T[k]) < 0`.
+
+Wzór na `∆T[k]` przyjmuje więc postać: 
+
+        ∆T[k] = T[k+1] - T[k] ≈ (∆T[k] | T[k]) + \sum_{j=0}^{k} (ΔT[k] | P[j])
+
+Żeby ograniczyć liczbę niewiadomych w układzie równań, można próbować definiować
+`(∆T[k] | T[k])` co, powiedzmy, 5°C i wykonywać interpolację dla pozostałych wartości
+(trzeba tu zauważyć, że w większości przypadków temperaturę znamy z dokładnością
+do co najmniej 0,1°C, zatem interpolacja i tak byłaby konieczna).
+
+TODO: można w sumie aproksymować całość tak żeby krzywą temperatury wygładzić, 
+przedstawić ją jako wielomian o stopniu wynoszącym co najwyżej 5
+
+- gdybyśmy znali dokładne wartości `(∆T[k] | T[k])`, to można by je z bardzo dużą 
+dokładnością aproksymować wielomianowo (ze względów fizycznych),
+
+- tak żeby nie było tak dużego wpływu na odchyłki temperatury.
+
+Szybkość ucieczki ciepła można aproksymować w podany niżej prosty sposób:
+
+//TODO: bardziej wyrafinowany algorytm.
+
+ - mamy funkcję `j(x)` - zdefiniowaną dla wartości x podzielnych przez 5,
+ 
+ - dla k nie należącego do dziedziny funkcji j mamy: 
+
+        m = k - (k % 5)
+
+        (∆T[k] | T[k]) = (j(m-5) + j(m) + j(m+5) + j(m+10)) / 4
+
+ - dla k należącego do dziedziny funkcji j mamy:
+        
+        (∆T[k] | T[k]) = (j(k-5) + j(k) + j(k+5)) / 3
+
+Powyższe wzory można w prosty sposób uwzględnić w układzie równań:
+
+        ∆T[k] = T[k+1] - T[k] ≈ (∆T[k] | T[k]) + \sum_{j=0}^{k} (ΔT[k] | P[j])
+
+Po rozwiązaniu go, otrzymujemy wartości funkcji f() oraz j(), które będą potrzebne
+do świadomego sterowania komorą.
 
 
-Sekcja 3: Sterowanie przy użyciu wartości funkcji f - bez użycia wag
+Sekcja 4: Sterowanie przy użyciu wartości funkcji f - bez użycia wag
 --------------------------------------------------------------------
 
 Znając wartości funkcji f() wyliczone na podstawie danych historycznych, można
@@ -279,7 +341,7 @@ Wyliczona wartość P[i] jest mocą grzałki którą należy ustawić w obecnej 
 czasu tak aby zapewnić optymalne sterowanie.
 Jeśli P[i] < 0, grzanie w obecnej jednostce czasu wyłączamy.
 
-Sekcja 4: Sterowanie przy użyciu wartości funkcji f - liczenie wag
+Sekcja 5: Sterowanie przy użyciu wartości funkcji f - liczenie wag
 --------------------------------------------------------------------
 
 Pojawia się jednak problem, jak daleko w przód przewidujemy nasze ruchy.
