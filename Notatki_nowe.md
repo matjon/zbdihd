@@ -151,14 +151,12 @@ Można założyć w dużym uproszczeniu, że szybkość upływu ciepła zależy 
 od temperatury panującej w komorze. Uwzględnienie innych czynników (np. historii 
 zmian temperatury) spowodowałoby znaczny wzrost liczby niewiadomych w układzie 
 równań, co byłoby niekorzystne z dwóch względów:
-
 - do wyliczenia układu równań potrzebnych byłoby bardzo wiele danych historycznych,
-
 - spadłaby dokładność oszacowania wartości tych niewiadomych.
 
-Niech
 
-`(∆T[k] | T[k])` - szybkość upływu ciepła z komory (zmiana temperatury zależna od 
+
+Niech `(∆T[k] | T[k])` - szybkość upływu ciepła z komory (zmiana temperatury zależna od 
 obecnej temperatury w komorze).
 Przyjmujemy, że `(∆T[k] | T[k]) < 0`.
 
