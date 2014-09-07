@@ -12,9 +12,9 @@ Można założyć (w sposób bardzo agresywny):
        
   Pętla kontrolna składa się z następujących operacji: 
 
-        * pobranie danych, 
-        * przetwarzanie,
-        * ustawienie wyjść. 
+  - pobranie danych, 
+  - przetwarzanie,
+  - ustawienie wyjść. 
 
   Jeden taki okres nazywamy przedziałem
   czasu albo jednostką czasu. Zakładamy, że w jednym przedziale czasu ustawienia 
