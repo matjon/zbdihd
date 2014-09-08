@@ -1,17 +1,5 @@
-Random parts of text
+Pomysły, które zostały porzucone - do odgrzania
 --------------------------------------------------------
-
-Mamy z definicji:
-T[j] ≈ T[j-1] + \sum_{i=0}^{j-1} (ΔT[j-1] | P[i])
-i po podstawieniu (ΔT[j-1] | P[i]) = P[i] * f(j-i-1)
-
-T[j] ≈ T[j-1] + \sum_{i=0}^{j-1} P[i] * f(j-i-1)
-a dokładniej
-//ograniczamy dolną granicę przy założeniu że f(
-∆T[j-1] = T[j] - T[j-1] ≈ \sum_{i=j-120}^{j-1} P[i] * f(j-i) 
-
-
---------------------
 
 Mamy N zbiorów danych historycznych o postaci:
 {kontekst, akcja, reakcja}
