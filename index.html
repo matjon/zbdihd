@@ -90,7 +90,7 @@ grzanie -> chłodzenie (bo zbyt mocno ogrzaliśmy) -> grzanie (bo zbyt mocno och
 <h2>Sekcja 2: Analiza wpływu grzania na przebieg temperatury w komorze</h2>
 
 <p>Na zmiany temperatury w komorze mogą wpływać procesy (np. grzania) 
-zachodzące stosunkowo dawno temu (wcześniej niż $K W$).
+zachodzące stosunkowo dawno temu (wcześniej niż $K \cdot W$).
 W tej sekcji postaramy się uchwycić to zachowanie komory w sposób matematyczny.</p>
 
 <p>Rozważamy jednostkę czasu o numerze $k$.</p>
@@ -117,7 +117,7 @@ $({\Delta}T[k] \:|\: P[j])$.</p>
 
 <p>Musimy więc założyć:</p>
 
-<p>$$({\Delta}T[k] \:|\: P[j]) = P[j] \cdot f(k-j)\label{s2fdef}$$</p>
+<p>$$({\Delta}T[k] \:|\: P[j]) = P[j] f(k-j)\label{s2fdef}$$</p>
 
 <p>Przy czym:</p>
 
@@ -149,11 +149,11 @@ Z tego względu można uznać że $f(x) \equiv 0$ dla $x > K$:</p></li>
 
 <p>Po podstawieniu $\ref{s2fdef}$ do $\ref{s2dec1}$ otrzymujemy:</p>
 
-<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} P[j] * f(k-j)$$</p>
+<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=0}^{k} P[j] f(k-j)$$</p>
 
 <p>Po przyjęciu że $f(x) \equiv 0$ dla $x {\geq} K + 1$ mamy:</p>
 
-<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)$$</p>
+<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] f(k-j)$$</p>
 
 <p>(wewnętrzna suma przechodzi przez K + 1 wartości)</p>
 
@@ -165,7 +165,7 @@ Z tego względu można uznać że $f(x) \equiv 0$ dla $x > K$:</p></li>
 
 <p>${\Delta}T[0] = T[1] - T[0] ≈ \sum_{j=0}^{0} ({\Delta}T[0] \:|\: P[j]) = ({\Delta}T[0] \:|\: P[0])$</p>
 
-<p>${\Delta}T[0] = T[1] - T[0] ≈ P[0] * f(0)$</p>
+<p>${\Delta}T[0] = T[1] - T[0] ≈ P[0] f(0)$</p>
 
 <p>Dla $k=1$:</p>
 
@@ -173,37 +173,37 @@ Z tego względu można uznać że $f(x) \equiv 0$ dla $x > K$:</p></li>
 
 <p>${\Delta}T[1] = T[2] - T[1] ≈ ({\Delta}T[1] \:|\: P[0]) + ({\Delta}T[1] \:|\: P[1])$</p>
 
-<p>${\Delta}T[1] = T[2] - T[1] ≈ ( P[0] * f(1) + P[1] * f(0) )$</p>
+<p>${\Delta}T[1] = T[2] - T[1] ≈ ( P[0] f(1) + P[1] f(0) )$</p>
 
 <p>I podsumowując, poprzez analogię:</p>
 
-<p>$   {\Delta}T[0] = T[1] - T[0] ≈ (P[0] * f(0))$</p>
+<p>$   {\Delta}T[0] = T[1] - T[0] ≈ (P[0] f(0))$</p>
 
-<p>$   {\Delta}T[1] = T[2] - T[1] ≈ (P[0] * f(1) + P[1] * f(0))$</p>
+<p>$   {\Delta}T[1] = T[2] - T[1] ≈ (P[0] f(1) + P[1] f(0))$</p>
 
-<p>$   {\Delta}T[2] = T[3] - T[2] ≈ (P[0] * f(2) + P[1] * f(1) + P[2] * f(0))$</p>
+<p>$   {\Delta}T[2] = T[3] - T[2] ≈ (P[0] f(2) + P[1] f(1) + P[2] f(0))$</p>
 
-<p>$   {\Delta}T[3] = T[4] - T[3] ≈ (P[0] * f(3) + P[1] * f(2) + P[2] * f(1) + P[3] * f(0))$</p>
+<p>$   {\Delta}T[3] = T[4] - T[3] ≈ (P[0] f(3) + P[1] f(2) + P[2] f(1) + P[3] f(0))$</p>
 
 <p>Taką strukturę nazywamy 
 <a href="http://en.wikipedia.org/wiki/Convolution#Discrete_convolution" title="Wikipedia: Convolution">splotem (convolution)</a>.</p>
 
 <p>Mamy więc:</p>
 
-<p>$$  {\Delta}T[3] = T[4] - T[3] ≈ (P * f)[3]$$</p>
+<p>$$  {\Delta}T[3] = T[4] - T[3] ≈ (P \ast f)[3]$$</p>
 
 <p>i ogólnie:</p>
 
-<p>$$  {\Delta}T[k] = T[k+1] - T[k] ≈ (P * f)[k]$$</p>
+<p>$$  {\Delta}T[k] = T[k+1] - T[k] ≈ (P \ast f)[k]$$</p>
 
 <p>W tym wypadku przy definicji splotu pomijamy składniki dla których $f(x) \equiv 0$.</p>
 
 <p><br></p>
 
-<p>Ostatecznie, mamy więc układ równań o postaci:</p>
+<p>Ostatecznie mamy układ równań o postaci:</p>
 
-<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j) = 
-\sum_{j=0}^{K} P[k-j] f(j) = (P * f)[k] \label{s2eqs}$$</p>
+<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] f(k-j) = 
+\sum_{j=0}^{K} P[k-j] f(j) = (P \ast f)[k] \label{s2eqs}$$</p>
 
 <p>Ten układ równań posiada $K+1$ niewiadomych - tyle ile niezerowych wartości funkcji $f()$.</p>
 
@@ -215,7 +215,7 @@ Odrzucamy też ostatnie K pomiarów.</p>
 
 <p>Można by rozpisać funkcję $f(x)$ na następujące składniki:</p>
 
-<p>$$f(x) = g(x) * e^{-\frac{t}{T}} * c_1$$</p>
+<p>$$f(x) = g(x) e^{-\frac{t}{T}} c_1$$</p>
 
 <p>Przy czym:</p>
 
@@ -270,19 +270,24 @@ dla pozostałych wartości
 <li>dla $k$ nie należącego do dziedziny funkcji $j(x)$ mamy (zaokrąglamy $k$ w dół do liczby podzielnej przez 5):</li>
 </ul>
 
-<p>$$m = k - (k \bmod 5)$$</p>
+<p>$$m = T[k] - (k \bmod 5)$$</p>
 
 <p>$$({\Delta}T[k] \:|\: T[k]) = \frac{j(m-5) + j(m) + j(m+5) + j(m+10)}{4}$$</p>
 
 <ul>
-<li>dla k należącego do dziedziny funkcji j mamy:</li>
+<li>dla $k$ należącego do dziedziny funkcji $j(x)$ mamy:</li>
 </ul>
 
-<p>$$ ({\Delta}T[k] \:|\: T[k]) = \frac{j(k-5) + j(k) + j(k+5)}{3}$$</p>
+<p>$$ ({\Delta}T[k] \:|\: T[k]) = \frac{j(T[k]-5) + j(T[k]) + j(T[k]+5)}{3}$$</p>
+
+<p>Oznaczmy jako $w(t)$ szybkość upływu ciepła wyliczoną za pomocą powyższych równań.</p>
 
 <p><br></p>
 
-<p>Powyższe wzory można w prosty sposób uwzględnić w układzie równań $\ref{s3eqs}$.</p>
+<p>Powyższe wzory można w prosty sposób uwzględnić w układzie równań $\ref{s2eqs}$:</p>
+
+<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ w(T[k]) + \sum_{j=k-K}^{k} P[j] f(k-j) =
+         w(T[k]) + \sum_{j=0}^{K} P[k-j] f(j) = w(T[k]) + (P \ast f)[k] \label{s3eqs2}$$</p>
 
 <p>Po rozwiązaniu go, otrzymujemy wartości funkcji $f(x)$ oraz $j(x)$, które będą potrzebne
 do świadomego sterowania komorą.</p>
@@ -311,10 +316,9 @@ decyzje.</p>
 <li>$k$ - indeksuje temperaturę w przyszłości,</li>
 </ul>
 
-<p>Przyjmujemy uproszczony model ogrzewania przedstawiony w sekcjach 2 i 3:</p>
+<p>Przyjmujemy uproszczony model ogrzewania przedstawiony w sekcji 3 - wzór $\ref{s3eqs2}$</p>
 
-<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + 
-        \sum_{j=k-K}^{k} P[j] * f(k-j)$$</p>
+<p>$${\Delta}T[k] = T[k+1] - T[k] ≈ w(T[k]) + \sum_{j=0}^{K} P[k-j] f(j) = w(T[k]) + (P \ast f)[k] \label{s4eqs}$$</p>
 
 <p>Będziemy postępowali podobnie jak doświadczony szachista, przewidujący
 kilka ruchów naprzód a jednocześnie w każdym ruchu dostosowujący się do
@@ -329,70 +333,114 @@ nową trasę, która trochę się różni od starej i po niej rakietę prowadzi.
 Na podstawie wartości $U[k]$ potrafimy policzyć 
 $${\Delta}U[k] = U[k+1] - U[k]$$</p>
 
-<p>Wtedy mamy układ równań:
-{\Delta}U[k] = \sum_{j=k-K}^{k} P[j] * f(k-j)
- - rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów</p>
+<p>Moglibyśmy tutaj ułożyć układ równań:
+$${\Delta}U[k] = w(T[k]) + \sum_{j=0}^{K} P[k-j] f(j) \label{s4eqs2}$$
+a następnie rozwiązać go, uzyskując potrzebne wartości $P[j]$.
+Posługiwanie się szybkością zmiany temperatury jest jednak kiepskim pomysłem, a to ze 
+względu na jeden prosty problem: temperatura w komorze klimatycznej może odbiegać
+znacząco od $U[k]$ i w tym wypadku dążenie do ${\Delta}T[k] = {\Delta}U[k]$ traci
+sens. Nie pomoże też korekta pierwszej wartości $\Delta U[k]$, ponieważ zagubi się ona
+w układzie równań i nie wpłynie znacząco na wynik.</p>
+
+<p>Niestety, dopasowywanie $T[k] = U[k]$ znacząco komplikuje równania.</p>
+
+<ul>
+<li><p>rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów</p>
 
 <ul>
 <li>wagi są konieczne, bo musimy jakoś w sensowny sposób odciąć wartości j,</li>
 <li>problem: mogą wyjść liczby ujemne,</li>
+</ul></li>
 </ul>
 
-<p>Mamy więc równanie macierzowe (na razie pomijam wagi):
- - oznaczenia jak na <a href="http://en.wikipedia.org/wiki/Least_squares">Wikipedii</a>
-$$y = X * \beta$$</p>
+<p>Mamy zatem:
+$$T[k] = T[i] + \sum_{l=i}^{k-1} T[l+1] - T[l] = T[i] + \sum_{l=i}^{k-1} \Delta T[l] \nonumber$$</p>
 
-<p>Dla K=3
-oraz i = 9 mamy:
-(celowo nie piszę równania dla {\Delta}U[9]):
-{\Delta}U[10] ≈ P[7]<em>f(3) + P[8]</em>f(2) + P[9]<em>f(1) + P[10]</em>f(0)
-{\Delta}U[11] ≈             P[8]<em>f(3) + P[9]</em>f(2) + P[10]<em>f(1) + P[11]</em>f(0)
-{\Delta}U[12] ≈                         P[9]<em>f(3) + P[10]</em>f(2) + P[11]<em>f(1) + P[12]</em>f(0)
-{\Delta}U[13] ≈                                     P[10]<em>f(3) + P[11]</em>f(2) + P[12]<em>f(1) + P[13]</em>f(0)
-itd.</p>
+<p>Podstawiamy do powyższego równania równanie  $\ref{s3eqs2}$, zamieniając $k \to l$:</p>
 
-<p>Przy czym znamy P[7] i P[8], a więc należy to przekształcić jako:
-{\Delta}U[10] - P[7]<em>f(3) - P[8]</em>f(2) ≈ P[9]<em>f(1) + P[10]</em>f(0)
-{\Delta}U[11]             - P[8]<em>f(3) ≈ P[9]</em>f(2) + P[10]<em>f(1) + P[11]</em>f(0)
-{\Delta}U[12]                         ≈ P[9]<em>f(3) + P[10]</em>f(2) + P[11]<em>f(1) + P[12]</em>f(0)
-{\Delta}U[13]                         ≈             P[10]<em>f(3) + P[11]</em>f(2) + P[12]<em>f(1) + P[13]</em>f(0)</p>
+<p>$$T[k] = T[i] + \sum_{l=i}^{k-1} \left[ w(T[l]) + \sum_{j=l-K}^{l} P[j] f(l-j) \right]$$
+$$T[k] = T[i] + \sum_{l=i}^{k-1} w(T[l]) + \sum_{l=i}^{k-1} \sum_{j=l-K}^{l} P[j] f(l-j)$$</p>
 
-<p>Czyli:
-y = [
-        {\Delta}U[10] - P[7]<em>f(3) - P[8]</em>f(2)
-        {\Delta}U[11]             - P[8]*f(3)
-        {\Delta}U[12] <br>
-        {\Delta}U[13] <br>
-]</p>
+<p>Potrzebujemy teraz odwrócić kolejność sum w ostatnim składniku
+powyższego równania, tak aby łatwo przejść do postaci macierzowej. </p>
 
-<p>Wektor y odpowiada residualnej krzywej temperaturowej - </p>
+<p>Mamy więc równanie macierzowe (na razie pomijam wagi)
+(używam oznaczeń jak na  <a href="http://en.wikipedia.org/wiki/Least_squares">Wikipedii</a>):
+$$y = X {\cdot} \beta \label{s4equmartix}$$</p>
 
-<ul>
-<li>na podstawie historii oraz wartości funkcji f liczymy zmiany temp w przyszłości 
-które wynikają z tego co już grzaliśmy,</li>
-<li>mamy residualną krzywą temperaturową,</li>
-</ul>
+<p>Dla $K=3$ oraz $i = 9$ mamy:
+(celowo nie piszę równania dla ${\Delta}U[9]$, zob. niżej):
+$$
+\begin{array}{rclrl}
+\mspace{0mu}
+{\Delta}U[10] &amp; = &amp; w(T[10]) + &amp; \mspace{-13mu}  P[7] f(3) + P[8] f(2) + P[9] f(1) + &amp; P[10] f(0)                                                              \\
+{\Delta}U[11] &amp; = &amp; w(T[10]) + &amp;                    P[8] f(3) + P[9] f(2) + &amp; P[10] f(1) + P[11] f(0)                                           \\
+{\Delta}U[12] &amp; = &amp; w(T[12]) + &amp;                                      P[9] f(3) + &amp; P[10] f(2) + P[11] f(1) + P[12] f(0)                        \\
+{\Delta}U[13] &amp; = &amp; w(T[13]) + &amp;                                                        &amp; P[10] f(3) + P[11] f(2) + P[12] f(1) + P[13] f(0)     \\
+\cdots &amp; = &amp; \cdots &amp;                                                        &amp;
+\end{array}
+\notag
+$$</p>
+
+<p>Przy czym znamy $P[7]$ i $P[8]$, a więc należy to przekształcić jako:
+$$
+\begin{align}
+\notag
+{\Delta}U[10] - w(T[10]) - P[7] f(3) - P[8] f(2) &amp;= P[9] f(1) +  P[10] f(0)                                                              \\
+\notag
+{\Delta}U[11] - w(T[10]) -             P[8] f(3) &amp;= P[9] f(2) + P[10] f(1) + P[11] f(0)                                           \\
+\notag
+{\Delta}U[12] - w(T[12])                         &amp;= P[9] f(3) + P[10] f(2) + P[11] f(1) + P[12] f(0)                        \\
+\notag
+{\Delta}U[13] - w(T[13])                         &amp;= P[10] f(3) + P[11] f(2) + P[12] f(1) + P[13] f(0)                   \\
+\notag
+                                          \cdots &amp;= \cdots
+\end{align}
+\notag
+$$</p>
+
+<p>Przekształćmy ten układ równań do postaci wektorowej zgodnej z $\ref{s4equmartix}$:
+$$
+y = 
+\left[
+\begin{array}
+{\Delta}U[10] - w(T[10]) - P[7] f(3) - P[8] f(2)        \\
+{\Delta}U[11] - w(T[11]) -             P[8] f(3)        \\
+{\Delta}U[12] - w(T[12])                                \\
+{\Delta}U[13] - w(T[13]) <br>
+\end{array}
+\right]
+$$</p>
 
 <p>$$
 \beta = 
-\begin{bmatrix}
+\left[
+\begin{matrix}
         P[9]  \\
         P[10] \\
         P[11] \\
         P[12] \\
-        P[13] 
-\end{bmatrix}
+        P[13] <br>
+\end{matrix}
+\right]
 $$</p>
 
 <p>$$
 X = 
-\begin{bmatrix}
+\left[
+\begin{array}{ccccc}
  f(1)&amp; f(0)&amp; 0&amp;    0&amp;    0              \\
  f(2)&amp; f(1)&amp; f(0)&amp; 0&amp;    0              \\
  f(3)&amp; f(2)&amp; f(1)&amp; f(0)&amp; 0              \\
- 0&amp;    f(3)&amp; f(2)&amp; f(1)&amp; f(0)           \\
-\end{bmatrix}
+ 0&amp;    f(3)&amp; f(2)&amp; f(1)&amp; f(0)
+\end{array}
+\right]
 $$</p>
+
+<p>Można tu zauważyć, że 
+wektor $y$ zawiera odpowiada residualnej krzywej temperaturowej - poszczególne 
+jego elementy zawierają informację o ile jeszcze musimy podnieść temperaturę w danym
+przedziale czasowym.</p>
 
 <p>Niech L = przesunięcie od którego zaczynamy uwzględniać równania w układzie
 równań.
@@ -405,13 +453,13 @@ W powyższym przykładzie oczywiście L = 1.</p>
 
 <p>Wektor y:
         Równanie dla wiersza macierzy y który dotyczy {\Delta}U[k]:
-        y[k - (i + L) + 1] = {\Delta}U[k] - \sum<em>{n=k-K}^{i-1} P[n] * f(k-n)
+        y[k - (i + L) + 1] = {\Delta}U[k] - \sum<em>{n=k-K}^{i-1} P[n] {\cdot} f(k-n)
                //sprawdziłem powyższe na kartce dla k=10, i=9, L=1, K=3
         Gdy chcemy uzyskać y[u], liczymy:
                 k = u - 1 + (i+L)
                         //jest to naturalne, pierwszy wiersz macierzy y dotyczy k = i+L,
                         //dalej wartość k rośnie z u
-                y[u] = {\Delta}U[k] - \sum</em>{n=k-K}^{i-1} P[n] * f(k-n)</p>
+                y[u] = {\Delta}U[k] - \sum</em>{n=k-K}^{i-1} P[n] {\cdot} f(k-n)</p>
 
 <p>Wektor \beta:
         \beta[1] = P[i]
@@ -429,7 +477,7 @@ W powyższym przykładzie oczywiście L = 1.</p>
 </code></pre>
 
 <p>Po skonstruowaniu w powyższy sposób macierzy X oraz wektora y oraz rozwiązaniu
-układu równań y = X * \beta otrzymujemy wektor \beta i ostatecznie wartość P[i].
+układu równań y = X {\cdot} \beta otrzymujemy wektor \beta i ostatecznie wartość P[i].
 Wyliczona wartość P[i] jest mocą grzałki którą należy ustawić w obecnej chwili
 czasu tak aby zapewnić optymalne sterowanie.
 Jeśli P[i] &lt; 0, grzanie w obecnej jednostce czasu wyłączamy.</p>
@@ -456,7 +504,7 @@ W^{1/2} oznacza niezależny pierwiastek z każdej z wartości.</p>
 <p>Potrzebujemy macierz wag W.
 Jest to macierz diagonalna (z wartościami niezerowymi tylko na przekątnej).
 Definiujemy wektor błędu jako:
-e = W^{1/2}(X * \beta - y)
+e = W^{1/2}(X {\cdot} \beta - y)
  - błąd mierzymy jako różnicę różnicy temperatur {\Delta}U[k] którą mamy uzyskać w
    k-tym oknie czasowym a tym co uzyskamy.</p>
 
@@ -464,9 +512,9 @@ e = W^{1/2}(X * \beta - y)
 (to z tym T to transpozycja).</p>
 
 <p>Na podstawie tego wszystkiego otrzymujemy normalny układ równań (normal equations):
-X^{T} * W * X * \beta = X^{T} * W * y
-//przypominam że mnożenie macierzy nie jest łączne: (A * B) * C nie musi być 
-//równe A * (B * C)</p>
+X^{T} {\cdot} W {\cdot} X {\cdot} \beta = X^{T} {\cdot} W {\cdot} y
+//przypominam że mnożenie macierzy nie jest łączne: (A {\cdot} B) {\cdot} C nie musi być 
+//równe A {\cdot} (B {\cdot} C)</p>
 
 <p>Ten układ równań potrafimy rozwiązać w sposób dokładny (w tym układzie równań
 mamy n = m) i w ten sposób uzyskać "optymalne" rozwiązanie dla \bety  </p>
@@ -508,30 +556,6 @@ zdefiniowany, żeby wagi miały znaczenie,</p></li>
 <ul>
 <li>dobra, to w sumie wsz. ustalone</li>
 </ul>
-
-<p>Dawid Nowak
-a czy my uwzględniamy tutaj temperaturę rzeczywistą, tzn. zmierzoną przez czujnik ?
-dzieje się to aby na pewno dynamicznie ?
-09:41
-Ja
-"dzieje się to aby na pewno dynamicznie ?" - nie rozumiem?
-09:43
-Dawid Nowak
-bo np. jak włożymy do komory jakieś urządzenie do zbadania jak się zachowuje w różnych warunkach temperaturowych i jeżeli ono będzie emitować jakieś ciepło 
-09:45
-czy my bierzemy pod uwagę temperaturę w jakiejś chwili bieżącej t ?
-czy tylko na podstawie danych historycznych ?
-09:45
-Ja
-Ew. możemy założyć termistor, one mają b. dużą szybkość działania.
-Zasadniczo wydaje mi się założenie że temp. na termistorze = taka jaką chcemy mieć.
-09:46
-Dawid Nowak
-w sumie dowolny czujnik temperatury
-09:46
-Ja
-Czyli nie przejmujemy się zbytnio tym że termistor mierzy "inną temperaturę" niż jest w komorze.
-I tak różnice temp. wewnątrz komory są stosunkowo duże (wyżej jest oczywiście cieplej), musimy względem czegoś kalibrować / jakiegoś punktu.</p>
 
 <!--      vim: set spelllang=pl filetype=markdown :    -->
 </body>
