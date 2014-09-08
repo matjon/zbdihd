@@ -29,47 +29,51 @@ MathJax.Hub.Config({
 rogu jest pasek postępu.
 //może to trwać nawet 10 s</p>
 
-<p>//pisać coś o HVAC</p>
-
-<p>//komora klimatyczna: kontrola też wilgotności
-//komorat temperaturowa: kontrola tylko temperatury</p>
+<p>//dać tutaj linki do repo na githubie i pliku TODO.txt / Snippets.txt</p>
 
 <h2>Sekcja 0: Wprowadzenie</h2>
 
 <p>W dzisiejszych czasach, duża liczba produkowanych urządzeń czy też innych wyrobów 
 wymaga mniej lub bardziej szczegółowej kontroli jakości. Takie wymaganie może być 
 narzucone np. przepisami prawa, zapisami kontraktów/przetargów albo polityką
-firmy zakładająca produkcję towarów dobrej jakości. W przypadku chociażby
+firmy zakładającą produkcję towarów wysokiej jakości. W przypadku chociażby
 urządzeń elektronicznych zazwyczaj podaje się w specyfikacji również warunki, w
 których dane urządzenie będzie działać prawidłowo (np. zakres temperatur).
-Urządzenia konsumenckie nie gwarantują zazwyczaj pracy w ekstremalnych warunkach
-(np. podwyższonej temperatury) w przeciwieństwie do urządzeń przemysłowych,
-które powinny gwarantować nieprzerwaną pracę w trudniejszych warunkach. W jaki
-sposób określić zakres dopuszczalnych temperatur, w których urządzenie będzie
-działać prawidłowo? Można przeprowadzić badania empiryczne pracy takiego
-urządzenia w określonych warunkach. Do takich badań służą komory klimatyczne i
-temperaturowe symulujące i monitorujące odpowiednie warunki pracy. Komora
-klimatyczna (temperaturowa) ponadto odseparowuje badany element od czynników
-środowiska zewnętrznego, dzięki czemu eliminuje się wpływ innych czynników niż
-tylko symulacyjnych.</p>
+W celu sprawdzenia jakości danego towaru, należy przeprowadzić 
+badania empiryczne, m.in. poprzez sprawdzenie czy urządzenie działa
+prawidłowo w różnych warunkach pracy.
+Do takich badań służą komory klimatyczne i
+temperaturowe. </p>
 
-<p>Komora temperaturowa oprócz odpowiedniej izolacji najczęściej posiada także
-elementy wykonawcze - grzewcze do podnoszenia temperatury i chłodzące do
-obniżania temperatury. Ponadto monitorowanie parametrów fizycznych wymaga
-odpowiednich czujników. Nad przebiegiem symulacji czuwa specjalny sterownik,
-który dopasowuje rzeczywiste warunki w komorze do warunków zadanych przez
-użytkownika. Sterownik taki najczęściej rozwiązuje problem HVAC (ang. Heating,
+<p><strong>Komora klimatyczna</strong> zapewnia kontrolę zarówno temperatury jak i wilgotności
+powietrza, <strong>temperaturowa</strong> - tylko temperatury.</p>
+
+<p>Sterowanie komorą temperaturową jest bardzo podobne do sterowania systemami
+<strong>HVAC</strong> (ang. Heating,
 Ventilation, Air Conditioning). HVAC jest pojęciem bardzo szerokim. Swoim
 zasięgiem obejmuje ogół zagadnień związanych z ogrzewaniem, wentylacją i
 klimatyzacją wszelkich pomieszczeń (nie tylko komór klimatycznych). Najogólniej
 rzecz biorąc HVAC zajmuje się kwestiami dostarczania i odprowadzania ciepła (np.
-przez pompy ciepła, instalacje solarne, rekuperatory). Podstawowymi sterownikami
-używanymi w kontrolerach HVAC są sterowniki PID.</p>
+przez pompy ciepła, instalacje solarne, rekuperatory). </p>
 
-<p>Sterowanie komorą klimatyczną ze względu na charakterystykę fizyczną nie jest
-rzeczą trywialną. Projektując kompletny sterownik komory klimatycznej należy
-uwzględnić takie parametry jak: temperatura, ciśnienie, pojemność cieplna,
-przewodność cieplna, upływ ciepła itp. </p>
+<p>Efektywne sterowanie komorą klimatyczną i ogólnie systemami HVAC
+jest
+zadaniem bardzo trudnym.
+Podstawowymi sterownikami
+stosowanymi powszechnie w kontrolerach HVAC są sterowniki <strong>PID</strong>. Nie nadają się
+one jednak zbyt dobrze do sterowania tego typu systemami
+("Raad Z. Homod, Khairul Salleh Mohamed Sahari, Haider A.F. Almurib, Farrukh
+Hafiz Nagi, Gradient auto-tuned Takagi–Sugeno Fuzzy Forward control of a HVAC
+system using predicted mean vote index, Energy and Buildings, Volume 49, June
+2012, Pages 254-267, ISSN 0378-7788,
+<a href="
+http://dx.doi.org/10.1016/j.enbuild.2012.02.013">http://dx.doi.org/10.1016/j.enbuild.2012.02.013</a>).
+Z tego względu trzeba szukać innych metod.</p>
+
+<p><strong>Algorytm opisany w naszej pracy został wymyślony przez nas w bardzo dużej mierze 
+niezależnie.
+Nie analizowaliśmy jednak literatury przedmiotu, z tego powodu przedstawione
+przez nas podejście nie jest pewnie zbyt nowatorskie.</strong></p>
 
 <p>Niniejsze opracowanie przedstawia teoretyczne rozważania problemu sterowania
 grzałką w komorze klimatycznej w celu uzyskania żądanego przebiegu temperatury
@@ -89,7 +93,7 @@ i <a href="http://www.klimatest.eu/katalog/Komory%20klimatyczne/_p/Komory%20klim
 <p>Można założyć (w sposób dosyć agresywny):</p>
 
 <ul>
-<li><p>okres co jaki wykonuje się pętla kontrolna: $W = 5$ sekund,</p>
+<li><p><strong>okres co jaki wykonuje się pętla kontrolna: $W = 5$ sekund</strong>,</p>
 
 <p>Pętla kontrolna składa się z następujących operacji: </p>
 
@@ -99,14 +103,14 @@ i <a href="http://www.klimatest.eu/katalog/Komory%20klimatyczne/_p/Komory%20klim
 <li>ustawienie wyjść. </li>
 </ul>
 
-<p><p>Odstęp czasu między kolejnymi iteracjami pętli nazywamy przedziałem
-czasu albo jednostką czasu. Zakładamy, że w jednym przedziale czasu ustawienia 
+<p><p>Odstęp czasu między kolejnymi iteracjami pętli nazywamy <strong>przedziałem
+czasu</strong> albo <strong>jednostką czasu</strong>. Zakładamy, że w jednym przedziale czasu ustawienia 
 urządzeń wpływających na
 temperaturę w komorze (moc grzałki, wentylatora, itd) są stałe, a temperatura
 zmienia się jedynie w ograniczonym zakresie. 
 Przedziały czasu będziemy indeksować kolejnymi liczbami całkowitymi, poczynając od 0.</p></li>
-<li><p>po wyłączeniu grzania temperatura w komorze się stabilizuje w czasie 
-mniejszym niż 10 minut (czyli po K = 120 jednostkach czasu).
+<li><p>po wyłączeniu grzania temperatura w komorze <strong>stabilizuje się w czasie 
+mniejszym niż 10 minut</strong> (czyli po K = 120 jednostkach czasu).
 Po tym czasie przestajemy śledzić konsekwencje grzania w przeszłości,</p></li>
 </ul>
 Wartości podane powyżej są dosyć wyśrubowane, można je złagodzić tak aby zmniejszyć
@@ -144,9 +148,9 @@ grzanie -> chłodzenie (bo zbyt mocno ogrzaliśmy) -> grzanie (bo zbyt mocno och
 zachodzące stosunkowo dawno temu (wcześniej niż $K \cdot W$).
 W tej sekcji postaramy się uchwycić to zachowanie komory w sposób matematyczny.</p>
 
-<p>Rozważamy jednostkę czasu o numerze $k$.</p>
+<p><strong>Rozważamy jednostkę czasu o numerze $k$.</strong></p>
 
-<p>Przyrost temperatury podczas tej jednostki można przybliżyć jako:</p>
+<p><strong>Przyrost temperatury</strong> podczas tej jednostki można przybliżyć jako:</p>
 
 <p>$${\Delta}T[k] = T[k+1] - T[k] \approx \sum_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])
 \label{s2dec1}$$</p>
@@ -157,7 +161,7 @@ wytwarzane w urządzeniu znajdującym się w komorze.)</p>
 <p>Gdzie:</p>
 
 <ul>
-<li>$T[k]$ - temperatura na początku k-tej jednostki czasu,</li>
+<li>$T[k]$ - temperatura <em>na początku</em> k-tej jednostki czasu,</li>
 <li>$({\Delta}T[k] \:|\: P[j])$ - przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
             j-tej jednostce czasu. Oczywiście $k {\geq} j$ (grzanie nie może wpłynąć
             na zmianę temperatury przed jego rozpoczęciem).</li>
@@ -188,7 +192,7 @@ to wartość $f(0)$ jest równa stosunkowi przyrostu temperatury w rozważanym p
 do mocy grzałki w tym przedziale,</li>
 <li><p>po K = 120 przedziałach czasu od rozpoczęcia grzania, ciepło wydzielone przez grzałkę zostaje 
 rozproszone w komorze i nie wpływa już na zmiany temperatury na termometrze.
-Z tego względu można uznać że $f(x) \equiv 0$ dla $x > K$:</p></li>
+Z tego względu można uznać że <em>* $f(x) \equiv 0$ dla $x > K$ *</em>:</p></li>
 <li><p>czyli $f(x)$ może być niezerowe tylko dla $0 \leq x \leq K$,</p></li>
 <li><p>istnieje co najwyżej K+1 niezerowych wartości funkcji $f(x)$:
 0 oraz od 1 do K,</p></li>
@@ -237,7 +241,7 @@ Z tego względu można uznać że $f(x) \equiv 0$ dla $x > K$:</p></li>
 <p>$   {\Delta}T[3] = T[4] - T[3] ≈ (P[0] f(3) + P[1] f(2) + P[2] f(1) + P[3] f(0))$</p>
 
 <p>Taką strukturę nazywamy 
-<a href="http://en.wikipedia.org/wiki/Convolution#Discrete_convolution" title="Wikipedia: Convolution">splotem (convolution)</a>.</p>
+<a href="http://en.wikipedia.org/wiki/Convolution#Discrete_convolution" title="Wikipedia: Convolution"><strong>splotem (convolution)</strong></a>.</p>
 
 <p>Mamy więc:</p>
 
@@ -264,34 +268,13 @@ Jeżeli jednak system przy rozpoczęciu zbierania danych nie znajdował sie w st
 równowagi termodynamicznej, musimy odrzucić pierwsze K pomiarów.
 Odrzucamy też ostatnie K pomiarów.</p>
 
-<p>Można by rozpisać funkcję $f(x)$ na następujące składniki:</p>
-
-<p>$$f(x) = g(x) e^{-\frac{t}{T}} c_1$$</p>
-
-<p>Przy czym:</p>
-
-<ul>
-<li>$ g(x) &lt; 1 $,</li>
-<li>$ g(0) = 1 $ (tak żeby $c_{1}$ ustalić na sztywno)
-            //jednak to by nie było dopuszczalne, ponieważ f(0) może być
-            //stosunkowo małe, mniejsze niż g(1)</li>
-<li>$T$ - jakaś liczba.</li>
-</ul>
-
-<p>Mogłoby to ew. pomóc przy rozwiązywaniu układu równań - można w ten sposób ograniczyć
-wartości funkcji $ f(x) $.</p>
-
-<p>Może być jednak problem z uwzględnieniem $g(x) &lt; 1$ przy rozwiązywaniu tego 
-układu równań (wymagałoby to użycia innych metod rozwiązywania układu równań niż 
-powszechnie stosowane).</p>
-
 <h2>Sekcja 3: Uwzględnienie upływu ciepła</h2>
 
 <p>Model komory grzewczej przestawiony w poprzedniej sekcji nie uwzględnia upływu 
 ciepła przez jej ścianki. </p>
 
-<p>Można założyć w dużym uproszczeniu, że szybkość upływu ciepła zależy wyłącznie 
-od temperatury panującej w komorze. Uwzględnienie innych czynników (np. historii 
+<p>Można założyć w dużym uproszczeniu, że <strong>szybkość upływu ciepła zależy wyłącznie 
+od temperatury panującej w komorze</strong>. Uwzględnienie innych czynników (np. historii 
 zmian temperatury) spowodowałoby znaczny wzrost liczby niewiadomych w układzie 
 równań, co byłoby niekorzystne z dwóch względów:</p>
 
