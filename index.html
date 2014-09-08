@@ -29,10 +29,56 @@ MathJax.Hub.Config({
 rogu jest pasek postępu.
 //może to trwać nawet 10 s</p>
 
-<p>//pisać coś o HVAC</p>
+<p>//dać tutaj linki do repo na githubie i pliku TODO.txt / Snippets.txt</p>
 
-<p>//komora klimatyczna: kontrola też wilgotności
-//komorat temperaturowa: kontrola tylko temperatury</p>
+<h2>Sekcja 0: Wprowadzenie</h2>
+
+<p>W dzisiejszych czasach, duża liczba produkowanych urządzeń czy też innych wyrobów 
+wymaga mniej lub bardziej szczegółowej kontroli jakości. Takie wymaganie może być 
+narzucone np. przepisami prawa, zapisami kontraktów/przetargów albo polityką
+firmy zakładającą produkcję towarów wysokiej jakości. W przypadku chociażby
+urządzeń elektronicznych zazwyczaj podaje się w specyfikacji również warunki, w
+których dane urządzenie będzie działać prawidłowo (np. zakres temperatur).
+W celu sprawdzenia jakości danego towaru, należy przeprowadzić 
+badania empiryczne, m.in. poprzez sprawdzenie czy urządzenie działa
+prawidłowo w różnych warunkach pracy.
+Do takich badań służą komory klimatyczne i
+temperaturowe. </p>
+
+<p><strong>Komora klimatyczna</strong> zapewnia kontrolę zarówno temperatury jak i wilgotności
+powietrza, <strong>temperaturowa</strong> - tylko temperatury.</p>
+
+<p>Sterowanie komorą temperaturową jest bardzo podobne do sterowania systemami
+<strong>HVAC</strong> (ang. Heating,
+Ventilation, Air Conditioning). HVAC jest pojęciem bardzo szerokim. Swoim
+zasięgiem obejmuje ogół zagadnień związanych z ogrzewaniem, wentylacją i
+klimatyzacją wszelkich pomieszczeń (nie tylko komór klimatycznych). Najogólniej
+rzecz biorąc HVAC zajmuje się kwestiami dostarczania i odprowadzania ciepła (np.
+przez pompy ciepła, instalacje solarne, rekuperatory). </p>
+
+<p>Efektywne sterowanie komorą klimatyczną i ogólnie systemami HVAC
+jest
+zadaniem bardzo trudnym.
+Podstawowymi sterownikami
+stosowanymi powszechnie w kontrolerach HVAC są sterowniki <strong>PID</strong>. Nie nadają się
+one jednak zbyt dobrze do sterowania tego typu systemami
+("Raad Z. Homod, Khairul Salleh Mohamed Sahari, Haider A.F. Almurib, Farrukh
+Hafiz Nagi, Gradient auto-tuned Takagi–Sugeno Fuzzy Forward control of a HVAC
+system using predicted mean vote index, Energy and Buildings, Volume 49, June
+2012, Pages 254-267, ISSN 0378-7788,
+<a href="
+http://dx.doi.org/10.1016/j.enbuild.2012.02.013">http://dx.doi.org/10.1016/j.enbuild.2012.02.013</a>).
+Z tego względu trzeba szukać innych metod.</p>
+
+<p><strong>Algorytm opisany w naszej pracy został wymyślony przez nas w bardzo dużej mierze 
+niezależnie.
+Nie analizowaliśmy jednak literatury przedmiotu, z tego powodu przedstawione
+przez nas podejście nie jest pewnie zbyt nowatorskie.</strong></p>
+
+<p>Niniejsze opracowanie przedstawia teoretyczne rozważania problemu sterowania
+grzałką w komorze klimatycznej w celu uzyskania żądanego przebiegu temperatury
+(dopasowania krzywej temperaturowej) podczas symulacji. Podejście to opiera się
+na analizie danych historycznych oraz korektach w czasie rzeczywistym.</p>
 
 <h2>Sekcja 1: Założenia</h2>
 
@@ -47,7 +93,7 @@ i <a href="http://www.klimatest.eu/katalog/Komory%20klimatyczne/_p/Komory%20klim
 <p>Można założyć (w sposób dosyć agresywny):</p>
 
 <ul>
-<li><p>okres co jaki wykonuje się pętla kontrolna: $W = 5$ sekund,</p>
+<li><p><strong>okres co jaki wykonuje się pętla kontrolna: $W = 5$ sekund</strong>,</p>
 
 <p>Pętla kontrolna składa się z następujących operacji: </p>
 
@@ -57,14 +103,14 @@ i <a href="http://www.klimatest.eu/katalog/Komory%20klimatyczne/_p/Komory%20klim
 <li>ustawienie wyjść. </li>
 </ul>
 
-<p><p>Odstęp czasu między kolejnymi iteracjami pętli nazywamy przedziałem
-czasu albo jednostką czasu. Zakładamy, że w jednym przedziale czasu ustawienia 
+<p><p>Odstęp czasu między kolejnymi iteracjami pętli nazywamy <strong>przedziałem
+czasu</strong> albo <strong>jednostką czasu</strong>. Zakładamy, że w jednym przedziale czasu ustawienia 
 urządzeń wpływających na
 temperaturę w komorze (moc grzałki, wentylatora, itd) są stałe, a temperatura
 zmienia się jedynie w ograniczonym zakresie. 
 Przedziały czasu będziemy indeksować kolejnymi liczbami całkowitymi, poczynając od 0.</p></li>
-<li><p>po wyłączeniu grzania temperatura w komorze się stabilizuje w czasie 
-mniejszym niż 10 minut (czyli po K = 120 jednostkach czasu).
+<li><p>po wyłączeniu grzania temperatura w komorze <strong>stabilizuje się w czasie 
+mniejszym niż 10 minut</strong> (czyli po K = 120 jednostkach czasu).
 Po tym czasie przestajemy śledzić konsekwencje grzania w przeszłości,</p></li>
 </ul>
 Wartości podane powyżej są dosyć wyśrubowane, można je złagodzić tak aby zmniejszyć
@@ -86,6 +132,11 @@ Posiada on przede wszystkim bardzo dużą szybkość działania oraz dużą dok�
 <li><p>pomijamy chłodzenie, żeby uprościć problem. W sumie to jednak 
 dosyć dobrze pasuje do różnych systemów HVAC, które mogą działać bez 
 klimatyzatora (np. w zimie).</p></li>
+<li><p>zakładamy, że czas potrzebny na wykonanie jednej iteracji pętli kontrolnej
+jest pomijalny, zatem na początku każdego przedziału czasu będziemy w stanie
+pobrać temperaturę, wykonać obliczenia jak i ustawić moc grzałki.
+Algorytm da się jednak w dosyć 
+prosty sposób dostosować do sytuacji kiedy tak nie jest.</p></li>
 </ul>
 
 <p>W pracy będziemy się starali ograniczyć drgania typu: 
@@ -97,9 +148,9 @@ grzanie -> chłodzenie (bo zbyt mocno ogrzaliśmy) -> grzanie (bo zbyt mocno och
 zachodzące stosunkowo dawno temu (wcześniej niż $K \cdot W$).
 W tej sekcji postaramy się uchwycić to zachowanie komory w sposób matematyczny.</p>
 
-<p>Rozważamy jednostkę czasu o numerze $k$.</p>
+<p><strong>Rozważamy jednostkę czasu o numerze $k$.</strong></p>
 
-<p>Przyrost temperatury podczas tej jednostki można przybliżyć jako:</p>
+<p><strong>Przyrost temperatury</strong> podczas tej jednostki można przybliżyć jako:</p>
 
 <p>$${\Delta}T[k] = T[k+1] - T[k] \approx \sum_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])
 \label{s2dec1}$$</p>
@@ -110,7 +161,7 @@ wytwarzane w urządzeniu znajdującym się w komorze.)</p>
 <p>Gdzie:</p>
 
 <ul>
-<li>$T[k]$ - temperatura na początku k-tej jednostki czasu,</li>
+<li>$T[k]$ - temperatura <em>na początku</em> k-tej jednostki czasu,</li>
 <li>$({\Delta}T[k] \:|\: P[j])$ - przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
             j-tej jednostce czasu. Oczywiście $k {\geq} j$ (grzanie nie może wpłynąć
             na zmianę temperatury przed jego rozpoczęciem).</li>
@@ -141,7 +192,7 @@ to wartość $f(0)$ jest równa stosunkowi przyrostu temperatury w rozważanym p
 do mocy grzałki w tym przedziale,</li>
 <li><p>po K = 120 przedziałach czasu od rozpoczęcia grzania, ciepło wydzielone przez grzałkę zostaje 
 rozproszone w komorze i nie wpływa już na zmiany temperatury na termometrze.
-Z tego względu można uznać że $f(x) \equiv 0$ dla $x > K$:</p></li>
+Z tego względu można uznać że <em>* $f(x) \equiv 0$ dla $x > K$ *</em>:</p></li>
 <li><p>czyli $f(x)$ może być niezerowe tylko dla $0 \leq x \leq K$,</p></li>
 <li><p>istnieje co najwyżej K+1 niezerowych wartości funkcji $f(x)$:
 0 oraz od 1 do K,</p></li>
@@ -190,7 +241,7 @@ Z tego względu można uznać że $f(x) \equiv 0$ dla $x > K$:</p></li>
 <p>$   {\Delta}T[3] = T[4] - T[3] ≈ (P[0] f(3) + P[1] f(2) + P[2] f(1) + P[3] f(0))$</p>
 
 <p>Taką strukturę nazywamy 
-<a href="http://en.wikipedia.org/wiki/Convolution#Discrete_convolution" title="Wikipedia: Convolution">splotem (convolution)</a>.</p>
+<a href="http://en.wikipedia.org/wiki/Convolution#Discrete_convolution" title="Wikipedia: Convolution"><strong>splotem (convolution)</strong></a>.</p>
 
 <p>Mamy więc:</p>
 
@@ -217,34 +268,13 @@ Jeżeli jednak system przy rozpoczęciu zbierania danych nie znajdował sie w st
 równowagi termodynamicznej, musimy odrzucić pierwsze K pomiarów.
 Odrzucamy też ostatnie K pomiarów.</p>
 
-<p>Można by rozpisać funkcję $f(x)$ na następujące składniki:</p>
-
-<p>$$f(x) = g(x) e^{-\frac{t}{T}} c_1$$</p>
-
-<p>Przy czym:</p>
-
-<ul>
-<li>$ g(x) &lt; 1 $,</li>
-<li>$ g(0) = 1 $ (tak żeby $c_{1}$ ustalić na sztywno)
-            //jednak to by nie było dopuszczalne, ponieważ f(0) może być
-            //stosunkowo małe, mniejsze niż g(1)</li>
-<li>$T$ - jakaś liczba.</li>
-</ul>
-
-<p>Mogłoby to ew. pomóc przy rozwiązywaniu układu równań - można w ten sposób ograniczyć
-wartości funkcji $ f(x) $.</p>
-
-<p>Może być jednak problem z uwzględnieniem $g(x) &lt; 1$ przy rozwiązywaniu tego 
-układu równań (wymagałoby to użycia innych metod rozwiązywania układu równań niż 
-powszechnie stosowane).</p>
-
 <h2>Sekcja 3: Uwzględnienie upływu ciepła</h2>
 
 <p>Model komory grzewczej przestawiony w poprzedniej sekcji nie uwzględnia upływu 
 ciepła przez jej ścianki. </p>
 
-<p>Można założyć w dużym uproszczeniu, że szybkość upływu ciepła zależy wyłącznie 
-od temperatury panującej w komorze. Uwzględnienie innych czynników (np. historii 
+<p>Można założyć w dużym uproszczeniu, że <strong>szybkość upływu ciepła zależy wyłącznie 
+od temperatury panującej w komorze</strong>. Uwzględnienie innych czynników (np. historii 
 zmian temperatury) spowodowałoby znaczny wzrost liczby niewiadomych w układzie 
 równań, co byłoby niekorzystne z dwóch względów:</p>
 
@@ -300,7 +330,7 @@ do świadomego sterowania komorą.</p>
 
 <p>Znając wartości funkcji $f(x)$ oraz $j(x)$ wyliczone na podstawie danych historycznych,
 można przewidzieć przebieg temperatury towarzyszący procesom grzania i z tego
-względu w sposób świadomy sterować grzałką poprzez wybór najbardziej optymalnego
+względu w sposób świadomy sterować grzałką poprzez wybór optymalnego
 przebiegu.</p>
 
 <p>Przy wyliczaniu wartości funkcji $f(x)$ oraz $j(x)$ jest zalecane ograniczenie się 
@@ -339,7 +369,7 @@ $${\Delta}U[k] = U[k+1] - U[k]$$</p>
 
 <p>Moglibyśmy tutaj ułożyć układ równań:
 $${\Delta}U[k] = w(T[k]) + \sum_{j=0}^{K} P[k-j] f(j) $$
-a następnie rozwiązać go, uzyskując potrzebne wartości $P[j]$.
+a następnie rozwiązać go, uzyskując potrzebne wartości $P[k-j]$.
 Posługiwanie się szybkością zmiany temperatury jest jednak kiepskim pomysłem, a to ze 
 względu na jeden prosty problem: zastana 
 temperatura w komorze klimatycznej może odbiegać
@@ -521,11 +551,7 @@ Jeśli P[i] &lt; 0, grzanie w obecnej jednostce czasu wyłączamy.</p>
 <p>Lepsze wyniki uzyskamy jednak, jeśli uwzględnimy wagi poszczególnych równań,
 starając się dopasować </p>
 
-<h2>Sekcja 5: Sterowanie przy użyciu wartości funkcji f - liczenie wag</h2>
-
-<ul>
-<li>rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów</li>
-</ul>
+<h2>Sekcja 5: Sterowanie - uwzględnianie wag</h2>
 
 <p>Uwzględnienie wag przy rozwiązywaniu układu równań pozwala na łagodne odcięcie
 wartości $U[k]$, dla których piszemy równania (zob. $\ref{s4equToSolve}$).</p>
@@ -568,30 +594,21 @@ $$\mathbf{X}^{T} \mathbf{W} \mathbf{X} \mathbf{\beta} =
 Po jego wyliczeniu (w sposób dokładny) uzyskujemy wektor $\mathbf{\beta}$ 
 minimalizujący $e^{T} e$.</p>
 
-<p>Pozostaje jeszcze kwestia wyboru wag.
-Wikipedia zaleca żeby wagi były odwrotnością wariancji pomiarów.</p>
+<p>Wikipedia zaleca żeby wagi były odwrotnością wariancji pomiarów.</p>
 
-<p>Nie można dać wariancji z którą znamy funkcję f()???</p>
+<p>Niech $z(k-i)$ - waga dla dopasowania wartości $U[k]$ 
+($i$ - indeks przedziału czasu w którym wykonywany jest algorytm).
+Wymagania dla funkcji generującej wagi:
+   - ma dążyć stosunkowo szybko do zera, 
+     powiedzmy dla argumentów > 80 (przy $K = 120$) jej wartości 
+     mają już być pomijalne,
+   - nie może zbyt mocno maleć dla niewielkich argumentów (powiedzmy, &lt; 40),</p>
 
-<ul>
-<li><p>w każdym razie, 1/u^2 maleje zbyt szybko, żeby to było do stosowania,</p></li>
-<li><p>co my chcemy dokładnie (dla K = 120):</p>
-
-<ul>
-<li>ma maleć do zera, powiedzmy dla K > 80 wartości mają już być
-pomijalne,</li>
-<li><p>nie może aż tak mocno </p></li>
-<li><p>dla K = 120</p>
-
-<ul>
-<li>w[u] = (u+10)^{-1.2} </li>
-<li>wygląda sensownie</li>
-</ul></li>
-<li>czyli ogólnie mamy heurystykę
-w[u] = (u+ K/12 )^{-1.2} 
-//pomijamy tutaj wpływ L</li>
-</ul></li>
-</ul>
+<p>Po wykonywaniu eksperymentów w LibreOffice, stwierdziłem że 
+dla 
+$K = 120$, funkcja o postaci
+$$z(x) = w[u] = (u+10)^{-1.2}$$
+daje wystarczająco dobre rezultaty. </p>
 
 <!--      vim: set spelllang=pl filetype=markdown :    -->
 </body>
