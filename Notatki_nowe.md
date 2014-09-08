@@ -19,11 +19,11 @@ prawidłowo w różnych warunkach pracy.
 Do takich badań służą komory klimatyczne i
 temperaturowe. 
 
-Komora klimatyczna zapewnia kontrolę zarówno temperatury jak i wilgotności
-powietrza, temperaturowa - tylko temperatury.
+**Komora klimatyczna** zapewnia kontrolę zarówno temperatury jak i wilgotności
+powietrza, **temperaturowa** - tylko temperatury.
 
 Sterowanie komorą temperaturową jest bardzo podobne do sterowania systemami
-HVAC (ang. Heating,
+**HVAC** (ang. Heating,
 Ventilation, Air Conditioning). HVAC jest pojęciem bardzo szerokim. Swoim
 zasięgiem obejmuje ogół zagadnień związanych z ogrzewaniem, wentylacją i
 klimatyzacją wszelkich pomieszczeń (nie tylko komór klimatycznych). Najogólniej
@@ -31,10 +31,10 @@ rzecz biorąc HVAC zajmuje się kwestiami dostarczania i odprowadzania ciepła (
 przez pompy ciepła, instalacje solarne, rekuperatory). 
 
 Efektywne sterowanie komorą klimatyczną i ogólnie systemami HVAC
-ze względu na charakterystykę fizyczną jest
+jest
 zadaniem bardzo trudnym.
 Podstawowymi sterownikami
-stosowanymi powszechnie w kontrolerach HVAC są sterowniki PID. Nie nadają się
+stosowanymi powszechnie w kontrolerach HVAC są sterowniki **PID**. Nie nadają się
 one jednak zbyt dobrze do sterowania tego typu systemami
 ("Raad Z. Homod, Khairul Salleh Mohamed Sahari, Haider A.F. Almurib, Farrukh
 Hafiz Nagi, Gradient auto-tuned Takagi–Sugeno Fuzzy Forward control of a HVAC
@@ -44,10 +44,10 @@ system using predicted mean vote index, Energy and Buildings, Volume 49, June
 http://dx.doi.org/10.1016/j.enbuild.2012.02.013)).
 Z tego względu trzeba szukać innych metod.
 
-Algorytm opisany w naszej pracy został wymyślony przez nas w bardzo dużej mierze 
+**Algorytm opisany w naszej pracy został wymyślony przez nas w bardzo dużej mierze 
 niezależnie.
 Nie analizowaliśmy jednak literatury przedmiotu, z tego powodu przedstawione
-przez nas podejście nie jest pewnie zbyt nowatorskie.
+przez nas podejście nie jest pewnie zbyt nowatorskie.**
 
 Niniejsze opracowanie przedstawia teoretyczne rozważania problemu sterowania
 grzałką w komorze klimatycznej w celu uzyskania żądanego przebiegu temperatury
@@ -67,7 +67,7 @@ i [tutaj](http://www.klimatest.eu/katalog/Komory%20klimatyczne/_p/Komory%20klima
 
 Można założyć (w sposób dosyć agresywny):
 
-* okres co jaki wykonuje się pętla kontrolna: $W = 5$ sekund,
+* **okres co jaki wykonuje się pętla kontrolna: $W = 5$ sekund**,
        
   Pętla kontrolna składa się z następujących operacji: 
 
@@ -75,15 +75,15 @@ Można założyć (w sposób dosyć agresywny):
   - przetwarzanie,
   - ustawienie wyjść. 
 
-  Odstęp czasu między kolejnymi iteracjami pętli nazywamy przedziałem
-  czasu albo jednostką czasu. Zakładamy, że w jednym przedziale czasu ustawienia 
+  Odstęp czasu między kolejnymi iteracjami pętli nazywamy **przedziałem
+  czasu** albo **jednostką czasu**. Zakładamy, że w jednym przedziale czasu ustawienia 
   urządzeń wpływających na
   temperaturę w komorze (moc grzałki, wentylatora, itd) są stałe, a temperatura
   zmienia się jedynie w ograniczonym zakresie. 
   Przedziały czasu będziemy indeksować kolejnymi liczbami całkowitymi, poczynając od 0.
 
-* po wyłączeniu grzania temperatura w komorze się stabilizuje w czasie 
-  mniejszym niż 10 minut (czyli po K = 120 jednostkach czasu).
+* po wyłączeniu grzania temperatura w komorze się **stabilizuje w czasie 
+  mniejszym niż 10 minut** (czyli po K = 120 jednostkach czasu).
   Po tym czasie przestajemy śledzić konsekwencje grzania w przeszłości,
 
 Wartości podane powyżej są dosyć wyśrubowane, można je złagodzić tak aby zmniejszyć
