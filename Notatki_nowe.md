@@ -92,7 +92,7 @@ $({\Delta}T[k] \:|\: P[j])$.
 
 Musimy więc założyć:
 
-$$({\Delta}T[k] \:|\: P[j]) = P[j] \cdot f(k-j)\label{s2fdef}$$
+$$({\Delta}T[k] \:|\: P[j]) = P[j] f(k-j)\label{s2fdef}$$
 
 Przy czym:
 
@@ -122,11 +122,11 @@ Przy czym:
  	
 Po podstawieniu $\ref{s2fdef}$ do $\ref{s2dec1}$ otrzymujemy:
 
-$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=0}^{k} P[j] {\cdot} f(k-j)$$
+$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=0}^{k} P[j] f(k-j)$$
 
 Po przyjęciu że $f(x) \equiv 0$ dla $x {\geq} K + 1$ mamy:
 
-$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] {\cdot} f(k-j)$$
+$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] f(k-j)$$
 	
 (wewnętrzna suma przechodzi przez K + 1 wartości)
 
@@ -138,7 +138,7 @@ Dla $k=0$:
 
 ${\Delta}T[0] = T[1] - T[0] ≈ \sum\_{j=0}^{0} ({\Delta}T[0] \:|\: P[j]) = ({\Delta}T[0] \:|\: P[0])$
 
-${\Delta}T[0] = T[1] - T[0] ≈ P[0] {\cdot} f(0)$
+${\Delta}T[0] = T[1] - T[0] ≈ P[0] f(0)$
 
 
 
@@ -148,19 +148,19 @@ ${\Delta}T[1] = T[2] - T[1] ≈ \sum\_{j=0}^{1} ({\Delta}T[1] \:|\: P[j])$
 
 ${\Delta}T[1] = T[2] - T[1] ≈ ({\Delta}T[1] \:|\: P[0]) + ({\Delta}T[1] \:|\: P[1])$
 
-${\Delta}T[1] = T[2] - T[1] ≈ ( P[0] {\cdot} f(1) + P[1] {\cdot} f(0) )$
+${\Delta}T[1] = T[2] - T[1] ≈ ( P[0] f(1) + P[1] f(0) )$
 
 
 
 I podsumowując, poprzez analogię:
 
-$	{\Delta}T[0] = T[1] - T[0] ≈ (P[0] {\cdot} f(0))$
+$	{\Delta}T[0] = T[1] - T[0] ≈ (P[0] f(0))$
 
-$	{\Delta}T[1] = T[2] - T[1] ≈ (P[0] {\cdot} f(1) + P[1] {\cdot} f(0))$
+$	{\Delta}T[1] = T[2] - T[1] ≈ (P[0] f(1) + P[1] f(0))$
 
-$	{\Delta}T[2] = T[3] - T[2] ≈ (P[0] {\cdot} f(2) + P[1] {\cdot} f(1) + P[2] {\cdot} f(0))$
+$	{\Delta}T[2] = T[3] - T[2] ≈ (P[0] f(2) + P[1] f(1) + P[2] f(0))$
 
-$	{\Delta}T[3] = T[4] - T[3] ≈ (P[0] {\cdot} f(3) + P[1] {\cdot} f(2) + P[2] {\cdot} f(1) + P[3] {\cdot} f(0))$
+$	{\Delta}T[3] = T[4] - T[3] ≈ (P[0] f(3) + P[1] f(2) + P[2] f(1) + P[3] f(0))$
 
 
 Taką strukturę nazywamy 
@@ -168,11 +168,11 @@ Taką strukturę nazywamy
 
 Mamy więc:
 
-$$	{\Delta}T[3] = T[4] - T[3] ≈ (P {\cdot} f)[3]$$
+$$	{\Delta}T[3] = T[4] - T[3] ≈ (P \ast f)[3]$$
 	
 i ogólnie:
 	
-$$	{\Delta}T[k] = T[k+1] - T[k] ≈ (P {\cdot} f)[k]$$
+$$	{\Delta}T[k] = T[k+1] - T[k] ≈ (P \ast f)[k]$$
 
 W tym wypadku przy definicji splotu pomijamy składniki dla których $f(x) \equiv 0$.
 
@@ -180,8 +180,8 @@ W tym wypadku przy definicji splotu pomijamy składniki dla których $f(x) \equi
 
 Ostatecznie, mamy więc układ równań o postaci:
 
-$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] {\cdot} f(k-j) = 
-\sum\_{j=0}^{K} P[k-j] f(j) = (P {\cdot} f)[k] \label{s2eqs}$$
+$${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] f(k-j) = 
+\sum\_{j=0}^{K} P[k-j] f(j) = (P \ast f)[k] \label{s2eqs}$$
 
 Ten układ równań posiada $K+1$ niewiadomych - tyle ile niezerowych wartości funkcji $f()$.
 
@@ -194,7 +194,7 @@ Odrzucamy też ostatnie K pomiarów.
 
 Można by rozpisać funkcję $f(x)$ na następujące składniki:
 
-$$f(x) = g(x) {\cdot} e^{-\frac{t}{T}} {\cdot} c\_1$$
+$$f(x) = g(x) e^{-\frac{t}{T}} c\_1$$
 
 Przy czym:
 
@@ -261,7 +261,7 @@ Oznaczmy jako $w(t)$ szybkość upływu ciepła wyliczoną za pomocą powyższyc
 
 Powyższe wzory można w prosty sposób uwzględnić w układzie równań $\ref{s2eqs}$:
 
-$${\Delta}T[k] = T[k+1] - T[k] ≈ w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) = w(T[k]) (P {\cdot} f)[k] \label{s3eqs2}$$
+$${\Delta}T[k] = T[k+1] - T[k] ≈ w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) = w(T[k]) (P \ast f)[k] \label{s3eqs2}$$
 
 Po rozwiązaniu go, otrzymujemy wartości funkcji $f(x)$ oraz $j(x)$, które będą potrzebne
 do świadomego sterowania komorą.
@@ -292,7 +292,7 @@ Oznaczenia:
 
 Przyjmujemy uproszczony model ogrzewania przedstawiony w sekcji 3 - wzór $\ref{s3eqs2}$
 
-$${\Delta}T[k] = T[k+1] - T[k] ≈ w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) = w(T[k]) (P {\cdot} f)[k] \label{s4eqs}$$
+$${\Delta}T[k] = T[k+1] - T[k] ≈ w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) = w(T[k]) (P \ast f)[k] \label{s4eqs}$$
 
 Będziemy postępowali podobnie jak doświadczony szachista, przewidujący
 kilka ruchów naprzód a jednocześnie w każdym ruchu dostosowujący się do
@@ -318,7 +318,7 @@ Mamy więc równanie macierzowe (na razie pomijam wagi)
 (używam oznaczeń jak na  [Wikipedii](http://en.wikipedia.org/wiki/Least_squares)):
 $$y = X {\cdot} \beta \label{s4equmartix}$$
 
-Dla K=3 oraz i = 9 mamy:
+Dla $K=3$ oraz $i = 9$ mamy:
 (celowo nie piszę równania dla ${\Delta}U[9]$, zob. niżej):
 $$
 \begin{array}{rclrl}
