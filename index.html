@@ -610,6 +610,90 @@ $K = 120$, funkcja o postaci
 $$z(x) = w[u] = (u+10)^{-1.2}$$
 daje wystarczająco dobre rezultaty. </p>
 
+<h2>Sekcja 6 - suplement</h2>
+
+<p>Niedokończone i niedopracowane pomysły</p>
+
+<h3>Rozpisanie funkji $f(x)$</h3>
+
+<p>Można by rozpisać funkcję $f(x)$ na następujące składniki:</p>
+
+<p>$$f(x) = g(x) e^{-\frac{t}{T}} c_1$$</p>
+
+<p>Przy czym:</p>
+
+<ul>
+<li>$ g(x) &lt; 1 $,</li>
+<li>$ g(0) = 1 $ (tak żeby $c_{1}$ ustalić na sztywno)
+            //jednak to by nie było dopuszczalne, ponieważ f(0) może być
+            //stosunkowo małe, mniejsze niż g(1)</li>
+<li>$T$ - jakaś liczba.</li>
+</ul>
+
+<p>Mogłoby to ew. pomóc przy rozwiązywaniu układu równań - można w ten sposób ograniczyć
+wartości funkcji $ f(x) $.</p>
+
+<p>Może być jednak problem z uwzględnieniem $g(x) &lt; 1$ przy rozwiązywaniu tego 
+układu równań (wymagałoby to użycia innych metod rozwiązywania układu równań niż 
+powszechnie stosowane).</p>
+
+<h3>Inne podejście do wykorzystywania historii</h3>
+
+<p>Mamy dane N zbiorów danych historycznych o postaci:</p>
+
+<p>{kontekst, akcja, reakcja}</p>
+
+<ul>
+<li>akcja - jaką czynność podjęliśmy w danej chwili,</li>
+<li>kontekst - co działo się z układem przed podjęciem akcji,</li>
+<li>reakcja - jakie były skutki podjętej akcji.</li>
+</ul>
+
+<p>Zakładając że znamy wartości funkcji f (wyliczone z powyższego układu równań), 
+możemy skonstruować rekordy danych historycznych:</p>
+
+<p>Podobnie jak poprzednio, rozważamy k-ty rekord danych historycznych, dotyczący 
+grzania w k-tym przedziale czasu,</p>
+
+<ul>
+<li><p>kontekst:</p>
+
+<ul>
+<li>$\sum_{j=k-119}^{k} \frac{\Delta T[j]}{t}$</li>
+<li>$\sum_{j=k-119}^{k} \frac{\Delta T[j]}{t^{2}}$</li>
+<li>$\sum_{j=k-120}^{k} \frac{P[j]}{t}$</li>
+<li>$\sum_{j=k-120}^{k} \frac{P[j]}{t^{2}}$</li>
+<li>ewentualnie $T[k]$</li>
+</ul></li>
+<li><p>akcja:</p>
+
+<ul>
+<li>$P[k]$</li>
+</ul></li>
+<li><p>reakcja:</p>
+
+<ul>
+<li><p>Zdefiniujmy $(ΔT[k-1] || P[j])$ - przyrost temperatury który da się 
+przypisać grzaniu w k-tej jednostce czasu,</p></li>
+<li><p>rekord zawierałby całki takie same jak dla kontekstu, z tym że 
+dla $(ΔT[k-1] || P[j])$ i oczywiście indeksy wartości byłyby większe od k, 
+znaczy się sumowane wszystko byłoby w przód,</p></li>
+<li><p>albo może po prostu surowe przebiegi $(ΔT[k-1] || P[j]) $</p></li>
+</ul></li>
+</ul>
+
+<p>Mając N <em>pełnych</em> rekordów historycznych (znaczy się takich które 
+zostały sporządzone więcej niż 120 okresów temu, tak że reakcje są w pełni 
+wyliczone).</p>
+
+<h3>Inne</h3>
+
+<ul>
+<li><p>Plik <a href="https://github.com/matjon/zbdihd/blob/master/TODO.txt">TODO.txt</a></p></li>
+<li><p>Kod źródłowy tego pliku - do edycji: 
+<a href="https://github.com/matjon/zbdihd">Github</a></p></li>
+</ul>
+
 <!--      vim: set spelllang=pl filetype=markdown :    -->
 </body>
 </html>
