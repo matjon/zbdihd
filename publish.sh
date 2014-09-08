@@ -2,6 +2,7 @@
 
 git push
 
+./compile.sh
 mv index.html index.html_to_push
 git checkout gh-pages
 
