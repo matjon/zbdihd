@@ -323,20 +323,17 @@ Na podstawie wartości $U[k]$ potrafimy policzyć
 $${\Delta}U[k] = U[k+1] - U[k]$$
 
 Moglibyśmy tutaj ułożyć układ równań:
-$${\Delta}U[k] = w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) \label{s4eqs2}$$
+$${\Delta}U[k] = w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) $$
 a następnie rozwiązać go, uzyskując potrzebne wartości $P[j]$.
 Posługiwanie się szybkością zmiany temperatury jest jednak kiepskim pomysłem, a to ze 
-względu na jeden prosty problem: temperatura w komorze klimatycznej może odbiegać
+względu na jeden prosty problem: zastana 
+temperatura w komorze klimatycznej może odbiegać
 znacząco od $U[k]$ i w tym wypadku dążenie do ${\Delta}T[k] = {\Delta}U[k]$ traci
 sens. Nie pomoże też korekta pierwszej wartości $\Delta U[k]$, ponieważ zagubi się ona
 w układzie równań i nie wpłynie znacząco na wynik.
 
 Niestety, dopasowywanie $T[k] = U[k]$ znacząco komplikuje równania.
 
- - rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów
-
-- wagi są konieczne, bo musimy jakoś w sensowny sposób odciąć wartości j,
-- problem: mogą wyjść liczby ujemne,
 
 Mamy zatem:
 $$T[k] = T[i] + \sum\_{l=i}^{k-1} T[l+1] - T[l] = T[i] + \sum\_{l=i}^{k-1} \Delta T[l] \nonumber$$
@@ -348,13 +345,149 @@ $$T[k] = T[i] + \sum\_{l=i}^{k-1} w(T[l]) + \sum\_{l=i}^{k-1} \sum\_{j=l-K}^{l} 
 
 Potrzebujemy teraz odwrócić kolejność sum w ostatnim składniku
 powyższego równania, tak aby łatwo przejść do postaci macierzowej. 
+Widzimy, że przy rozwinięciu sumy mamy wyrazy na $P$ od $P[i-K]$ do $P[k-1]$.
+$P[j]$ występuje w składnikach sumy wyższego poziomu (indeksowanej przez $l$) dla 
+$$l-K \leq j \leq l \label{s4sumsinvertion}$$
+Każde $P[j]$ "widzi" więc takie wartości $l$. Trzeba jednak pamiętać że
+wartości $l$ są dodatkowo ograniczone przez granice sumy zewnętrznej:
+
+$$ i \leq l \leq k-1 \label{s4sumsinvertion2}$$
 
 
 
+$P[j]$ jest więc mnożone przez
+$\sum f(l-j)$ przy sumowaniu przez wszystkie wartości $l$ spełniające równania 
+$\ref{s4sumsinvertion}$ oraz $\ref{s4sumsinvertion2}$. 
+Po przekształceniach mamy więc następujące ograniczenia na $f(l-j)$:
+
+$$
+\begin {cases}
+j \leq l \leq j+K       \\\\
+i \leq l \leq k-1 
+\end {cases}
+$$
+
+Oraz:
+$$
+\begin {cases}
+0 \leq l-j \leq K       \\\\
+i-j \leq l-j \leq k-j-1 
+\end {cases}
+$$
+Pierwsze z tych równań jest ograniczeniem do niezerowej dziedziny funkcji $f(x)$.
+W drugim równaniu pierwsza nierówność usuwa wyrazy $f(x)$ odnoszące 
+się do zmian temperatury przed jednostką czasu $i$, druga nierówność - do 
+zmian temperatury w jednostce czasu $k$ (przypominam że $T[k]$ = czas na początku
+jednostki $k$) oraz po tej jednostce.
+
+Ostatecznie mamy więc:
+$$T[k] = T[i] + \sum\_{l=i}^{k-1} w(T[l]) + 
+        \sum\_{j=i-K}^{k-1} \left[ 
+        P[j] \sum\_{l=\max(0,\; i-j)}^{\min(K,\; k-j-1)} f(l) 
+        \right] \label{s4equinverted}$$
+
+* * *
+
+W celu zapewnienia optymalnego sterowania, będziemy starali się dążyć do $T[k] = U[k]$.
+Da się to uzyskać rozwiązując układ równań, uzyskany
+po podstawieniu tego wyrażenia do równania
+$\ref{s4equinverted}$:
+
+$$U[k] = T[i] + \sum\_{l=i}^{k-1} w(T[l]) + 
+        \sum\_{j=i-K}^{k-1} \left[ 
+        P[j] \sum\_{l=\max(0,\; i-j)}^{\min(K,\; k-j-1)} f(l) 
+        \right] \label{s4equToSolve}$$
+
+W tym układzie równań niewiadomymi są wartości $P[j]$ dla $j \geq i$. 
+Będziemy w nim uwzględniać $R$ równań o postaci takiej jak powyżej,
+pisanych dla kolejnych wartości U[k], poczynając od U[i+1].
+Ograniczymy również liczbę niewiadomych do $Q$, przyjmując że dla wyższych
+wartości $P[j] \equiv 0$.
+
+TODO: napisać dlaczego
+
+Dla $K=120$ sensowne wartości tych parametrów to: $Q=80$ oraz $R=120$.
+
+* * *
+
+Po wprowadzeniu tych ograniczeń wiersz układu równań przyjmuje postać:
+$$U[k] = T[i] + \sum\_{l=i}^{k-1} w(T[l]) + 
+        \sum\_{j=i-K}^{\min(k-1,\;Q)} \left[ 
+        P[j] \sum\_{l=\max(0,\; i-j)}^{\min(K,\; k-j-1)} f(l) 
+        \right] \label{s4equToSolve2}$$
+
+Musimy teraz przekształcić ten układ równań do postaci macierzowej
+(używam oznaczeń jak na [Wikipedii](http://en.wikipedia.org/wiki/Linear_least_squares_%28mathematics%29#The_general_problem)):
+$$\mathbf{y} = \mathbf{X} \mathbf{\beta} \label{s4equmartix}$$
+
+Oznaczenia:
+
+- $\mathbf{y}$ - wektor wyrazów wolnych,
+- $\mathbf{\beta}$ - wektor niewiadomych,
+- $\mathbf{X}$ - macierz współczynników. 
 
 
+W tym celu zaczniemy od rozdzielenia wyrazów z $P[j]$ dla $j < i$ (których wartości
+znamy) oraz pozostałych (niewiadomych):
+$$U[k] = T[i] + \sum\_{l=i}^{k-1} w(T[l]) + 
+        \sum\_{j=i-K}^{i-1} \left[ 
+        P[j] \sum\_{l=\max(0,\; i-j)}^{\min(K,\; k-j-1)} f(l) 
+        \right]
+        +
+        \sum\_{j=i}^{\min(k-1,\;Q)} \left[ 
+        P[j] \sum\_{l=\max(0,\; i-j)}^{\min(K,\; k-j-1)} f(l) 
+        \right]$$
+
+Można optymistycznie założyć, że $T[l] \approx U[l]$ i przybliżyć
+$w(T[l])$ przez $w(U[l])$.
+(to założenie jest tym bardziej uzasadnione, że funkcja $w(x)$ rośnie stosunkowo
+wolno)
+Jednocześnie 
+przenosimy wszystkie składniki o znanej wartości na lewą stronę:
+
+$$U[k] - T[i] - 
+        \sum\_{l=i}^{k-1} w(U[l]) -
+        \sum\_{j=i-K}^{i-1} \left[ 
+        P[j] \sum\_{l=\max(0,\; i-j)}^{\min(K,\; k-j-1)} f(l) 
+        \right]
+        =
+        \sum\_{j=i}^{\min(k-1,\;Q)} \left[ 
+        P[j] \sum\_{l=\max(0,\; i-j)}^{\min(K,\; k-j-1)} f(l) 
+        \right]$$
 
 
+Element wektora wyrazów wolnych opisujący $U[k]$ ma więc postać
+(przyjmujemy że macierze są indeksowane od 1):
+
+$$\mathbf{y}[a] = 
+        U[k] - T[i] - 
+        \sum\_{l=i}^{k-1} w(U[l]) -
+        \sum\_{j=i-K}^{i-1} \left[ 
+        P[j] \sum\_{l=\max(0,\; i-j)}^{\min(K,\; k-j-1)} f(l) 
+        \right]
+\qquad
+        \textrm{przy czym } \quad k = i + a - 1
+$$
+
+Element wektora niewiadomych można zdefiniować jako:
+$$\mathbf{\beta}[b] = P[j]      
+\qquad
+        \textrm{przy czym } \quad j = i + b - 1
+$$
+
+I wreszcie:
+$$
+\mathbf{X}[a,b] = 
+        \sum\_{l=\max(0,\; i-j)}^{\min(K,\; k-j-1)} f(l) 
+\qquad
+        \textrm{przy czym } \quad j = i + b - 1
+        \quad \textrm{oraz } \quad k = i + a - 1
+$$
+
+$\mathbf{X}[a,b]$ jest tym elementem wektora $\mathbf{X}$, który jest mnożony z
+$\mathbf{\beta}[b]$ i ma być równy $\mathbf{y}[a]$.
+
+Gdybyśmy macierze indeksowali od zera, wówczas $k = i+a$ oraz $j = i+b$.
 
 
 
@@ -487,6 +620,11 @@ Jeśli P[i] < 0, grzanie w obecnej jednostce czasu wyłączamy.
 
 Sekcja 5: Sterowanie przy użyciu wartości funkcji f - liczenie wag
 --------------------------------------------------------------------
+
+ - rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów
+
+- wagi są konieczne, bo musimy jakoś w sensowny sposób odciąć wartości j,
+- problem: mogą wyjść liczby ujemne,
 
 Pojawia się jednak problem, jak daleko w przód przewidujemy nasze ruchy.
 
