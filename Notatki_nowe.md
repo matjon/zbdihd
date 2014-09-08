@@ -3,7 +3,21 @@
 rogu jest pasek postępu.
 //może to trwać nawet 10 s
 
-//dać tutaj linki do repo na githubie i pliku TODO.txt / Snippets.txt
+Zaawansowane Bazy Danych i Hurtownie Danych
+=============
+Projekt badawczy
+-------------------
+
+Opracowanie programowego modułu sterowania dla komory temperaturowej.
+-------------------
+
+Autorzy (skład zespołu):
+
+* Mateusz Jończyk
+* Dawid Nowak
+
+kier. Informatyka SSM, sem. 3, gr. BDIS 
+
 Sekcja 0: Wprowadzenie
 -------------------
 
