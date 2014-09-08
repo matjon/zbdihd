@@ -61,6 +61,12 @@ Ponadto:
   dosyć dobrze pasuje do różnych systemów HVAC, które mogą działać bez 
   klimatyzatora (np. w zimie).
 
+* zakładamy, że czas potrzebny na wykonanie jednej iteracji pętli kontrolnej
+  jest pomijalny, zatem na początku każdego przedziału czasu będziemy w stanie
+  pobrać temperaturę, wykonać obliczenia jak i ustawić moc grzałki.
+  Algorytm da się jednak w dosyć 
+  prosty sposób dostosować do sytuacji kiedy tak nie jest.
+
 W pracy będziemy się starali ograniczyć drgania typu: 
 grzanie -> chłodzenie (bo zbyt mocno ogrzaliśmy) -> grzanie (bo zbyt mocno ochłodziliśmy)
 
@@ -524,10 +530,8 @@ Jeśli P[i] < 0, grzanie w obecnej jednostce czasu wyłączamy.
 Lepsze wyniki uzyskamy jednak, jeśli uwzględnimy wagi poszczególnych równań,
 starając się dopasować 
 
-Sekcja 5: Sterowanie przy użyciu wartości funkcji f - liczenie wag
---------------------------------------------------------------------
-
-- rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów
+Sekcja 5: Sterowanie - uwzględnianie wag
+----------------------------------------
 
 Uwzględnienie wag przy rozwiązywaniu układu równań pozwala na łagodne odcięcie
 wartości $U[k]$, dla których piszemy równania (zob. $\ref{s4equToSolve}$).
@@ -570,28 +574,22 @@ Posiada on tyle samo równań co niewiadomych.
 Po jego wyliczeniu (w sposób dokładny) uzyskujemy wektor $\mathbf{\beta}$ 
 minimalizujący $e^{T} e$.
 
-Pozostaje jeszcze kwestia wyboru wag.
 Wikipedia zaleca żeby wagi były odwrotnością wariancji pomiarów.
 
-Nie można dać wariancji z którą znamy funkcję f()???
+Niech $z(k-i)$ - waga dla dopasowania wartości $U[k]$ 
+($i$ - indeks przedziału czasu w którym wykonywany jest algorytm).
+Wymagania dla funkcji generującej wagi:
+   - ma dążyć stosunkowo szybko do zera, 
+     powiedzmy dla argumentów > 80 (przy $K = 120$) jej wartości 
+     mają już być pomijalne,
+   - nie może zbyt mocno maleć dla niewielkich argumentów (powiedzmy, < 40),
 
-- w każdym razie, 1/u^2 maleje zbyt szybko, żeby to było do stosowania,
-
-- co my chcemy dokładnie (dla K = 120):
-   - ma maleć do zera, powiedzmy dla K > 80 wartości mają już być
-     pomijalne,
-   - nie może aż tak mocno 
-
-   - dla K = 120
-     - w[u] = (u+10)^{-1.2} 
-     - wygląda sensownie
-   - czyli ogólnie mamy heurystykę
-     w[u] = (u+ K/12 )^{-1.2} 
-     //pomijamy tutaj wpływ L
-
-
+Po wykonywaniu eksperymentów w LibreOffice, stwierdziłem że 
+dla 
+$K = 120$, funkcja o postaci
+$$z(x) = w[u] = (u+10)^{-1.2}$$
+daje wystarczająco dobre rezultaty. 
 
 
 
 <!--      vim: set spelllang=pl filetype=markdown :    -->
-

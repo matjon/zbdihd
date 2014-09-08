@@ -120,3 +120,16 @@ Wprowadzić  L, powiedzmy L powinno być = 1.
 
 pon, 8 wrz 2014, 12:01:41 CEST
 Skrócić długie równania które nie są w całości widoczne na podglądzie wydruku.
+
+pon, 8 wrz 2014, 13:35:20 CEST
+Wagi:
+
+        Nie można uwzględnić wariancji z którą znamy funkcję f()???
+
+pon, 8 wrz 2014, 13:46:08 CEST
+Lepszy wybór funkcji z(x) - stosowana do wag
+ i uogólnienie:
+
+"W ogólnym przypadku można by stosować heurystykę o postaci:
+$$z(x) = w[u] = (u+ K / 12)^{-1.2}$$
+" - ta funkcja nie będzie zbyt dobrze działać np. dla K = 60
