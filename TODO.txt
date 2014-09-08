@@ -1,17 +1,16 @@
 //      vim: spelllang=pl
 
-Czekaj, przecież jest też chłodzenie przez ściany
-
 P[i] trochę niefortunnie wybrałem, można to uznać jako moc grzałki którą
 ustawiliśmy na przedział i
+(bardziej chyba powinniśmy używać dostarczonego ciepła, ale to jest detal),
 
 BTW, zakładamy na razie że całą pętlę sterującą wykonujemy na początku danego 
 przedziału czasu.
+        - zrezygnować z tego założenia
 
 Wartość funkcji f być może da się zamodelować jakimiś funkcjami
 matematycznymi, ale i tak nie znamy parametrów do tych funkcji 
         - można by to zamodelować jakoś i przybliżyć,
-
 
 czw, 4 wrz 2014, 21:34:11 CEST
 Mogą być specjalne przebiegi uczące.
@@ -20,8 +19,7 @@ sob, 6 wrz 2014, 18:15:33 CEST
 Sekcja 5 - użycie wag:
 
 e = W^{1/2}(X * β - y)
- - błąd mierzymy jako niedopasowanie różnicy temperatur ∆U[k]
- - ew. możemy minimalizować niedopasowanie wartości β, ale chyba jednak nie
+ - możemy minimalizować niedopasowanie wartości β, ale chyba jednak nie
    jest to najlepsze rozwiązanie.
    Chociaż niekoniecznie, to w sumie byłoby dosyć ciekawe.
    To jednak byłoby trochę trudniejsze matematycznie,
@@ -58,7 +56,8 @@ Nie używać \delta U
 
 nie, 7 wrz 2014, 10:47:28 CEST
 Sekcja 3: Uwzględnienie upływu ciepła
-- bardziej wyrafinowany algorytm do aproksymacji / interpolacji
+- bardziej wyrafinowany (czytaj: działający)
+  algorytm do aproksymacji / interpolacji
   szybkości upływu ciepła w danej temperaturze.
 
 - można aproksymować szybkość upływu ciepła wielomianem o stopniu równym lub
@@ -73,36 +72,17 @@ nie, 7 wrz 2014, 11:08:22 CEST
 Ujednolicić nazewnictwo: time slice, jednostka czasu, przedział czasu,
 przedział czasowy,
 
-nie, 7 wrz 2014, 11:27:35 CEST
-Musimy więc założyć:
-
-        (ΔT[k] | P[j]) = P[j] * f(k-j)
-
-Gdzie:
-- P[j] - moc grzałki w danej jednostce czasu 
-(bardziej chyba powinniśmy używać dostarczonego ciepła, ale to jest detal),
-
 nie, 7 wrz 2014, 12:30:49 CEST
-Sprawdzić że wszędzie używam tego samego znaku dla delty (jest jako litera
-alfabetu greckiego i operator matematyczny).
-
 Podstawienia typu:
 ∆T[k] = T[k+1] - T[k] ≈ \sum_{j=k-K}^{k} P[j] * f(k-j)
 na:
 ∆T[k] = T[k+1] - T[k] ≈ \sum_{j=max(0,k-K)}^{k} P[j] * f(k-j)
 
-nie, 7 wrz 2014, 12:35:13 CEST
-Użycie MathJax do renderingu fontów:
-http://stackoverflow.com/a/12979200
 
 nie, 7 wrz 2014, 14:34:09 CEST
 
 <!--        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry -->
 http://stackoverflow.com/a/12979200
-
-nie, 7 wrz 2014, 20:33:23 CEST
-PILNE:
-Sekcja 3 - aproksymacja - porządnie ją zdefiniować.
 
 nie, 7 wrz 2014, 20:44:41 CEST
 W Sekcji 4 (tam gdzie już sterujemy):
@@ -110,9 +90,6 @@ W Sekcji 4 (tam gdzie już sterujemy):
 //do przyśpieszenia rozwiązywania układu równań w następnym.
 //Np. jeśli stosujemy metodę aproksymacyjną, możemy jako punkty startowe przyjąć
 //wartości P[u] wyliczone w poprzednim oknie czasowym.
-
-nie, 7 wrz 2014, 20:52:37 CEST
-Wszędzie znaki * -> \cdot
 
 pon, 8 wrz 2014, 11:05:52 CEST
 Sekcja 4: Nie pisać równania z U[i], zacząc pisanie równań od U[i+L]
@@ -123,13 +100,15 @@ Skrócić długie równania które nie są w całości widoczne na podglądzie w
 
 pon, 8 wrz 2014, 13:35:20 CEST
 Wagi:
-
-        Nie można uwzględnić wariancji z którą znamy funkcję f()???
+Nie można uwzględnić wariancji z którą znamy funkcję f()???
 
 pon, 8 wrz 2014, 13:46:08 CEST
-Lepszy wybór funkcji z(x) - stosowana do wag
+Lepszy wybór funkcji z(x) - (W sekcji z omówieniem wag)
  i uogólnienie:
 
 "W ogólnym przypadku można by stosować heurystykę o postaci:
 $$z(x) = w[u] = (u+ K / 12)^{-1.2}$$
 " - ta funkcja nie będzie zbyt dobrze działać np. dla K = 60
+
+pon, 8 wrz 2014, 14:00:26 CEST
+Dodać Snippets.txt jakoś do głównego tekstu.
