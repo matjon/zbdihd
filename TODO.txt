@@ -110,3 +110,7 @@ W Sekcji 4 (tam gdzie już sterujemy):
 
 nie, 7 wrz 2014, 20:52:37 CEST
 Wszędzie znaki * -> \cdot
+
+pon, 8 wrz 2014, 11:05:52 CEST
+Sekcja 4: Nie pisać równania z U[i], zacząc pisanie równań od U[i+L]
+Wprowadzić  L, powiedzmy L powinno być = 1.
