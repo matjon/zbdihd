@@ -1,4 +1,6 @@
 
+//proszę poczekać na załadowanie się wzorów matematycznych. W dolnym lewym
+rogu jest pasek postępu.
 
 //pisać coś o HVAC
 
