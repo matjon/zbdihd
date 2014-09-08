@@ -246,18 +246,22 @@ Szybkość ucieczki ciepła można aproksymować w podany poniżej prosty sposó
  - definiujemy pewną funkcję $j(x)$ - określoną dla wartości x podzielnych przez 5,
  - dla $k$ nie należącego do dziedziny funkcji $j(x)$ mamy (zaokrąglamy $k$ w dół do liczby podzielnej przez 5):
 
-$$m = k - (k \bmod 5)$$
+$$m = T[k] - (k \bmod 5)$$
 
 $$({\Delta}T[k] \:|\: T[k]) = \frac{j(m-5) + j(m) + j(m+5) + j(m+10)}{4}$$
 
 
  - dla k należącego do dziedziny funkcji j mamy:
         
-$$ ({\Delta}T[k] \:|\: T[k]) = \frac{j(k-5) + j(k) + j(k+5)}{3}$$
+$$ ({\Delta}T[k] \:|\: T[k]) = \frac{j(T[k]-5) + j(T[k]) + j(T[k]+5)}{3}$$
+
+Oznaczmy jako $w(t)$ szybkość upływu ciepła wyliczoną za pomocą powyższych równań.
 
 <br>
 
-Powyższe wzory można w prosty sposób uwzględnić w układzie równań $\ref{s3eqs}$.
+Powyższe wzory można w prosty sposób uwzględnić w układzie równań $\ref{s2eqs}$:
+
+$${\Delta}T[k] = T[k+1] - T[k] ≈ w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) = w(T[k]) (P {\cdot} f)[k] \label{s3eqs2}$$
 
 Po rozwiązaniu go, otrzymujemy wartości funkcji $f(x)$ oraz $j(x)$, które będą potrzebne
 do świadomego sterowania komorą.
@@ -286,10 +290,9 @@ Oznaczenia:
 -	$j$ - indeksuje czas w którym przewidujemy że będziemy grzać,
 -	$k$ - indeksuje temperaturę w przyszłości,
 
-Przyjmujemy uproszczony model ogrzewania przedstawiony w sekcjach 2 i 3:
+Przyjmujemy uproszczony model ogrzewania przedstawiony w sekcji 3 - wzór $\ref{s3eqs2}$
 
-$${\Delta}T[k] = T[k+1] - T[k] ≈ ({\Delta}T[k] \:|\: T[k]) + 
-        \sum\_{j=k-K}^{k} P[j] {\cdot} f(k-j)$$
+$${\Delta}T[k] = T[k+1] - T[k] ≈ w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) = w(T[k]) (P {\cdot} f)[k] \label{s4eqs}$$
 
 Będziemy postępowali podobnie jak doświadczony szachista, przewidujący
 kilka ruchów naprzód a jednocześnie w każdym ruchu dostosowujący się do
