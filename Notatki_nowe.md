@@ -93,7 +93,7 @@ Można założyć (w sposób dosyć agresywny):
 
 * po wyłączeniu grzania temperatura w komorze **stabilizuje się w czasie 
   mniejszym niż 10 minut** (czyli po K = 120 jednostkach czasu).
-  Po tym czasie przestajemy śledzić konsekwencje grzania w przeszłości,
+  Po tym czasie przestajemy śledzić konsekwencje grzania w przeszłości.
 
 Wartości podane powyżej są dosyć wyśrubowane, można je złagodzić tak aby zmniejszyć
 wartość K.
