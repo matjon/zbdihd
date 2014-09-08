@@ -3,16 +3,53 @@
 rogu jest pasek postępu.
 //może to trwać nawet 10 s
 
+//pisać coś o HVAC
+
+//komora klimatyczna: kontrola też wilgotności
+//komorat temperaturowa: kontrola tylko temperatury
+
 Sekcja 0: Wprowadzenie
 -------------------
 
-W dzisiejszych czasach, duża liczba produkowanych urządzeń czy też innych wyrobów wymaga mniej lub bardziej szczegółowej kontroli jakości. Takie wymaganie może być narzucone np. przepisami prawa, zapisami kontraktów/przetargów albo polityką firmy zakładająca produkcję towarów dobrej jakości. W przypadku chociażby urządzeń elektronicznych zazwyczaj podaje się w specyfikacji również warunki, w których dane urządzenie będzie działać prawidłowo (np. zakres temperatur). Urządzenia konsumenckie nie gwarantują zazwyczaj pracy w ekstremalnych warunkach (np. podwyższonej temperatury) w przeciwieństwie do urządzeń przemysłowych, które powinny gwarantować nieprzerwaną pracę w trudniejszych warunkach. W jaki sposób określić zakres dopuszczalnych temperatur, w których urządzenie będzie działać prawidłowo? Można przeprowadzić badania empiryczne pracy takiego urządzenia w określonych warunkach. Do takich badań służą komory klimatyczne i temperaturowe symulujące i monitorujące odpowiednie warunki pracy. Komora klimatyczna (temperaturowa) ponadto odseparowuje badany element od czynników środowiska zewnętrznego, dzięki czemu eliminuje się wpływ innych czynników niż tylko symulacyjnych.
+W dzisiejszych czasach, duża liczba produkowanych urządzeń czy też innych wyrobów 
+wymaga mniej lub bardziej szczegółowej kontroli jakości. Takie wymaganie może być 
+narzucone np. przepisami prawa, zapisami kontraktów/przetargów albo polityką
+firmy zakładająca produkcję towarów dobrej jakości. W przypadku chociażby
+urządzeń elektronicznych zazwyczaj podaje się w specyfikacji również warunki, w
+których dane urządzenie będzie działać prawidłowo (np. zakres temperatur).
+Urządzenia konsumenckie nie gwarantują zazwyczaj pracy w ekstremalnych warunkach
+(np. podwyższonej temperatury) w przeciwieństwie do urządzeń przemysłowych,
+które powinny gwarantować nieprzerwaną pracę w trudniejszych warunkach. W jaki
+sposób określić zakres dopuszczalnych temperatur, w których urządzenie będzie
+działać prawidłowo? Można przeprowadzić badania empiryczne pracy takiego
+urządzenia w określonych warunkach. Do takich badań służą komory klimatyczne i
+temperaturowe symulujące i monitorujące odpowiednie warunki pracy. Komora
+klimatyczna (temperaturowa) ponadto odseparowuje badany element od czynników
+środowiska zewnętrznego, dzięki czemu eliminuje się wpływ innych czynników niż
+tylko symulacyjnych.
 
-Komora temperaturowa oprócz odpowiedniej izolacji najczęściej posiada także elementy wykonawcze - grzewcze do podnoszenia temperatury i chłodzące do obniżania temperatury. Ponadto monitorowanie parametrów fizycznych wymaga odpowiednich czujników. Nad przebiegiem symulacji czuwa specjalny sterownik, który dopasowuje rzeczywiste warunki w komorze do warunków zadanych przez użytkownika. Sterownik taki najczęściej rozwiązuje problem HVAC (ang. Heating, Ventilation, Air Conditioning). HVAC jest pojęciem bardzo szerokim. Swoim zasięgiem obejmuje ogół zagadnień związanych z ogrzewaniem, wentylacją i klimatyzacją wszelkich pomieszczeń (nie tylko komór klimatycznych). Najogólniej rzecz biorąc HVAC zajmuje się kwestiami dostarczania i odprowadzania ciepła (np. przez pompy ciepła, instalacje solarne, rekuperatory). Podstawowymi sterownikami używanymi w kontrolerach HVAC są sterowniki PID.
+Komora temperaturowa oprócz odpowiedniej izolacji najczęściej posiada także
+elementy wykonawcze - grzewcze do podnoszenia temperatury i chłodzące do
+obniżania temperatury. Ponadto monitorowanie parametrów fizycznych wymaga
+odpowiednich czujników. Nad przebiegiem symulacji czuwa specjalny sterownik,
+który dopasowuje rzeczywiste warunki w komorze do warunków zadanych przez
+użytkownika. Sterownik taki najczęściej rozwiązuje problem HVAC (ang. Heating,
+Ventilation, Air Conditioning). HVAC jest pojęciem bardzo szerokim. Swoim
+zasięgiem obejmuje ogół zagadnień związanych z ogrzewaniem, wentylacją i
+klimatyzacją wszelkich pomieszczeń (nie tylko komór klimatycznych). Najogólniej
+rzecz biorąc HVAC zajmuje się kwestiami dostarczania i odprowadzania ciepła (np.
+przez pompy ciepła, instalacje solarne, rekuperatory). Podstawowymi sterownikami
+używanymi w kontrolerach HVAC są sterowniki PID.
 
-Sterowanie komorą klimatyczną ze względu na charakterystykę fizyczną nie jest rzeczą trywialną. Projektując kompletny sterownik komory klimatycznej należy uwzględnić takie parametry jak: temperatura, ciśnienie, pojemność cieplna, przewodność cieplna, upływ ciepła itp. 
+Sterowanie komorą klimatyczną ze względu na charakterystykę fizyczną nie jest
+rzeczą trywialną. Projektując kompletny sterownik komory klimatycznej należy
+uwzględnić takie parametry jak: temperatura, ciśnienie, pojemność cieplna,
+przewodność cieplna, upływ ciepła itp. 
 
-Niniejsze opracowanie przedstawia teoretyczne rozważania problemu sterowania grzałką w komorze klimatycznej w celu uzyskania żądanego przebiegu temperatury (dopasowania krzywej temperaturowej) podczas symulacji. Podejście to opiera się na analizie danych historycznych oraz korektach w czasie rzeczywistym.
+Niniejsze opracowanie przedstawia teoretyczne rozważania problemu sterowania
+grzałką w komorze klimatycznej w celu uzyskania żądanego przebiegu temperatury
+(dopasowania krzywej temperaturowej) podczas symulacji. Podejście to opiera się
+na analizie danych historycznych oraz korektach w czasie rzeczywistym.
 
 Sekcja 1: Założenia
 -------------------
