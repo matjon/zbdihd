@@ -178,7 +178,7 @@ W tym wypadku przy definicji splotu pomijamy składniki dla których $f(x) \equi
 
 <br>
 
-Ostatecznie, mamy więc układ równań o postaci:
+Ostatecznie mamy układ równań o postaci:
 
 $${\Delta}T[k] = T[k+1] - T[k] ≈ \sum\_{j=k-K}^{k} P[j] f(k-j) = 
 \sum\_{j=0}^{K} P[k-j] f(j) = (P \ast f)[k] \label{s2eqs}$$
@@ -251,7 +251,7 @@ $$m = T[k] - (k \bmod 5)$$
 $$({\Delta}T[k] \:|\: T[k]) = \frac{j(m-5) + j(m) + j(m+5) + j(m+10)}{4}$$
 
 
- - dla k należącego do dziedziny funkcji j mamy:
+ - dla $k$ należącego do dziedziny funkcji $j(x)$ mamy:
         
 $$ ({\Delta}T[k] \:|\: T[k]) = \frac{j(T[k]-5) + j(T[k]) + j(T[k]+5)}{3}$$
 
@@ -261,10 +261,25 @@ Oznaczmy jako $w(t)$ szybkość upływu ciepła wyliczoną za pomocą powyższyc
 
 Powyższe wzory można w prosty sposób uwzględnić w układzie równań $\ref{s2eqs}$:
 
-$${\Delta}T[k] = T[k+1] - T[k] ≈ w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) = w(T[k]) (P \ast f)[k] \label{s3eqs2}$$
+$${\Delta}T[k] = T[k+1] - T[k] ≈ w(T[k]) + \sum\_{j=k-K}^{k} P[j] f(k-j) =
+         w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) = w(T[k]) + (P \ast f)[k] \label{s3eqs2}$$
 
 Po rozwiązaniu go, otrzymujemy wartości funkcji $f(x)$ oraz $j(x)$, które będą potrzebne
 do świadomego sterowania komorą.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Sekcja 4: Sterowanie
@@ -292,7 +307,7 @@ Oznaczenia:
 
 Przyjmujemy uproszczony model ogrzewania przedstawiony w sekcji 3 - wzór $\ref{s3eqs2}$
 
-$${\Delta}T[k] = T[k+1] - T[k] ≈ w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) = w(T[k]) (P \ast f)[k] \label{s4eqs}$$
+$${\Delta}T[k] = T[k+1] - T[k] ≈ w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) = w(T[k]) + (P \ast f)[k] \label{s4eqs}$$
 
 Będziemy postępowali podobnie jak doświadczony szachista, przewidujący
 kilka ruchów naprzód a jednocześnie w każdym ruchu dostosowujący się do
@@ -307,12 +322,47 @@ Niech $U[k]$ = żądana temperatura na początku przedziału czasowego $j$.
 Na podstawie wartości $U[k]$ potrafimy policzyć 
 $${\Delta}U[k] = U[k+1] - U[k]$$
 
-Wtedy mamy układ równań:
+Moglibyśmy tutaj ułożyć układ równań:
 $${\Delta}U[k] = w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) \label{s4eqs2}$$
+a następnie rozwiązać go, uzyskując potrzebne wartości $P[j]$.
+Posługiwanie się szybkością zmiany temperatury jest jednak kiepskim pomysłem, a to ze 
+względu na jeden prosty problem: temperatura w komorze klimatycznej może odbiegać
+znacząco od $U[k]$ i w tym wypadku dążenie do ${\Delta}T[k] = {\Delta}U[k]$ traci
+sens. Nie pomoże też korekta pierwszej wartości $\Delta U[k]$, ponieważ zagubi się ona
+w układzie równań i nie wpłynie znacząco na wynik.
+
+Niestety, dopasowywanie $T[k] = U[k]$ znacząco komplikuje równania.
+
  - rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów
 
 - wagi są konieczne, bo musimy jakoś w sensowny sposób odciąć wartości j,
 - problem: mogą wyjść liczby ujemne,
+
+Mamy zatem:
+$$T[k] = T[i] + \sum\_{l=i}^{k-1} T[l+1] - T[l] = T[i] + \sum\_{l=i}^{k-1} \Delta T[l] \nonumber$$
+
+Podstawiamy do powyższego równania równanie  $\ref{s3eqs2}$, zamieniając $k \to l$:
+
+$$T[k] = T[i] + \sum\_{l=i}^{k-1} \left[ w(T[l]) + \sum\_{j=l-K}^{l} P[j] f(l-j) \right]$$
+$$T[k] = T[i] + \sum\_{l=i}^{k-1} w(T[l]) + \sum\_{l=i}^{k-1} \sum\_{j=l-K}^{l} P[j] f(l-j)$$
+
+Potrzebujemy teraz odwrócić kolejność sum w ostatnim składniku
+powyższego równania, tak aby łatwo przejść do postaci macierzowej. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Mamy więc równanie macierzowe (na razie pomijam wagi)
 (używam oznaczeń jak na  [Wikipedii](http://en.wikipedia.org/wiki/Least_squares)):
