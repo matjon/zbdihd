@@ -471,6 +471,11 @@ $$\mathbf{y}[a] =
         \textrm{przy czym } \quad k = i + a - 1
 $$
 
+Można tu zauważyć, że 
+wektor $y$ odpowiada residualnej krzywej temperaturowej - poszczególne 
+jego elementy zawierają informację o ile jeszcze musimy podnieść temperaturę w danym
+przedziale czasowym.
+
 Element wektora niewiadomych można zdefiniować jako:
 $$\mathbf{\beta}[b] = P[j]      
 \qquad
@@ -486,8 +491,9 @@ $$
         \quad \textrm{oraz } \quad k = i + a - 1
 $$
 
-$\mathbf{X}[a,b]$ jest tym elementem wektora $\mathbf{X}$, który jest mnożony z
-$\mathbf{\beta}[b]$ i ma być równy $\mathbf{y}[a]$.
+We współrzędnych elementu wektora podajemy najpierw wiersz a później kolumnę.
+Element $\mathbf{X}[a,b]$ jest mnożony z
+$\mathbf{\beta}[b]$ a iloczyn ma być równy $\mathbf{y}[a]$.
 
 Gdybyśmy macierze indeksowali od zera, wówczas $k = i+a$ oraz $j = i+b$.
 
