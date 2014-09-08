@@ -1,22 +1,17 @@
-
-//proszę poczekać na załadowanie się wzorów matematycznych. W dolnym lewym
-rogu jest pasek postępu.
-//może to trwać nawet 10 s
-
-Zaawansowane Bazy Danych i Hurtownie Danych
+Zaawansowane Bazy Danych i Hurtownie Danych - Projekt badawczy
 =============
-Projekt badawczy
--------------------
 
 Opracowanie programowego modułu sterowania dla komory temperaturowej.
 -------------------
-
 Autorzy (skład zespołu):
 
 * Mateusz Jończyk
 * Dawid Nowak
 
 kier. Informatyka SSM, sem. 3, gr. BDIS 
+
+**Proszę poczekać na załadowanie się wzorów matematycznych. W dolnym lewym
+rogu jest pasek postępu. Może to trwać nawet 20 sekund**
 
 Sekcja 0: Wprowadzenie
 -------------------
