@@ -296,7 +296,7 @@ Sekcja 4: Sterowanie
 
 Znając wartości funkcji $f(x)$ oraz $j(x)$ wyliczone na podstawie danych historycznych,
 można przewidzieć przebieg temperatury towarzyszący procesom grzania i z tego
-względu w sposób świadomy sterować grzałką poprzez wybór najbardziej optymalnego
+względu w sposób świadomy sterować grzałką poprzez wybór optymalnego
 przebiegu.
 
 Przy wyliczaniu wartości funkcji $f(x)$ oraz $j(x)$ jest zalecane ograniczenie się 
