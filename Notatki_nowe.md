@@ -619,5 +619,77 @@ $$z(x) = w[u] = (u+10)^{-1.2}$$
 daje wystarczająco dobre rezultaty. 
 
 
+Sekcja 6 - suplement
+--------------------
+Niedokończone i niedopracowane pomysły
+
+### Rozpisanie funkji $f(x)$
+Można by rozpisać funkcję $f(x)$ na następujące składniki:
+
+$$f(x) = g(x) e^{-\frac{t}{T}} c\_1$$
+
+Przy czym:
+
+ - $ g(x) < 1 $,
+ - $ g(0) = 1 $	(tak żeby $c\_{1}$ ustalić na sztywno)
+                //jednak to by nie było dopuszczalne, ponieważ f(0) może być
+                //stosunkowo małe, mniejsze niż g(1)
+ - $T$ - jakaś liczba.
+
+Mogłoby to ew. pomóc przy rozwiązywaniu układu równań - można w ten sposób ograniczyć
+wartości funkcji $ f(x) $.
+
+Może być jednak problem z uwzględnieniem $g(x) < 1$ przy rozwiązywaniu tego 
+układu równań (wymagałoby to użycia innych metod rozwiązywania układu równań niż 
+powszechnie stosowane).
+
+
+### Inne podejście do wykorzystywania historii
+
+Mamy dane N zbiorów danych historycznych o postaci:
+
+{kontekst, akcja, reakcja}
+
+ - akcja - jaką czynność podjęliśmy w danej chwili,
+ - kontekst - co działo się z układem przed podjęciem akcji,
+ - reakcja - jakie były skutki podjętej akcji.
+
+Zakładając że znamy wartości funkcji f (wyliczone z powyższego układu równań), 
+możemy skonstruować rekordy danych historycznych:
+
+Podobnie jak poprzednio, rozważamy k-ty rekord danych historycznych, dotyczący 
+grzania w k-tym przedziale czasu,
+
+- kontekst:
+  - $\sum\_{j=k-119}^{k} \frac{\Delta T[j]}{t}$
+  - $\sum\_{j=k-119}^{k} \frac{\Delta T[j]}{t^{2}}$
+  - $\sum\_{j=k-120}^{k} \frac{P[j]}{t}$
+  - $\sum\_{j=k-120}^{k} \frac{P[j]}{t^{2}}$
+  - ewentualnie $T[k]$
+	
+- akcja:
+  - $P[k]$
+- reakcja:
+
+  - Zdefiniujmy $(ΔT[k-1] || P[j])$ - przyrost temperatury który da się 
+        przypisać grzaniu w k-tej jednostce czasu,
+	
+  - rekord zawierałby całki takie same jak dla kontekstu, z tym że 
+dla $(ΔT[k-1] || P[j])$ i oczywiście indeksy wartości byłyby większe od k, 
+znaczy się sumowane wszystko byłoby w przód,
+	
+  -  albo może po prostu surowe przebiegi $(ΔT[k-1] || P[j]) $
+	
+
+Mając N *pełnych* rekordów historycznych (znaczy się takich które 
+zostały sporządzone więcej niż 120 okresów temu, tak że reakcje są w pełni 
+wyliczone).
+
+### Inne
+
+- Plik [TODO.txt](https://github.com/matjon/zbdihd/blob/master/TODO.txt)
+
+- Kod źródłowy tego pliku - do edycji: 
+[Github](https://github.com/matjon/zbdihd)
 
 <!--      vim: set spelllang=pl filetype=markdown :    -->
