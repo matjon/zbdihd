@@ -3,48 +3,51 @@
 rogu jest pasek postępu.
 //może to trwać nawet 10 s
 
-//pisać coś o HVAC
-
-//komora klimatyczna: kontrola też wilgotności
-//komorat temperaturowa: kontrola tylko temperatury
-
+//dać tutaj linki do repo na githubie i pliku TODO.txt / Snippets.txt
 Sekcja 0: Wprowadzenie
 -------------------
 
 W dzisiejszych czasach, duża liczba produkowanych urządzeń czy też innych wyrobów 
 wymaga mniej lub bardziej szczegółowej kontroli jakości. Takie wymaganie może być 
 narzucone np. przepisami prawa, zapisami kontraktów/przetargów albo polityką
-firmy zakładająca produkcję towarów dobrej jakości. W przypadku chociażby
+firmy zakładającą produkcję towarów wysokiej jakości. W przypadku chociażby
 urządzeń elektronicznych zazwyczaj podaje się w specyfikacji również warunki, w
 których dane urządzenie będzie działać prawidłowo (np. zakres temperatur).
-Urządzenia konsumenckie nie gwarantują zazwyczaj pracy w ekstremalnych warunkach
-(np. podwyższonej temperatury) w przeciwieństwie do urządzeń przemysłowych,
-które powinny gwarantować nieprzerwaną pracę w trudniejszych warunkach. W jaki
-sposób określić zakres dopuszczalnych temperatur, w których urządzenie będzie
-działać prawidłowo? Można przeprowadzić badania empiryczne pracy takiego
-urządzenia w określonych warunkach. Do takich badań służą komory klimatyczne i
-temperaturowe symulujące i monitorujące odpowiednie warunki pracy. Komora
-klimatyczna (temperaturowa) ponadto odseparowuje badany element od czynników
-środowiska zewnętrznego, dzięki czemu eliminuje się wpływ innych czynników niż
-tylko symulacyjnych.
+W celu sprawdzenia jakości danego towaru, należy przeprowadzić 
+badania empiryczne, m.in. poprzez sprawdzenie czy urządzenie działa
+prawidłowo w różnych warunkach pracy.
+Do takich badań służą komory klimatyczne i
+temperaturowe. 
 
-Komora temperaturowa oprócz odpowiedniej izolacji najczęściej posiada także
-elementy wykonawcze - grzewcze do podnoszenia temperatury i chłodzące do
-obniżania temperatury. Ponadto monitorowanie parametrów fizycznych wymaga
-odpowiednich czujników. Nad przebiegiem symulacji czuwa specjalny sterownik,
-który dopasowuje rzeczywiste warunki w komorze do warunków zadanych przez
-użytkownika. Sterownik taki najczęściej rozwiązuje problem HVAC (ang. Heating,
+Komora klimatyczna zapewnia kontrolę zarówno temperatury jak i wilgotności
+powietrza, temperaturowa - tylko temperatury.
+
+Sterowanie komorą temperaturową jest bardzo podobne do sterowania systemami
+HVAC (ang. Heating,
 Ventilation, Air Conditioning). HVAC jest pojęciem bardzo szerokim. Swoim
 zasięgiem obejmuje ogół zagadnień związanych z ogrzewaniem, wentylacją i
 klimatyzacją wszelkich pomieszczeń (nie tylko komór klimatycznych). Najogólniej
 rzecz biorąc HVAC zajmuje się kwestiami dostarczania i odprowadzania ciepła (np.
-przez pompy ciepła, instalacje solarne, rekuperatory). Podstawowymi sterownikami
-używanymi w kontrolerach HVAC są sterowniki PID.
+przez pompy ciepła, instalacje solarne, rekuperatory). 
 
-Sterowanie komorą klimatyczną ze względu na charakterystykę fizyczną nie jest
-rzeczą trywialną. Projektując kompletny sterownik komory klimatycznej należy
-uwzględnić takie parametry jak: temperatura, ciśnienie, pojemność cieplna,
-przewodność cieplna, upływ ciepła itp. 
+Efektywne sterowanie komorą klimatyczną i ogólnie systemami HVAC
+ze względu na charakterystykę fizyczną jest
+zadaniem bardzo trudnym.
+Podstawowymi sterownikami
+stosowanymi powszechnie w kontrolerach HVAC są sterowniki PID. Nie nadają się
+one jednak zbyt dobrze do sterowania tego typu systemami
+("Raad Z. Homod, Khairul Salleh Mohamed Sahari, Haider A.F. Almurib, Farrukh
+Hafiz Nagi, Gradient auto-tuned Takagi–Sugeno Fuzzy Forward control of a HVAC
+system using predicted mean vote index, Energy and Buildings, Volume 49, June
+2012, Pages 254-267, ISSN 0378-7788,
+[http://dx.doi.org/10.1016/j.enbuild.2012.02.013](
+http://dx.doi.org/10.1016/j.enbuild.2012.02.013)).
+Z tego względu trzeba szukać innych metod.
+
+Algorytm opisany w naszej pracy został wymyślony przez nas w bardzo dużej mierze 
+niezależnie.
+Nie analizowaliśmy jednak literatury przedmiotu, z tego powodu przedstawione
+przez nas podejście nie jest pewnie zbyt nowatorskie.
 
 Niniejsze opracowanie przedstawia teoretyczne rozważania problemu sterowania
 grzałką w komorze klimatycznej w celu uzyskania żądanego przebiegu temperatury
