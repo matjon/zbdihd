@@ -308,67 +308,91 @@ Na podstawie wartości $U[k]$ potrafimy policzyć
 $${\Delta}U[k] = U[k+1] - U[k]$$
 
 Wtedy mamy układ równań:
-{\Delta}U[k] = \sum\_{j=k-K}^{k} P[j] {\cdot} f(k-j)
+$${\Delta}U[k] = w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) \label{s4eqs2}$$
  - rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów
 
 - wagi są konieczne, bo musimy jakoś w sensowny sposób odciąć wartości j,
 - problem: mogą wyjść liczby ujemne,
 
-Mamy więc równanie macierzowe (na razie pomijam wagi):
- - oznaczenia jak na [Wikipedii](http://en.wikipedia.org/wiki/Least_squares)
-$$y = X {\cdot} \beta$$
+Mamy więc równanie macierzowe (na razie pomijam wagi)
+(używam oznaczeń jak na  [Wikipedii](http://en.wikipedia.org/wiki/Least_squares)):
+$$y = X {\cdot} \beta \label{s4equmartix}$$
 
-Dla K=3
-oraz i = 9 mamy:
-(celowo nie piszę równania dla {\Delta}U[9]):
-{\Delta}U[10] ≈ P[7]{\cdot}f(3) + P[8]{\cdot}f(2) + P[9]{\cdot}f(1) + P[10]{\cdot}f(0)
-{\Delta}U[11] ≈             P[8]{\cdot}f(3) + P[9]{\cdot}f(2) + P[10]{\cdot}f(1) + P[11]{\cdot}f(0)
-{\Delta}U[12] ≈                         P[9]{\cdot}f(3) + P[10]{\cdot}f(2) + P[11]{\cdot}f(1) + P[12]{\cdot}f(0)
-{\Delta}U[13] ≈                                     P[10]{\cdot}f(3) + P[11]{\cdot}f(2) + P[12]{\cdot}f(1) + P[13]{\cdot}f(0)
-itd.
+Dla K=3 oraz i = 9 mamy:
+(celowo nie piszę równania dla ${\Delta}U[9]$, zob. niżej):
+$$
+\begin{array}{rclrl}
+\mspace{0mu}
+{\Delta}U[10] & = & w(T[10]) + & \mspace{-13mu}  P[7] f(3) + P[8] f(2) + P[9] f(1) + & P[10] f(0)                                                              \\\\
+{\Delta}U[11] & = & w(T[10]) + &                    P[8] f(3) + P[9] f(2) + & P[10] f(1) + P[11] f(0)                                           \\\\
+{\Delta}U[12] & = & w(T[12]) + &                                      P[9] f(3) + & P[10] f(2) + P[11] f(1) + P[12] f(0)                        \\\\
+{\Delta}U[13] & = & w(T[13]) + &                                                        & P[10] f(3) + P[11] f(2) + P[12] f(1) + P[13] f(0)     \\\\
+\cdots & = & \cdots &                                                        &
+\end{array}
+\notag
+$$
 
-Przy czym znamy P[7] i P[8], a więc należy to przekształcić jako:
-{\Delta}U[10] - P[7]{\cdot}f(3) - P[8]{\cdot}f(2) ≈ P[9]{\cdot}f(1) + P[10]{\cdot}f(0)
-{\Delta}U[11]             - P[8]{\cdot}f(3) ≈ P[9]{\cdot}f(2) + P[10]{\cdot}f(1) + P[11]{\cdot}f(0)
-{\Delta}U[12]                         ≈ P[9]{\cdot}f(3) + P[10]{\cdot}f(2) + P[11]{\cdot}f(1) + P[12]{\cdot}f(0)
-{\Delta}U[13]                         ≈             P[10]{\cdot}f(3) + P[11]{\cdot}f(2) + P[12]{\cdot}f(1) + P[13]{\cdot}f(0)
+Przy czym znamy $P[7]$ i $P[8]$, a więc należy to przekształcić jako:
+$$
+\begin{align}
+\notag
+{\Delta}U[10] - w(T[10]) - P[7] f(3) - P[8] f(2) &= P[9] f(1) +  P[10] f(0)                                                              \\\\
+\notag
+{\Delta}U[11] - w(T[10]) -             P[8] f(3) &= P[9] f(2) + P[10] f(1) + P[11] f(0)                                           \\\\
+\notag
+{\Delta}U[12] - w(T[12])                         &= P[9] f(3) + P[10] f(2) + P[11] f(1) + P[12] f(0)                        \\\\
+\notag
+{\Delta}U[13] - w(T[13])                         &= P[10] f(3) + P[11] f(2) + P[12] f(1) + P[13] f(0)                   \\\\
+\notag
+                                          \cdots &= \cdots
+\end{align}
+\notag
+$$
 
 
+Przekształćmy ten układ równań do postaci wektorowej zgodnej z $\ref{s4equmartix}$:
+$$
+y = 
+\left[
+\begin{array}
+{\Delta}U[10] - w(T[10]) - P[7] f(3) - P[8] f(2)        \\\\
+{\Delta}U[11] - w(T[11]) -             P[8] f(3)        \\\\
+{\Delta}U[12] - w(T[12])                                \\\\
+{\Delta}U[13] - w(T[13])                               
+\end{array}
+\right]
+$$
 
-Czyli:
-y = [
-        {\Delta}U[10] - P[7]{\cdot}f(3) - P[8]{\cdot}f(2)
-        {\Delta}U[11]             - P[8]{\cdot}f(3)
-        {\Delta}U[12]                        
-        {\Delta}U[13]                        
-]
-
-Wektor y odpowiada residualnej krzywej temperaturowej - 
-
-- na podstawie historii oraz wartości funkcji f liczymy zmiany temp w przyszłości 
-  które wynikają z tego co już grzaliśmy,
-- mamy residualną krzywą temperaturową,
 
 $$
 \beta = 
-\begin{bmatrix}
+\left[
+\begin{matrix}
         P[9]  \\\\
         P[10] \\\\
         P[11] \\\\
         P[12] \\\\
-        P[13] 
-\end{bmatrix}
+        P[13]  
+\end{matrix}
+\right]
 $$
 
 $$
 X = 
-\begin{bmatrix}
+\left[
+\begin{array}{ccccc}
  f(1)& f(0)& 0&    0&    0              \\\\
  f(2)& f(1)& f(0)& 0&    0              \\\\
  f(3)& f(2)& f(1)& f(0)& 0              \\\\
- 0&    f(3)& f(2)& f(1)& f(0)           \\\\
-\end{bmatrix}
+ 0&    f(3)& f(2)& f(1)& f(0)
+\end{array}
+\right]
 $$
+
+Można tu zauważyć, że 
+wektor $y$ zawiera odpowiada residualnej krzywej temperaturowej - poszczególne 
+jego elementy zawierają informację o ile jeszcze musimy podnieść temperaturę w danym
+przedziale czasowym.
 
 Niech L = przesunięcie od którego zaczynamy uwzględniać równania w układzie
 równań.
