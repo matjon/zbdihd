@@ -11,7 +11,7 @@ Autorzy (skład zespołu):
 kier. Informatyka SSM, sem. 3, gr. BDIS 
 
 **Proszę poczekać na załadowanie się wzorów matematycznych. W dolnym lewym
-rogu jest pasek postępu. Może to trwać nawet 20 sekund**
+rogu jest pasek postępu. Może to trwać nawet 20 sekund.**
 
 Sekcja 0: Wprowadzenie
 -------------------
