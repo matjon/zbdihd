@@ -26,7 +26,8 @@ MathJax.Hub.Config({
 
 
 <p>//proszę poczekać na załadowanie się wzorów matematycznych. W dolnym lewym
-rogu jest pasek postępu.</p>
+rogu jest pasek postępu.
+//może to trwać nawet 10 s</p>
 
 <p>//pisać coś o HVAC</p>
 
@@ -413,11 +414,13 @@ $\ref{s4equinverted}$:</p>
 Będziemy w nim uwzględniać $R$ równań o postaci takiej jak powyżej,
 pisanych dla kolejnych wartości U[k], poczynając od U[i+1].
 Ograniczymy również liczbę niewiadomych do $Q$, przyjmując że dla wyższych
-wartości $P[j] \equiv 0$.</p>
+wartości $P[j] \equiv 0$.
+Będziemy celowo rozwiązywać układ z mniejszą liczbą niewiadomych 
+niż równań, ponieważ m.in. jest to konieczne w celu stosowania 
+wag - zobacz niżej.</p>
 
-<p>TODO: napisać dlaczego</p>
-
-<p>Dla $K=120$ sensowne wartości tych parametrów to: $Q=80$ oraz $R=120$.</p>
+<p>Dla $K=120$ sensowne wartości powyżej zdefiniowanych
+parametrów to: $Q=80$ oraz $R=120$.</p>
 
 <hr>
 
@@ -480,6 +483,11 @@ przenosimy wszystkie składniki o znanej wartości na lewą stronę:</p>
         \textrm{przy czym } \quad k = i + a - 1
 $$</p>
 
+<p>Można tu zauważyć, że 
+wektor $y$ odpowiada residualnej krzywej temperaturowej - poszczególne 
+jego elementy zawierają informację o ile jeszcze musimy podnieść temperaturę w danym
+przedziale czasowym.</p>
+
 <p>Element wektora niewiadomych można zdefiniować jako:
 $$\mathbf{\beta}[b] = P[j] <br>
 \qquad
@@ -495,174 +503,70 @@ $$
         \quad \textrm{oraz } \quad k = i + a - 1
 $$</p>
 
-<p>$\mathbf{X}[a,b]$ jest tym elementem wektora $\mathbf{X}$, który jest mnożony z
-$\mathbf{\beta}[b]$ i ma być równy $\mathbf{y}[a]$.</p>
+<p>We współrzędnych elementu wektora podajemy najpierw wiersz a później kolumnę.
+Element $\mathbf{X}[a,b]$ jest mnożony z
+$\mathbf{\beta}[b]$ a iloczyn ma być równy $\mathbf{y}[a]$.</p>
 
 <p>Gdybyśmy macierze indeksowali od zera, wówczas $k = i+a$ oraz $j = i+b$.</p>
 
-<p>Mamy więc równanie macierzowe (na razie pomijam wagi)
-(używam oznaczeń jak na  <a href="http://en.wikipedia.org/wiki/Least_squares">Wikipedii</a>):
-$$y = X {\cdot} \beta \label{s4equmartix}$$</p>
-
-<p>Dla $K=3$ oraz $i = 9$ mamy:
-(celowo nie piszę równania dla ${\Delta}U[9]$, zob. niżej):
-$$
-\begin{array}{rclrl}
-\mspace{0mu}
-{\Delta}U[10] &amp; = &amp; w(T[10]) + &amp; \mspace{-13mu}  P[7] f(3) + P[8] f(2) + P[9] f(1) + &amp; P[10] f(0)                                                              \\
-{\Delta}U[11] &amp; = &amp; w(T[10]) + &amp;                    P[8] f(3) + P[9] f(2) + &amp; P[10] f(1) + P[11] f(0)                                           \\
-{\Delta}U[12] &amp; = &amp; w(T[12]) + &amp;                                      P[9] f(3) + &amp; P[10] f(2) + P[11] f(1) + P[12] f(0)                        \\
-{\Delta}U[13] &amp; = &amp; w(T[13]) + &amp;                                                        &amp; P[10] f(3) + P[11] f(2) + P[12] f(1) + P[13] f(0)     \\
-\cdots &amp; = &amp; \cdots &amp;                                                        &amp;
-\end{array}
-\notag
-$$</p>
-
-<p>Przy czym znamy $P[7]$ i $P[8]$, a więc należy to przekształcić jako:
-$$
-\begin{align}
-\notag
-{\Delta}U[10] - w(T[10]) - P[7] f(3) - P[8] f(2) &amp;= P[9] f(1) +  P[10] f(0)                                                              \\
-\notag
-{\Delta}U[11] - w(T[10]) -             P[8] f(3) &amp;= P[9] f(2) + P[10] f(1) + P[11] f(0)                                           \\
-\notag
-{\Delta}U[12] - w(T[12])                         &amp;= P[9] f(3) + P[10] f(2) + P[11] f(1) + P[12] f(0)                        \\
-\notag
-{\Delta}U[13] - w(T[13])                         &amp;= P[10] f(3) + P[11] f(2) + P[12] f(1) + P[13] f(0)                   \\
-\notag
-                                          \cdots &amp;= \cdots
-\end{align}
-\notag
-$$</p>
-
-<p>Przekształćmy ten układ równań do postaci wektorowej zgodnej z $\ref{s4equmartix}$:
-$$
-y = 
-\left[
-\begin{array}
-{\Delta}U[10] - w(T[10]) - P[7] f(3) - P[8] f(2)        \\
-{\Delta}U[11] - w(T[11]) -             P[8] f(3)        \\
-{\Delta}U[12] - w(T[12])                                \\
-{\Delta}U[13] - w(T[13]) <br>
-\end{array}
-\right]
-$$</p>
-
-<p>$$
-\beta = 
-\left[
-\begin{matrix}
-        P[9]  \\
-        P[10] \\
-        P[11] \\
-        P[12] \\
-        P[13] <br>
-\end{matrix}
-\right]
-$$</p>
-
-<p>$$
-X = 
-\left[
-\begin{array}{ccccc}
- f(1)&amp; f(0)&amp; 0&amp;    0&amp;    0              \\
- f(2)&amp; f(1)&amp; f(0)&amp; 0&amp;    0              \\
- f(3)&amp; f(2)&amp; f(1)&amp; f(0)&amp; 0              \\
- 0&amp;    f(3)&amp; f(2)&amp; f(1)&amp; f(0)
-\end{array}
-\right]
-$$</p>
-
-<p>Można tu zauważyć, że 
-wektor $y$ zawiera odpowiada residualnej krzywej temperaturowej - poszczególne 
-jego elementy zawierają informację o ile jeszcze musimy podnieść temperaturę w danym
-przedziale czasowym.</p>
-
-<p>Niech L = przesunięcie od którego zaczynamy uwzględniać równania w układzie
-równań.
-Pierwsze równanie które uwzględniamy w układzie równań, jest na
-{\Delta}U[i+L]
-W powyższym przykładzie oczywiście L = 1.</p>
-
-<p>Podaję teraz ogólne wzory na elementy powyższych wektorów y, \beta oraz macierzy X:
-(indeksy liczymy od 1!!!, jak jest przyjęte w matematyce)</p>
-
-<p>Wektor y:
-        Równanie dla wiersza macierzy y który dotyczy {\Delta}U[k]:
-        y[k - (i + L) + 1] = {\Delta}U[k] - \sum<em>{n=k-K}^{i-1} P[n] {\cdot} f(k-n)
-               //sprawdziłem powyższe na kartce dla k=10, i=9, L=1, K=3
-        Gdy chcemy uzyskać y[u], liczymy:
-                k = u - 1 + (i+L)
-                        //jest to naturalne, pierwszy wiersz macierzy y dotyczy k = i+L,
-                        //dalej wartość k rośnie z u
-                y[u] = {\Delta}U[k] - \sum</em>{n=k-K}^{i-1} P[n] {\cdot} f(k-n)</p>
-
-<p>Wektor \beta:
-        \beta[1] = P[i]
-        \beta[u] = P[i + u-1]</p>
-
-<p>Macierz X:
-        X[u,v] oznacza element w u-tym wierszu i v-tej kolumnie.
-        //X[1,1] jest mnożony z P[9] = P[i],
-        //      czyli musi mieć postać f(i+L - i) = f(L)
-        X[u,v] = f(L+u-v)</p>
-
-<pre><code>    Oczywiście jeśli L+u-v &lt; 0 albo L+u-v &gt; K+1, to 
-    komórce X[u,v] przypisujemy 0 (i traktujemy jako pustą komórkę w macierzy
-    rzadkiej - sparse matrix).
-</code></pre>
-
-<p>Po skonstruowaniu w powyższy sposób macierzy X oraz wektora y oraz rozwiązaniu
-układu równań y = X {\cdot} \beta otrzymujemy wektor \beta i ostatecznie wartość P[i].
+<p>Po skonstruowaniu w powyższy sposób macierzy $\mathbf{X}$ oraz wektora $\mathbf{y}$
+oraz znalezieniu przybliżonego rozwiązania
+układu równań 
+$\ref{s4equmartix}$ (np. metodą najmniejszych kwadratów)
+otrzymujemy wektor $\mathbf{\beta}$ i ostatecznie wartość $P[i]$.
 Wyliczona wartość P[i] jest mocą grzałki którą należy ustawić w obecnej chwili
 czasu tak aby zapewnić optymalne sterowanie.
 Jeśli P[i] &lt; 0, grzanie w obecnej jednostce czasu wyłączamy.</p>
 
+<p>Lepsze wyniki uzyskamy jednak, jeśli uwzględnimy wagi poszczególnych równań,
+starając się dopasować </p>
+
 <h2>Sekcja 5: Sterowanie przy użyciu wartości funkcji f - liczenie wag</h2>
 
 <ul>
-<li><p>rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów</p>
-
-<ul>
-<li>wagi są konieczne, bo musimy jakoś w sensowny sposób odciąć wartości j,</li>
-<li>problem: mogą wyjść liczby ujemne,</li>
-</ul></li>
+<li>rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów</li>
 </ul>
+
+<p>Uwzględnienie wag przy rozwiązywaniu układu równań pozwala na łagodne odcięcie
+wartości $U[k]$, dla których piszemy równania (zob. $\ref{s4equToSolve}$).</p>
+
+<p>Najlepiej prawdopodobnie stopniowo zmniejszać wagę kolejnych pomiarów, tak
+żeby waga dopasowania $T[k] = U[k]$ malała wraz z rosnącymi wartościami $k$.
+W bardziej odległej przyszłości przewidywanie wartości temperatury
+będzie trudniejsze, a układ będzie miał więcej czasu i możliwości reakcji.</p>
+
+<p>Żeby przy rozwiązywaniu układu równań można było zastosować wagi,
+musi posiadać on więcej równań niż niewiadomych, nadmiar powinien być odpowiednio
+duży.</p>
 
 <p>Pojawia się jednak problem, jak daleko w przód przewidujemy nasze ruchy.</p>
 
-<p>Najlepiej prawdopodobnie stopniowo zmniejszać wagę kolejnych pomiarów, tak
-żeby dopasowywanie się do żądanej temperatury miało mniejszą wagę w przyszłości,
-gdzie przewidywanie temperatury będzie trudniejsze a i tak będziemy mogli
-zareagować.</p>
+<p>Rozwiązywanie układu równań z uwzględnieniem wag błędów jest opisane na
+<a href="http://math.stackexchange.com/a/709683">StackExchange</a>
+oraz <a href="
+http://en.wikipedia.org/wiki/Linear_least_squares_%28mathematics%29#Weighted_linear_least_squares">Wikipedii</a>.
+Na obu tych stronach są stosowane różne oznaczenia.
+Na StackExchange minimalizujemy $W(Ax−b)$, na Wikipedii: $W^{1/2}(X\beta - y)$
+Tutaj konsekwentnie używamy oznaczeń z Wikipedii.</p>
 
-<p>Rozwiązywanie układu równań z uwzględnieniem wag błędów jest opisane tutaj:
-http://math.stackexchange.com/a/709683
-http://en.wikipedia.org/wiki/Linear<em>least</em>squares<em>%28mathematics%29#Weighted</em>linear<em>least</em>squares
-(na Wikipedii oraz StackExchange są inne oznaczenia.
-Na StackExchange minimalizujemy W(Ax−b), na Wikipedii: W^{1/2}(X\beta - y)
-W^{1/2} oznacza niezależny pierwiastek z każdej z wartości.</p>
+<p>Błąd definiujemy jako różnicę $U[k] - T_{\textrm{wyliczone}}[k]$.</p>
 
-<p>Tutaj konsekwentnie używamy oznaczeń z Wikipedii.
-)</p>
-
-<p>Potrzebujemy macierz wag W.
+<p>Będziemy potrzebowali macierz wag $\mathbf{W}$.
 Jest to macierz diagonalna (z wartościami niezerowymi tylko na przekątnej).
-Definiujemy wektor błędu jako:
-e = W^{1/2}(X {\cdot} \beta - y)
- - błąd mierzymy jako różnicę różnicy temperatur {\Delta}U[k] którą mamy uzyskać w
-   k-tym oknie czasowym a tym co uzyskamy.</p>
+Wektor błędu jest zdefiniowany jako:
+$$\mathbf{e} = \mathbf{W}^{1/2}(\mathbf{X} \mathbf{\beta} - \mathbf{y})$$</p>
 
-<p>Minimalizujemy sumę kwadratów błędów, minimalizując e^{T} e.
-(to z tym T to transpozycja).</p>
+<p>Będziemy się starali minimalizować $e^{T} e$ - sumę kwadratów elementów wektora
+błędu = sumę kwadratów błędów.</p>
 
-<p>Na podstawie tego wszystkiego otrzymujemy normalny układ równań (normal equations):
-X^{T} {\cdot} W {\cdot} X {\cdot} \beta = X^{T} {\cdot} W {\cdot} y
-//przypominam że mnożenie macierzy nie jest łączne: (A {\cdot} B) {\cdot} C nie musi być 
-//równe A {\cdot} (B {\cdot} C)</p>
+<p>Znając macierz wag oraz macierze $\mathbf{X}$ i $\mathbf{y}$ wyliczamy
+układ równań (normal equations):
+$$\mathbf{X}^{T} \mathbf{W} \mathbf{X} \mathbf{\beta} = 
+        \mathbf{X}^{T} \mathbf{W} \mathbf{y}$$</p>
 
-<p>Ten układ równań potrafimy rozwiązać w sposób dokładny (w tym układzie równań
-mamy n = m) i w ten sposób uzyskać "optymalne" rozwiązanie dla \bety  </p>
+<p>Posiada on tyle samo równań co niewiadomych.
+Po jego wyliczeniu (w sposób dokładny) uzyskujemy wektor $\mathbf{\beta}$ 
+minimalizujący $e^{T} e$.</p>
 
 <p>Pozostaje jeszcze kwestia wyboru wag.
 Wikipedia zaleca żeby wagi były odwrotnością wariancji pomiarów.</p>
@@ -670,36 +574,23 @@ Wikipedia zaleca żeby wagi były odwrotnością wariancji pomiarów.</p>
 <p>Nie można dać wariancji z którą znamy funkcję f()???</p>
 
 <ul>
-<li><p>w każdym razie, 1/u^2 maleje zbyt szybko, żeby to było do stosowania,</p>
-
-<ul>
+<li><p>w każdym razie, 1/u^2 maleje zbyt szybko, żeby to było do stosowania,</p></li>
 <li><p>co my chcemy dokładnie (dla K = 120):</p>
 
 <ul>
 <li>ma maleć do zera, powiedzmy dla K > 80 wartości mają już być
 pomijalne,</li>
 <li><p>nie może aż tak mocno </p></li>
-<li><p>dla K = 120
-    w[u] = (u+10)^{-1.2} </p>
-
-<pre><code>wygląda sensownie
-</code></pre></li>
-<li>czyli ogólnie mamy heurystykę
-    w[u] = (u+ K/12 )^{-1.2} 
-    //pomijamy tutaj wpływ L</li>
-</ul></li>
-</ul></li>
-<li><p>jeszcze jest kwestia tego że ten układ równań musi być nadmiernie
-zdefiniowany, żeby wagi miały znaczenie,</p></li>
-<li>przydałyby się dodatkowe parametry,</li>
-</ul>
-
-<p>Powiedzmy P=80         - liczba zmiennych
-          R=120        - liczba równań,
-- może powiedzmy dajemy tylko do 80 ze 120 równaniami,</p>
+<li><p>dla K = 120</p>
 
 <ul>
-<li>dobra, to w sumie wsz. ustalone</li>
+<li>w[u] = (u+10)^{-1.2} </li>
+<li>wygląda sensownie</li>
+</ul></li>
+<li>czyli ogólnie mamy heurystykę
+w[u] = (u+ K/12 )^{-1.2} 
+//pomijamy tutaj wpływ L</li>
+</ul></li>
 </ul>
 
 <!--      vim: set spelllang=pl filetype=markdown :    -->
