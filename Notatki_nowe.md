@@ -333,7 +333,7 @@ $${\Delta}U[k] = U[k+1] - U[k]$$
 
 Moglibyśmy tutaj ułożyć układ równań:
 $${\Delta}U[k] = w(T[k]) + \sum\_{j=0}^{K} P[k-j] f(j) $$
-a następnie rozwiązać go, uzyskując potrzebne wartości $P[j]$.
+a następnie rozwiązać go, uzyskując potrzebne wartości $P[k-j]$.
 Posługiwanie się szybkością zmiany temperatury jest jednak kiepskim pomysłem, a to ze 
 względu na jeden prosty problem: zastana 
 temperatura w komorze klimatycznej może odbiegać
