@@ -1,6 +1,7 @@
 
 //proszę poczekać na załadowanie się wzorów matematycznych. W dolnym lewym
 rogu jest pasek postępu.
+//może to trwać nawet 10 s
 
 //pisać coś o HVAC
 
@@ -405,10 +406,12 @@ Będziemy w nim uwzględniać $R$ równań o postaci takiej jak powyżej,
 pisanych dla kolejnych wartości U[k], poczynając od U[i+1].
 Ograniczymy również liczbę niewiadomych do $Q$, przyjmując że dla wyższych
 wartości $P[j] \equiv 0$.
+Będziemy celowo rozwiązywać układ z mniejszą liczbą niewiadomych 
+niż równań, ponieważ m.in. jest to konieczne w celu stosowania 
+wag - zobacz niżej.
 
-TODO: napisać dlaczego
-
-Dla $K=120$ sensowne wartości tych parametrów to: $Q=80$ oraz $R=120$.
+Dla $K=120$ sensowne wartości powyżej zdefiniowanych
+parametrów to: $Q=80$ oraz $R=120$.
 
 * * *
 
@@ -509,54 +512,63 @@ Gdybyśmy macierze indeksowali od zera, wówczas $k = i+a$ oraz $j = i+b$.
 
 
 
-Po skonstruowaniu w powyższy sposób macierzy X oraz wektora y oraz rozwiązaniu
-układu równań y = X {\cdot} \beta otrzymujemy wektor \beta i ostatecznie wartość P[i].
+Po skonstruowaniu w powyższy sposób macierzy $\mathbf{X}$ oraz wektora $\mathbf{y}$
+oraz znalezieniu przybliżonego rozwiązania
+układu równań 
+$\ref{s4equmartix}$ (np. metodą najmniejszych kwadratów)
+otrzymujemy wektor $\mathbf{\beta}$ i ostatecznie wartość $P[i]$.
 Wyliczona wartość P[i] jest mocą grzałki którą należy ustawić w obecnej chwili
 czasu tak aby zapewnić optymalne sterowanie.
 Jeśli P[i] < 0, grzanie w obecnej jednostce czasu wyłączamy.
 
+Lepsze wyniki uzyskamy jednak, jeśli uwzględnimy wagi poszczególnych równań,
+starając się dopasować 
+
 Sekcja 5: Sterowanie przy użyciu wartości funkcji f - liczenie wag
 --------------------------------------------------------------------
 
- - rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów
+- rozwiązujemy go za pomocą ważonej metody najmniejszych kwadratów
 
-- wagi są konieczne, bo musimy jakoś w sensowny sposób odciąć wartości j,
-- problem: mogą wyjść liczby ujemne,
+Uwzględnienie wag przy rozwiązywaniu układu równań pozwala na łagodne odcięcie
+wartości $U[k]$, dla których piszemy równania (zob. $\ref{s4equToSolve}$).
+
+Najlepiej prawdopodobnie stopniowo zmniejszać wagę kolejnych pomiarów, tak
+żeby waga dopasowania $T[k] = U[k]$ malała wraz z rosnącymi wartościami $k$.
+W bardziej odległej przyszłości przewidywanie wartości temperatury
+będzie trudniejsze, a układ będzie miał więcej czasu i możliwości reakcji.
+
+Żeby przy rozwiązywaniu układu równań można było zastosować wagi,
+musi posiadać on więcej równań niż niewiadomych, nadmiar powinien być odpowiednio
+duży.
 
 Pojawia się jednak problem, jak daleko w przód przewidujemy nasze ruchy.
 
-Najlepiej prawdopodobnie stopniowo zmniejszać wagę kolejnych pomiarów, tak
-żeby dopasowywanie się do żądanej temperatury miało mniejszą wagę w przyszłości,
-gdzie przewidywanie temperatury będzie trudniejsze a i tak będziemy mogli
-zareagować.
-
-Rozwiązywanie układu równań z uwzględnieniem wag błędów jest opisane tutaj:
-http://math.stackexchange.com/a/709683
-http://en.wikipedia.org/wiki/Linear_least_squares_%28mathematics%29#Weighted_linear_least_squares
-(na Wikipedii oraz StackExchange są inne oznaczenia.
-Na StackExchange minimalizujemy W(Ax−b), na Wikipedii: W^{1/2}(X\beta - y)
-W^{1/2} oznacza niezależny pierwiastek z każdej z wartości.
-
+Rozwiązywanie układu równań z uwzględnieniem wag błędów jest opisane na
+[StackExchange](http://math.stackexchange.com/a/709683)
+oraz [Wikipedii](
+http://en.wikipedia.org/wiki/Linear_least_squares_%28mathematics%29#Weighted_linear_least_squares).
+Na obu tych stronach są stosowane różne oznaczenia.
+Na StackExchange minimalizujemy $W(Ax−b)$, na Wikipedii: $W^{1/2}(X\beta - y)$
 Tutaj konsekwentnie używamy oznaczeń z Wikipedii.
-)
 
-Potrzebujemy macierz wag W.
+Błąd definiujemy jako różnicę $U[k] - T\_{\textrm{wyliczone}}[k]$.
+
+Będziemy potrzebowali macierz wag $\mathbf{W}$.
 Jest to macierz diagonalna (z wartościami niezerowymi tylko na przekątnej).
-Definiujemy wektor błędu jako:
-e = W^{1/2}(X {\cdot} \beta - y)
- - błąd mierzymy jako różnicę różnicy temperatur {\Delta}U[k] którą mamy uzyskać w
-   k-tym oknie czasowym a tym co uzyskamy.
+Wektor błędu jest zdefiniowany jako:
+$$\mathbf{e} = \mathbf{W}^{1/2}(\mathbf{X} \mathbf{\beta} - \mathbf{y})$$
 
-Minimalizujemy sumę kwadratów błędów, minimalizując e^{T} e.
-(to z tym T to transpozycja).
+Będziemy się starali minimalizować $e^{T} e$ - sumę kwadratów elementów wektora
+błędu = sumę kwadratów błędów.
 
-Na podstawie tego wszystkiego otrzymujemy normalny układ równań (normal equations):
-X^{T} {\cdot} W {\cdot} X {\cdot} \beta = X^{T} {\cdot} W {\cdot} y
-//przypominam że mnożenie macierzy nie jest łączne: (A {\cdot} B) {\cdot} C nie musi być 
-//równe A {\cdot} (B {\cdot} C)
+Znając macierz wag oraz macierze $\mathbf{X}$ i $\mathbf{y}$ wyliczamy
+układ równań (normal equations):
+$$\mathbf{X}^{T} \mathbf{W} \mathbf{X} \mathbf{\beta} = 
+        \mathbf{X}^{T} \mathbf{W} \mathbf{y}$$
 
-Ten układ równań potrafimy rozwiązać w sposób dokładny (w tym układzie równań
-mamy n = m) i w ten sposób uzyskać "optymalne" rozwiązanie dla \bety  
+Posiada on tyle samo równań co niewiadomych.
+Po jego wyliczeniu (w sposób dokładny) uzyskujemy wektor $\mathbf{\beta}$ 
+minimalizujący $e^{T} e$.
 
 Pozostaje jeszcze kwestia wyboru wag.
 Wikipedia zaleca żeby wagi były odwrotnością wariancji pomiarów.
@@ -565,30 +577,20 @@ Nie można dać wariancji z którą znamy funkcję f()???
 
 - w każdym razie, 1/u^2 maleje zbyt szybko, żeby to było do stosowania,
 
- - co my chcemy dokładnie (dla K = 120):
-        - ma maleć do zera, powiedzmy dla K > 80 wartości mają już być
-          pomijalne,
-        - nie może aż tak mocno 
+- co my chcemy dokładnie (dla K = 120):
+   - ma maleć do zera, powiedzmy dla K > 80 wartości mają już być
+     pomijalne,
+   - nie może aż tak mocno 
 
-        - dla K = 120
-                w[u] = (u+10)^{-1.2} 
-                
-                wygląda sensownie
-        - czyli ogólnie mamy heurystykę
-                w[u] = (u+ K/12 )^{-1.2} 
-                //pomijamy tutaj wpływ L
-
-
-- jeszcze jest kwestia tego że ten układ równań musi być nadmiernie
-  zdefiniowany, żeby wagi miały znaczenie,
-- przydałyby się dodatkowe parametry,
-
-Powiedzmy P=80         - liczba zmiennych
-          R=120        - liczba równań,
-- może powiedzmy dajemy tylko do 80 ze 120 równaniami,
+   - dla K = 120
+     - w[u] = (u+10)^{-1.2} 
+     - wygląda sensownie
+   - czyli ogólnie mamy heurystykę
+     w[u] = (u+ K/12 )^{-1.2} 
+     //pomijamy tutaj wpływ L
 
 
-- dobra, to w sumie wsz. ustalone
+
 
 
 <!--      vim: set spelllang=pl filetype=markdown :    -->
