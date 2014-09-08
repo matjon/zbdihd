@@ -39,6 +39,9 @@ e = W^{1/2}(X * β - y)
         //        e' = X * e = W(X * β - y)
         //      nie, potrzebna jest odwrotność
 
+EDIT: pon, 8 wrz 2014, 12:15:46 CEST
+        - można skorzystać z ogólnego postępowania kiedy niepewność wartości X
+          jest duża
 
 
 sob, 6 wrz 2014, 21:28:15 CEST
@@ -114,3 +117,6 @@ Wszędzie znaki * -> \cdot
 pon, 8 wrz 2014, 11:05:52 CEST
 Sekcja 4: Nie pisać równania z U[i], zacząc pisanie równań od U[i+L]
 Wprowadzić  L, powiedzmy L powinno być = 1.
+
+pon, 8 wrz 2014, 12:01:41 CEST
+Skrócić długie równania które nie są w całości widoczne na podglądzie wydruku.
