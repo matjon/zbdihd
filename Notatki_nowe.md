@@ -1,7 +1,7 @@
 Zaawansowane Bazy Danych i Hurtownie Danych - Projekt badawczy
 =============
 
-Opracowanie programowego modułu sterowania dla komory temperaturowej.
+Opracowanie programowego modułu sterowania dla komory temperaturowej
 -------------------
 Autorzy (skład zespołu):
 
