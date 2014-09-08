@@ -46,3 +46,25 @@ grzania w k-tym przedziale czasu,
 Dobra, mając N ***pełnych*** rekordów historycznych (znaczy się takich które 
 zostały sporządzone więcej niż 120 okresów temu, tak że reakcje są w pełni 
 wyliczone).
+
+---------------------------------------------
+Z sekcji 2:
+
+Można by rozpisać funkcję $f(x)$ na następujące składniki:
+
+$$f(x) = g(x) e^{-\frac{t}{T}} c\_1$$
+
+Przy czym:
+
+ - $ g(x) < 1 $,
+ - $ g(0) = 1 $	(tak żeby $c\_{1}$ ustalić na sztywno)
+                //jednak to by nie było dopuszczalne, ponieważ f(0) może być
+                //stosunkowo małe, mniejsze niż g(1)
+ - $T$ - jakaś liczba.
+
+Mogłoby to ew. pomóc przy rozwiązywaniu układu równań - można w ten sposób ograniczyć
+wartości funkcji $ f(x) $.
+
+Może być jednak problem z uwzględnieniem $g(x) < 1$ przy rozwiązywaniu tego 
+układu równań (wymagałoby to użycia innych metod rozwiązywania układu równań niż 
+powszechnie stosowane).
