@@ -479,42 +479,5 @@ Powiedzmy P=80         - liczba zmiennych
 - dobra, to w sumie wsz. ustalone
 
 
-
-
-
-
-
-	
-	
-
-	
-	
-	
-	
-Dawid Nowak
-a czy my uwzględniamy tutaj temperaturę rzeczywistą, tzn. zmierzoną przez czujnik ?
-dzieje się to aby na pewno dynamicznie ?
-09:41
-Ja
-"dzieje się to aby na pewno dynamicznie ?" - nie rozumiem?
-09:43
-Dawid Nowak
-bo np. jak włożymy do komory jakieś urządzenie do zbadania jak się zachowuje w różnych warunkach temperaturowych i jeżeli ono będzie emitować jakieś ciepło 
-09:45
-czy my bierzemy pod uwagę temperaturę w jakiejś chwili bieżącej t ?
-czy tylko na podstawie danych historycznych ?
-09:45
-Ja
-Ew. możemy założyć termistor, one mają b. dużą szybkość działania.
-Zasadniczo wydaje mi się założenie że temp. na termistorze = taka jaką chcemy mieć.
-09:46
-Dawid Nowak
-w sumie dowolny czujnik temperatury
-09:46
-Ja
-Czyli nie przejmujemy się zbytnio tym że termistor mierzy "inną temperaturę" niż jest w komorze.
-I tak różnice temp. wewnątrz komory są stosunkowo duże (wyżej jest oczywiście cieplej), musimy względem czegoś kalibrować / jakiegoś punktu.
-
-
 <!--      vim: set spelllang=pl filetype=markdown :    -->
 
