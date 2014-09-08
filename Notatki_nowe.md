@@ -82,7 +82,7 @@ Można założyć (w sposób dosyć agresywny):
   zmienia się jedynie w ograniczonym zakresie. 
   Przedziały czasu będziemy indeksować kolejnymi liczbami całkowitymi, poczynając od 0.
 
-* po wyłączeniu grzania temperatura w komorze się **stabilizuje w czasie 
+* po wyłączeniu grzania temperatura w komorze **stabilizuje się w czasie 
   mniejszym niż 10 minut** (czyli po K = 120 jednostkach czasu).
   Po tym czasie przestajemy śledzić konsekwencje grzania w przeszłości,
 
@@ -125,9 +125,9 @@ Na zmiany temperatury w komorze mogą wpływać procesy (np. grzania)
 zachodzące stosunkowo dawno temu (wcześniej niż $K \cdot W$).
 W tej sekcji postaramy się uchwycić to zachowanie komory w sposób matematyczny.
 
-Rozważamy jednostkę czasu o numerze $k$.
+**Rozważamy jednostkę czasu o numerze $k$.**
 
-Przyrost temperatury podczas tej jednostki można przybliżyć jako:
+**Przyrost temperatury** podczas tej jednostki można przybliżyć jako:
 
 $${\Delta}T[k] = T[k+1] - T[k] \approx \sum\_{j=0}^{k} ({\Delta}T[k] \:|\: P[j])
 \label{s2dec1}$$
@@ -137,7 +137,7 @@ wytwarzane w urządzeniu znajdującym się w komorze.)
 
 Gdzie:
 
-- $T[k]$ - temperatura na początku k-tej jednostki czasu,
+- $T[k]$ - temperatura *na początku* k-tej jednostki czasu,
 - $({\Delta}T[k] \:|\: P[j])$ - przyrost temperatury w k-tej jednostce czasu dzięki grzaniu w 
                 j-tej jednostce czasu. Oczywiście $k {\geq} j$ (grzanie nie może wpłynąć
                 na zmianę temperatury przed jego rozpoczęciem).
@@ -165,7 +165,7 @@ Przy czym:
 	do mocy grzałki w tym przedziale,
   - po K = 120 przedziałach czasu od rozpoczęcia grzania, ciepło wydzielone przez grzałkę zostaje 
 	rozproszone w komorze i nie wpływa już na zmiany temperatury na termometrze.
-	Z tego względu można uznać że $f(x) \equiv 0$ dla $x > K$:
+	Z tego względu można uznać że ** $f(x) \equiv 0$ dla $x > K$ **:
 
     - czyli $f(x)$ może być niezerowe tylko dla $0 \leq x \leq K$,
     - istnieje co najwyżej K+1 niezerowych wartości funkcji $f(x)$:
@@ -219,7 +219,7 @@ $	{\Delta}T[3] = T[4] - T[3] ≈ (P[0] f(3) + P[1] f(2) + P[2] f(1) + P[3] f(0))
 
 
 Taką strukturę nazywamy 
-[splotem (convolution)](http://en.wikipedia.org/wiki/Convolution#Discrete_convolution "Wikipedia: Convolution").
+[**splotem (convolution)**](http://en.wikipedia.org/wiki/Convolution#Discrete_convolution "Wikipedia: Convolution").
 
 Mamy więc:
 
@@ -274,8 +274,8 @@ Sekcja 3: Uwzględnienie upływu ciepła
 Model komory grzewczej przestawiony w poprzedniej sekcji nie uwzględnia upływu 
 ciepła przez jej ścianki. 
 
-Można założyć w dużym uproszczeniu, że szybkość upływu ciepła zależy wyłącznie 
-od temperatury panującej w komorze. Uwzględnienie innych czynników (np. historii 
+Można założyć w dużym uproszczeniu, że **szybkość upływu ciepła zależy wyłącznie 
+od temperatury panującej w komorze**. Uwzględnienie innych czynników (np. historii 
 zmian temperatury) spowodowałoby znaczny wzrost liczby niewiadomych w układzie 
 równań, co byłoby niekorzystne z dwóch względów:
 
